@@ -1,0 +1,167 @@
+package com.coder.baselibrary.dialog;
+
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.lang.ref.WeakReference;
+
+/**
+ * @ProjectName: Caocao
+ * @Package: com.coder.baselibrary.dialog
+ * @ClassName: AlertDialog
+ * @Description: 自定义全局可配置的Dialog
+ * @Author: XuYu
+ * @CreateDate: 2020/2/16 11:06
+ * @UpdateUser: 更新者
+ * @UpdateDate:
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
+ */
+public class DialogViewHelper {
+
+    private View mContentView = null;
+
+    private SparseArray<WeakReference<View>> mViews;
+
+    public DialogViewHelper() {
+        mViews = new SparseArray<>();
+    }
+
+
+    public DialogViewHelper(Context context, int layoutResId) {
+        this();
+        this.mContentView = LayoutInflater.from(context).inflate(layoutResId, null);
+    }
+
+    /**
+     * 文字赋值
+     *
+     * @param viewId
+     * @param text
+     */
+    public void setText(int viewId, CharSequence text) {
+        TextView tv = getView(viewId);
+
+        if (null != tv) {
+            tv.setText(text);
+        }
+    }
+
+
+
+    /**
+     * 资源文件赋值
+     *
+     * @param viewId
+     * @param resId
+     */
+    public void setText(int viewId, int resId) {
+        TextView tv = getView(viewId);
+
+        if (null != tv) {
+            tv.setText(resId);
+        }
+    }
+
+
+    public void setTextColor(int viewId, int resId) {
+        TextView tv = getView(viewId);
+        if (null != tv) {
+            tv.setTextColor(resId);
+        }
+    }
+
+    public void setTextColor(int viewId, ColorStateList colorStateList) {
+        TextView tv = getView(viewId);
+        if (null != tv) {
+            tv.setTextColor(colorStateList);
+        }
+    }
+
+    public void setImage(int viewId, Integer resId) {
+        ImageView iv = getView(viewId);
+        if (null != iv) {
+            if (iv.getVisibility() != View.VISIBLE) {
+                iv.setVisibility(View.VISIBLE);
+            }
+            iv.setImageResource(resId);
+        }
+    }
+
+    public void setImage(int viewId, Drawable drawable) {
+        ImageView iv = getView(viewId);
+        if (null != iv) {
+            if (iv.getVisibility() != View.VISIBLE) {
+                iv.setVisibility(View.VISIBLE);
+            }
+            iv.setImageDrawable(drawable);
+        }
+    }
+
+
+    public void setOnClickListener(AlertDialog dialog, int viewId, View.OnClickListener listener) {
+        View view = getView(viewId);
+        if (null != view) {
+            //判断是否使用了自己监听包装类
+            if (listener instanceof OnClickListenerWrapper) {
+                View.OnClickListener listenerWrapper = ((OnClickListenerWrapper) listener).setDialog(dialog);
+                view.setOnClickListener(listenerWrapper);
+                return;
+            }
+            view.setOnClickListener(listener);
+        }
+    }
+
+
+    public void setOnCheckedChangeListener(int viewId, CompoundButton.OnCheckedChangeListener listener) {
+        View view = getView(viewId);
+
+        if (null != view) {
+            if (view instanceof CompoundButton) {
+                ((CompoundButton) view).setOnCheckedChangeListener(listener);
+            }
+        }
+    }
+
+    public <T extends View> T getView(int id) {
+        WeakReference<View> viewReference = mViews.get(id);
+        View view = null;
+
+        if (null != viewReference) {
+            view = viewReference.get();
+        }
+
+        if (null == view) {
+            view = mContentView.findViewById(id);
+            if (null != view) {
+                mViews.put(id, new WeakReference<>(view));
+            }
+        }
+        return (T) view;
+    }
+
+    /**
+     * 设置Dialog布局
+     *
+     * @param view
+     */
+    public void setContentView(View view) {
+        this.mContentView = view;
+    }
+
+    /**
+     * 获取Dialog布局
+     *
+     * @return
+     */
+    public View getContentView() {
+        return mContentView;
+    }
+}

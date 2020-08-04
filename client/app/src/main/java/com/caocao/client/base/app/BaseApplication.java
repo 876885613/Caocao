@@ -1,0 +1,133 @@
+package com.caocao.client.base.app;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+import androidx.annotation.NonNull;
+
+import com.blankj.utilcode.util.SPUtils;
+import com.caocao.client.http.BaseRequest;
+import com.caocao.client.http.api.ApiService;
+
+
+/**
+ * @ProjectName: EssayJoke
+ * @Package: com.coder.essayjoke.base
+ * @ClassName: BaseApplication
+ * @Description: 基类App
+ * @Author: XuYu
+ * @CreateDate: 2020/2/1$ 1:51$
+ * @UpdateUser: 更新者
+ * @UpdateDate: 2020/2/1 1:51
+ * @UpdateRemark: 更新内容
+ * @Version: 1.0
+ */
+public class BaseApplication extends Application {
+    private static final String TAG = "BaseApplication";
+
+
+    private static BaseApplication sInstance;
+
+    //网络请求
+    public static BaseRequest<ApiService> sHttpRequest;
+
+    //SharedPreferences 工具类
+    public static SPUtils SPUtils;
+
+
+
+    public static Context getInstance() {
+        return sInstance;
+    }
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sInstance = this;
+
+        initRequest("http://www.baidu.com", ApiService.class);
+
+        registerActivityLifecycleCallbacks(mCallbacks);
+        SPUtils = SPUtils.getInstance("caocao_client");
+    }
+
+
+    /**
+     * 初始化网络请求
+     *
+     * @param host
+     * @param clazz
+     */
+    public void initRequest(String host, Class clazz) {
+        if (sHttpRequest == null) {
+            if (sHttpRequest == null) {
+                sHttpRequest = new BaseRequest(host, clazz);
+            }
+        }
+    }
+
+
+    //获取到主线程的handler
+    private static Handler mMainThreadHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            mListener.handlerMessage(msg);
+        }
+    };
+
+    public static Handler getMainThreadHandler() {
+        return mMainThreadHandler;
+    }
+
+    private static HandlerListener mListener;
+
+    public static void setOnHandlerListener(HandlerListener listener) {
+        mListener = listener;
+    }
+
+    public static HandlerListener getListener() {
+        return mListener;
+    }
+
+    public interface HandlerListener {
+        void handlerMessage(Message msg);
+    }
+
+
+    private ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+        }
+    };
+}

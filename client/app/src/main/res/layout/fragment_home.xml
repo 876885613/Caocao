@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_theme"
+        android:paddingTop="40dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/et_search"
+            android:layout_alignBottom="@id/et_search"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/ic_address_cr"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="历城区"
+            android:textColor="@color/color_white"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignLeft="@id/et_search"
+            android:layout_alignTop="@id/et_search"
+            android:layout_alignBottom="@id/et_search"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_home_search"
+            android:translationZ="0.5dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/tv_address"
+            android:background="@drawable/bg_round_35_fff"
+            android:lines="1"
+            android:paddingLeft="35dp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_theme"
+        android:paddingTop="40dp"
+        android:paddingBottom="15dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_home_log" />
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/home_top"
+                layout="@layout/layout_home_top" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/color_white"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:paddingRight="12dp" />
+
+            <include
+                android:id="@+id/home_consult"
+                layout="@layout/layout_home_consult" />
+
+            <include
+                android:id="@+id/home_sift"
+                layout="@layout/layout_home_sift" />
+
+            <include
+                android:id="@+id/home_serve"
+                layout="@layout/layout_home_serve" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

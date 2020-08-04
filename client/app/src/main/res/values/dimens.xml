@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="profile_title_bar_height">45dp</dimen>
+    <dimen name="t0">10sp</dimen>
+    <dimen name="t1">11sp</dimen>
+    <dimen name="t2">12sp</dimen>
+    <dimen name="t3">13sp</dimen>
+    <dimen name="t4">14sp</dimen>
+    <dimen name="t5">15sp</dimen>
+    <dimen name="t6">16sp</dimen>
+    <dimen name="t7">17sp</dimen>
+    <dimen name="t8">18sp</dimen>
+    <dimen name="t9">19sp</dimen>
+</resources>
