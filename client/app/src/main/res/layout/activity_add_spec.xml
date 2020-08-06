@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            app:sBottomDividerVisibility="gone"
             app:sLeftIcon="@mipmap/ic_unit_ico"
             app:sLeftText="单位"
             app:sRightEditHint="请输入收费单位" />
@@ -73,16 +74,16 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_round_5_ff6203"
-        android:text="新增"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/ll_spec"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:textColor="@color/color_white"
+        android:background="@drawable/bg_round_5_ff6203"
         android:paddingLeft="35dp"
-        android:paddingRight="35dp"
         android:paddingTop="6dp"
-        android:paddingBottom="6dp"/>
+        android:paddingRight="35dp"
+        android:paddingBottom="6dp"
+        android:text="新增"
+        android:textColor="@color/color_white" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -91,6 +92,7 @@
         android:background="@color/color_white">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_next"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"

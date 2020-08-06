@@ -1,2 +1,3 @@
+include ':htmleditorlibrary'
 rootProject.name='Caocao'
 include ':app', ':BaseLibrary'

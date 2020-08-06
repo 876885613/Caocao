@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e5e5e5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_contacts_ico"
+                app:sLeftText="联系人姓名"
+                app:sRightEditHint="请输入姓名" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_tel_ico"
+                app:sLeftText="联系人电话"
+                app:sRightEditHint="请输入电话" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/layout_id_card"
+            layout="@layout/layout_id_card" />
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_licenses_ico"
+                app:sLeftText="资质证书"
+                app:sLeftTextL="(特种行业必须上传相关资质证明)" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="12dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_white">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_next"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/bg_round_30_theme"
+                android:gravity="center"
+                android:text="下一步"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/t4" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

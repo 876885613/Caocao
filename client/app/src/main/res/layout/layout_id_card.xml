@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ReleaseBlockStyle">
+
+    <com.caocao.client.view.SuperTextView
+        android:id="@+id/stv_id_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:sLeftIcon="@mipmap/ic_id_card_ico"
+        app:sLeftText="身份证号"
+        app:sRightEditHint="输入身份证号" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_id_card_front"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="18dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/t2"
+        android:textSize="@dimen/t3"
+        android:text="上传身份证正面"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_id_card_reverse"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/t2"
+        android:textSize="@dimen/t3"
+        android:text="上传身份证背面"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>

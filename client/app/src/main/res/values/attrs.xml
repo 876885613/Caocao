@@ -4,6 +4,7 @@
         <attr name="sLeftIcon" format="reference" />
         <attr name="sRightIcon" format="reference" />
         <attr name="sLeftText" format="reference|string" />
+        <attr name="sLeftTextL" format="reference|string" />
         <attr name="sRightText" format="reference|string" />
         <attr name="sRightEdit" format="reference|string" />
         <attr name="sLeftTextSize" format="reference|dimension" />

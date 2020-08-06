@@ -17,10 +17,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/iv_left_ico"
         android:textColor="@color/t1"
         android:textSize="@dimen/t3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_left_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/tv_left"
+        android:textColor="@color/t3"
+        android:textSize="@dimen/t1" />
 
 
     <androidx.appcompat.widget.AppCompatTextView

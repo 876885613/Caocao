@@ -31,7 +31,9 @@ public class SuperTextView extends RelativeLayout {
     private int mLeftIconRes;
     private int mRightIconRes;
     private int mLeftTextRes;
+    private int mLeftTextResL;
     private String mLeftText;
+    private String mLeftTextL;
     private int mRightTextRes;
     private String mRightText;
     private float mLeftTextSize;
@@ -70,6 +72,7 @@ public class SuperTextView extends RelativeLayout {
     private AppCompatEditText etRightView;
     private AppCompatImageView ivRightView;
     private int inputType;
+    private AppCompatTextView tvLeftViewL;
 
     public SuperTextView(Context context) {
         this(context, null);
@@ -90,6 +93,9 @@ public class SuperTextView extends RelativeLayout {
         mRightIconRes = array.getResourceId(R.styleable.SuperTextView_sRightIcon, 0);
         mLeftTextRes = array.getResourceId(R.styleable.SuperTextView_sLeftText, 0);
         mLeftText = array.getString(R.styleable.SuperTextView_sLeftText);
+        mLeftTextResL = array.getResourceId(R.styleable.SuperTextView_sLeftTextL, 0);
+        mLeftTextL = array.getString(R.styleable.SuperTextView_sLeftTextL);
+
         mRightTextRes = array.getResourceId(R.styleable.SuperTextView_sRightText, 0);
         mRightText = array.getString(R.styleable.SuperTextView_sRightText);
         mLeftTextSize = array.getDimension(R.styleable.SuperTextView_sLeftTextSize, 0);
@@ -156,6 +162,7 @@ public class SuperTextView extends RelativeLayout {
     private void initView() {
         AppCompatImageView ivLeftIcoView = findViewById(R.id.iv_left_ico);
         tvLeftView = findViewById(R.id.tv_left);
+        tvLeftViewL = findViewById(R.id.tv_left_l);
         tvRightView = findViewById(R.id.tv_right);
         etRightView = findViewById(R.id.et_right);
         ivRightView = findViewById(R.id.iv_right);
@@ -172,6 +179,15 @@ public class SuperTextView extends RelativeLayout {
         if (!StringUtils.isEmpty(mLeftText)) {
             tvLeftView.setText(mLeftText);
         }
+
+        if (mLeftTextResL != 0) {
+            tvLeftViewL.setText(mLeftTextResL);
+        }
+
+        if (!StringUtils.isEmpty(mLeftTextL)) {
+            tvLeftViewL.setText(mLeftTextL);
+        }
+
 
         if (mLeftTextColorRes != 0) {
             tvLeftView.setTextColor(getContext().getResources().getColor(mLeftTextColorRes));
