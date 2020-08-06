@@ -2,14 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="150dp"
     android:background="@android:color/transparent">
 
+
     <LinearLayout
+        android:layout_marginBottom="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_serve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_release_serve"/>
+
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_demand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_release_demand"/>
 
     </LinearLayout>
 

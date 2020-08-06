@@ -1,6 +1,7 @@
 package com.caocao.client.ui;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -8,13 +9,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.ActivityMainBinding;
+import com.caocao.client.ui.demand.DemandActivity;
 import com.caocao.client.ui.home.HomeFragment;
 import com.caocao.client.ui.me.MeFragment;
+import com.caocao.client.ui.serve.ServeGenreActivity;
 import com.coder.baselibrary.dialog.AlertDialog;
 import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 
@@ -56,12 +60,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
-        /*头部导航栏的基础使用  没出标题栏课不初始化
-        AbsNavigationBar navigationBar = new DefaultNavigationBar.Builder(this)
-                .setTitle("测试")
-                .builder();
-         */
-
     }
 
     @Override
@@ -84,22 +82,25 @@ public class MainActivity extends BaseActivity {
 
 
         binding.rbRelease.setOnClickListener(view -> {
-            /*
             if (dialog == null) {
-                dialog = new AlertDialog.Builder(this)
+                dialog = new AlertDialog.Builder(this, R.style.DialogAlter)
                         .setView(R.layout.dialog_release)
-                        .setText(R.id.tv_title, R.string.end_practive)
-                        .setOnClickListener(R.id.tv_cancel, null)
-                        .setOnClickListener(R.id.tv_confirm, new OnClickListenerWrapper() {
+                        .setGravity(Gravity.BOTTOM)
+                        .setOnClickListener(R.id.iv_serve, new OnClickListenerWrapper() {
                             @Override
                             public void onClickCall(View v) {
+                                ActivityUtils.startActivity(ServeGenreActivity.class);
+                            }
+                        })
+                        .setOnClickListener(R.id.iv_demand, new OnClickListenerWrapper() {
+                            @Override
+                            public void onClickCall(View v) {
+                                ActivityUtils.startActivity(DemandActivity.class);
                             }
                         })
                         .create();
-            } else {
-                dialog.show();
             }
-             */
+            dialog.show();
         });
     }
 

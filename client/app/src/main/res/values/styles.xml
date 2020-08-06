@@ -13,10 +13,36 @@
         <item name="android:background">@color/default_title_bg</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/profile_title_bar_height</item>
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginTop">20dp</item>
     </style>
 
 
+    <style name="DialogAlter" parent="@android:style/Theme.Dialog">
+        <!--       边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--        是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--        模糊-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--        背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--       无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
 
 
+    <!--  发布需求 、 服务卡片LinearLayout 样式  -->
+    <style name="ReleaseBlockStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:background">@drawable/bg_round_5_fff</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:translationZ">1dp</item>
+    </style>
 </resources>

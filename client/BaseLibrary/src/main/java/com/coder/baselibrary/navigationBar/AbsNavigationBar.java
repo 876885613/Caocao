@@ -2,6 +2,7 @@ package com.coder.baselibrary.navigationBar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.blankj.utilcode.util.StringUtils;
  * @Version: 1.0
  */
 public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNavigationParams> implements INavigationBar {
-    private P    mParams;
+    private P mParams;
     private View mNavigationView;
 
     public AbsNavigationBar(P params) {
@@ -82,6 +83,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         if (null == mParams.mParent) {
             //获取Activity的根布局
             ViewGroup activityRoot = (ViewGroup) ((Activity) mParams.mContext).getWindow().getDecorView();
+            activityRoot.setBackgroundColor(Color.parseColor("#FFFFFF"));
             mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);
         }
 
@@ -120,7 +122,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
          * 导航栏中需要的所有参数信息
          */
         public static class AbsNavigationParams {
-            public Context   mContext;
+            public Context mContext;
             public ViewGroup mParent;
 
             public AbsNavigationParams(Context context, ViewGroup parent) {

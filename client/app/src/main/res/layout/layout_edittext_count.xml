@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingTop="5dp"
+        android:background="@null"
+        android:gravity="top"
+        android:textColor="@color/t1"
+        android:textSize="@dimen/t3"
+        android:hint="请输入内容"
+        android:textColorHint="@color/t3"
+        android:maxLength="150"
+        android:minHeight="60dp"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:cursorVisible="true" />
+
+    <View
+        android:id="@+id/vLineUp"
+        android:background="#e5e5e5"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/tvNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etContent"
+        android:gravity="right"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/t3"
+        android:textColor="@color/t3"
+        android:text="100" />
+
+    <View
+        android:id="@+id/vLineDn"
+        android:background="#e5e5e5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</LinearLayout>

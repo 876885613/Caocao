@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SuperTextView">
+        <attr name="sLeftIcon" format="reference" />
+        <attr name="sRightIcon" format="reference" />
+        <attr name="sLeftText" format="reference|string" />
+        <attr name="sRightText" format="reference|string" />
+        <attr name="sRightEdit" format="reference|string" />
+        <attr name="sLeftTextSize" format="reference|dimension" />
+        <attr name="sRightEditSize" format="reference|dimension" />
+        <attr name="sRightTextSize" format="reference|dimension" />
+        <attr name="sLeftTextColor" format="reference|color" />
+        <attr name="sRightTextColor" format="reference|color" />
+        <attr name="sRightEditColor" format="reference|color" />
+        <attr name="sLeftTextHint" format="reference|string" />
+        <attr name="sRightTextHint" format="reference|string" />
+        <attr name="sRightEditHint" format="reference|string" />
+        <attr name="sLeftTextHintColor" format="reference|color" />
+        <attr name="sRightTextHintColor" format="reference|color" />
+        <attr name="sRightEditHintColor" format="reference|color" />
+        <attr name="android:inputType" />
+        <attr name="sLeftTvDrawableLeft" format="reference" />
+        <attr name="sLeftTvDrawableRight" format="reference" />
+        <attr name="sRightTvDrawableLeft" format="reference" />
+        <attr name="sRightTvDrawableRight" format="reference" />
+        <attr name="sBottomDividerColor" format="reference|color" />
+        <attr name="sBottomDividerHeight" format="reference|dimension" />
+        <attr name="sBottomDividerMarginLeft" format="reference|dimension" />
+        <attr name="sBottomDividerMarginRight" format="reference|dimension" />
+        <!--        <attr name="sBottomDividerVisibility" format="string|integer" />-->
+        <attr name="sBottomDividerVisibility" format="enum">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0" />
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1" />
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CountEditText">
+        <!--设置默认文字-->
+        <attr name="etText" format="string" />
+        <!--设置提示文字-->
+        <attr name="etHint" format="string" />
+        <!--设置提示文字颜色-->
+        <attr name="etHintColor" format="color" />
+        <!--设置最小高度-->
+        <attr name="etMinHeight" format="dimension" />
+        <!--设置最大长度-->
+        <attr name="etMaxLength" format="integer" />
+        <!--设置横线颜色-->
+        <attr name="etLineColor" format="color" />
+        <!--设置输入文字大小-->
+        <attr name="etTextSize" format="dimension" />
+        <!--设置输入文字颜色-->
+        <attr name="etTextColor" format="color" />
+        <!--设置提示统计文字大小-->
+        <attr name="etPromptTextSize" format="dimension" />
+        <!--设置提示统计文字颜色-->
+        <attr name="etPromptTextColor" format="color" />
+        <!--设置提示统计显示类型-->
+        <attr name="etType">
+            <!--单数类型-->
+            <enum name="singular" value="0" />
+            <!--百分比类型-->
+            <enum name="percentage" value="1" />
+        </attr>
+        <!--设置提示统计显示类型位置-->
+        <attr name="etPromptPosition">
+            <!--上方-->
+            <enum name="promptUp" value="0" />
+            <!--下方-->
+            <enum name="promptDn" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- Controls the initial visibility of the view.  -->
+    <attr name="visibility">
+        <!-- Visible on screen; the default value. -->
+        <enum name="visible" value="0" />
+        <!-- Not displayed, but taken into account during layout (space is left for it). -->
+        <enum name="invisible" value="1" />
+        <!-- Completely hidden, as if the view had not been added. -->
+        <enum name="gone" value="2" />
+    </attr>
+</resources>

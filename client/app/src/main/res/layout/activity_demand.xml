@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e5e5e5"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_gradual_bg" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_bell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_hint"
+                android:layout_alignBottom="@id/tv_hint"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/ic_bell" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@id/iv_bell"
+                android:text="温馨提示:禁止发布违法违规，或者与需求无关的内容；正确选择需求分类，如果分类选择错误会导致需求发布失败。"
+                android:textColor="#ff6203"
+                android:textSize="@dimen/t2" />
+
+            <LinearLayout
+                style="@style/ReleaseBlockStyle"
+                android:layout_below="@id/tv_hint">
+
+                <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sLeftIcon="@mipmap/ic_sort_ico"
+                    app:sLeftText="分类"
+                    app:sRightTextHint="请选择分类"
+                    app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+                <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_make_sum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sLeftIcon="@mipmap/ic_make_money_ico"
+                    app:sLeftText="预约金"
+                    app:sLeftTvDrawableRight="@mipmap/ic_hint_ico"
+                    app:sRightEditHint="0.00"
+                    android:inputType="numberDecimal"/>
+
+                <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_expect_sum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sLeftIcon="@mipmap/ic_expect_money_ico"
+                    app:sLeftText="期望价格"
+                    app:sLeftTvDrawableRight="@mipmap/ic_hint_ico"
+                    app:sRightEditHint="0.00"
+                    android:inputType="numberDecimal"/>
+
+                <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_indate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sLeftIcon="@mipmap/ic_indate_ico"
+                    app:sLeftText="有效期"
+                    app:sRightTextHint="请选择分类"
+                    app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sBottomDividerVisibility="gone"
+                app:sLeftIcon="@mipmap/ic_indate_ico"
+                app:sLeftText="具体需求" />
+
+            <com.caocao.client.view.CountEditText
+                android:id="@+id/et_demand_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:etHint="具体描述你的需求"
+                app:etLineColor="@color/color_white"
+                app:etMaxLength="150"
+                app:etType="percentage"
+                app:etTextSize="@dimen/t3"
+                app:etPromptTextSize="@dimen/t3"
+                app:etPromptTextColor="@color/t3"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_serve_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_clock_ico"
+                app:sLeftText="服务时间"
+                app:sRightTextHint="请选择服务时间"
+                app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_contacts_ico"
+                app:sLeftText="联系人"
+                app:sRightEditHint="请输入姓名" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_tel_ico"
+                app:sLeftText="联系电话"
+                app:sRightEditHint="请输入联系电话" />
+
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_make_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_make_address_ico"
+                app:sLeftText="预约地区"
+                app:sRightTextHint="请选择预约地区"
+                app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:hint="详情地址"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t3" />
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:drawableLeft="@mipmap/ic_video_tutoria"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:text="教程"
+            android:textColor="#FF4842"
+            android:textSize="@dimen/t3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:background="@color/color_white">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/bg_round_30_theme"
+                android:gravity="center"
+                android:text="确认发布"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/t4" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

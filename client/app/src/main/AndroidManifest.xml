@@ -18,7 +18,21 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.demand.DemandActivity"
+            android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.serve.ServeGenreActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.SkillActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.AddSpecActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

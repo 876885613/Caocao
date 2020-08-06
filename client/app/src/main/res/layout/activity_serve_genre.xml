@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="75dp"
+        android:text="您要发布？"
+        android:textColor="@color/t1"
+        android:textSize="30dp" />
+
+
+    <RadioGroup
+        android:id="@+id/group_serve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_me_serve"
+            android:drawablePadding="15dp"
+            android:gravity="center_horizontal"
+            android:text="个人服务" />
+
+        <RadioButton
+            android:id="@+id/rb_shops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@drawable/selector_shops_serve"
+            android:drawablePadding="15dp"
+            android:gravity="center_horizontal"
+            android:text="商家服务" />
+
+    </RadioGroup>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/bg_round_30_theme"
+        android:gravity="center"
+        android:text="下一步"
+        android:textSize="@dimen/t4"
+        android:textColor="@color/color_white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="17dp"
+        android:drawableLeft="@mipmap/ic_video_tutoria"
+        android:drawablePadding="6dp"
+        android:gravity="center"
+        android:text="发布服务教程"
+        android:textColor="#FF4842"
+        android:textSize="@dimen/t3" />
+</LinearLayout>

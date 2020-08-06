@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e5e5e5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_gradual_bg" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_bell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_hint"
+                android:layout_alignBottom="@id/tv_hint"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/ic_bell" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@id/iv_bell"
+                android:text="温馨提示:禁止发布违法违规，或者与技能无关的内容；正确选择技能分类，如果分类选择错误会导致技能发布失败。"
+                android:textColor="#ff6203"
+                android:textSize="@dimen/t2" />
+
+            <LinearLayout
+                style="@style/ReleaseBlockStyle"
+                android:layout_below="@id/tv_hint">
+
+                <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sLeftIcon="@mipmap/ic_sort_ico"
+                    app:sLeftText="技能分类"
+                    app:sRightTextHint="请选择技能分类"
+                    app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+                <com.caocao.client.view.SuperTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:sBottomDividerVisibility="gone"
+                    app:sLeftIcon="@mipmap/ic_skill_title_ico"
+                    app:sLeftText="技能标题" />
+
+                <com.caocao.client.view.CountEditText
+                    android:id="@+id/et_serve_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:etHint="一句话介绍服务"
+                    app:etLineColor="@color/color_white"
+                    app:etMaxLength="30"
+                    app:etMinHeight="50dp"
+                    app:etPromptTextColor="@color/t3"
+                    app:etPromptTextSize="@dimen/t3"
+                    app:etTextSize="@dimen/t3"
+                    app:etType="percentage" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sBottomDividerVisibility="gone"
+                app:sLeftIcon="@mipmap/ic_serve_content_ico"
+                app:sLeftText="服务介绍" />
+
+            <com.caocao.client.view.CountEditText
+                android:id="@+id/et_serve_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:etHint="具体描述你的服务"
+                app:etLineColor="@color/color_white"
+                app:etMaxLength="100"
+                app:etMinHeight="50dp"
+                app:etPromptTextColor="@color/t3"
+                app:etPromptTextSize="@dimen/t3"
+                app:etTextSize="@dimen/t3"
+                app:etType="percentage" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_make_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_make_address_ico"
+                app:sLeftText="服务地区"
+                app:sRightTextHint="请选择服务地区"
+                app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:hint="详情地址"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t3" />
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_photo_ico"
+                app:sLeftText="顶部轮播图" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_details_ico"
+                app:sLeftText="底部详情长图" />
+
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:drawableLeft="@mipmap/ic_video_tutoria"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:text="教程"
+            android:textColor="#FF4842"
+            android:textSize="@dimen/t3" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_next"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/bg_round_30_theme"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/t4" />
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

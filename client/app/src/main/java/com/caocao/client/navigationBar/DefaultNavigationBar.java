@@ -1,6 +1,7 @@
 package com.caocao.client.navigationBar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -98,6 +99,11 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             return this;
         }
 
+        public Builder setViewGroupBackgroundColor(int color) {
+            P.mViewGroupBackgroundColor = color;
+            return this;
+        }
+
         /**
          * 所有参数效果
          */
@@ -117,7 +123,8 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             public View.OnClickListener mLeftOnClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ActivityUtils.finishToActivity(ActivityUtils.getTopActivity(), true);
+
+                    ActivityUtils.finishActivity(ActivityUtils.getTopActivity(), true);
                 }
             };
 
@@ -127,6 +134,8 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             //右边图片点击事件
             public View.OnClickListener mRightIconOnClickListener;
 
+            //ViewGroup 背景颜色
+            public int mViewGroupBackgroundColor = 0;
 
             public DefaultNavigationParams(Context context, ViewGroup parent) {
                 super(context, parent);
