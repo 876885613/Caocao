@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e5e5e5"
+        android:background="@color/bg_page"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
@@ -40,7 +40,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_toRightOf="@id/iv_bell"
                 android:text="温馨提示:禁止发布违法违规，或者与技能无关的内容；正确选择技能分类，如果分类选择错误会导致技能发布失败。"
-                android:textColor="#ff6203"
+                android:textColor="@color/t4"
                 android:textSize="@dimen/t2" />
 
             <LinearLayout
@@ -190,31 +190,18 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            style="@style/TutorialStyle"
             android:layout_marginTop="25dp"
-            android:drawableLeft="@mipmap/ic_video_tutoria"
-            android:drawablePadding="6dp"
-            android:gravity="center"
-            android:text="教程"
-            android:textColor="#FF4842"
-            android:textSize="@dimen/t3" />
+            android:text="教程" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_next"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
+            style="@style/ButtonStyle"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="7dp"
-            android:background="@drawable/bg_round_30_theme"
-            android:gravity="center"
-            android:text="下一步"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/t4" />
+            android:text="下一步" />
 
 
     </LinearLayout>

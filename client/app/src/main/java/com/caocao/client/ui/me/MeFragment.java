@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentMeBinding;
+import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.me.order.OrderActivity;
 
 /**
  * @ProjectName: Caocao
@@ -26,12 +29,13 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
-
     }
 
     @Override
     protected void initView() {
-
+        binding.tvOrder.setOnClickListener(view -> {
+            ActivityUtils.startActivity(OrderActivity.class);
+        });
     }
 
 

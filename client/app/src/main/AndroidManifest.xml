@@ -10,7 +10,9 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +39,26 @@
 
         <activity
             android:name=".ui.serve.SkillReleaseActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.authentication.IdentityAUTActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.authentication.StoreAUTActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.authentication.CertificateAUTActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.authentication.CommitAuditActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.me.order.OrderActivity"
             android:screenOrientation="portrait" />
     </application>
 

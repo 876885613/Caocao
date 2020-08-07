@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_page"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_photo_ico"
+                app:sLeftText="店铺门头照" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_store_ico"
+                app:sLeftText="店铺名称"
+                app:sRightEditHint="请输入店铺名称" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_business_hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_clock_ico"
+                app:sLeftText="营业时间"
+                app:sRightEditHint="请输入营业时间" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_serve_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_spec_name_ico"
+                app:sLeftText="服务品类"
+                app:sRightTextHint="请选择服务品类"
+                app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sBottomDividerVisibility="gone"
+                app:sLeftIcon="@mipmap/ic_serve_content_ico"
+                app:sLeftText="店铺介绍" />
+
+            <com.caocao.client.view.CountEditText
+                android:id="@+id/et_serve_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:etHint="请输入店铺介绍"
+                app:etLineColor="@color/color_white"
+                app:etMaxLength="30"
+                app:etMinHeight="50dp"
+                app:etPromptTextColor="@color/t3"
+                app:etPromptTextSize="@dimen/t3"
+                app:etTextSize="@dimen/t3"
+                app:etType="percentage" />
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_make_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_make_address_ico"
+                app:sLeftText="服务地区"
+                app:sRightTextHint="请选择服务地址"
+                app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:hint="详情地址"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t3" />
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_next"
+            style="@style/ButtonStyle"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:text="下一步" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TutorialStyle"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="50dp"
+            android:text="认证店铺教程" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -54,24 +54,18 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_next"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/ButtonStyle"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="7dp"
-        android:background="@drawable/bg_round_30_theme"
-        android:gravity="center"
-        android:text="下一步"
-        android:textSize="@dimen/t4"
-        android:textColor="@color/color_white" />
+        android:text="下一步" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="17dp"
-        android:drawableLeft="@mipmap/ic_video_tutoria"
+        android:drawableLeft="@mipmap/ic_video_tutorial"
         android:drawablePadding="6dp"
         android:gravity="center"
         android:text="发布服务教程"

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@mipmap/ic_toolbar_back" />
+
+        <RadioGroup
+            android:id="@+id/tab_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="35dp"
+            android:paddingTop="5dp"
+            android:paddingRight="35dp">
+
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="服务订单"
+                android:textColor="@drawable/selector_text_order_tab"
+                android:textSize="@dimen/t5"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rb_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="发布订单"
+                android:textColor="@drawable/selector_text_order_tab"
+                android:textSize="@dimen/t5"
+                android:textStyle="bold" />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_white"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/t4"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/t4"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/t1" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_page"/>
+
+
+</LinearLayout>

@@ -45,4 +45,40 @@
         <item name="android:orientation">vertical</item>
         <item name="android:translationZ">1dp</item>
     </style>
+
+
+    <!--  教程样式  -->
+    <style name="TutorialStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:drawableLeft">@mipmap/ic_video_tutorial</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FF4842</item>
+        <item name="android:textSize">@dimen/t3</item>
+    </style>
+
+    <!--  确认按钮  -->
+    <style name="ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:background">@drawable/bg_round_30_theme</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/t4</item>
+    </style>
+
+
+    <!--  订单TabLayout 字体样式  -->
+
+    <!--tablayout 字体设置-->
+    <style name="TabLayoutTextStyle" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">@dimen/t4</item>
+    </style>
+
 </resources>

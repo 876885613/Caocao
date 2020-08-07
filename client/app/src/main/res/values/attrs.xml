@@ -5,6 +5,7 @@
         <attr name="sRightIcon" format="reference" />
         <attr name="sLeftText" format="reference|string" />
         <attr name="sLeftTextL" format="reference|string" />
+        <attr name="sLeftTextMarginL" format="reference|dimension" />
         <attr name="sRightText" format="reference|string" />
         <attr name="sRightEdit" format="reference|string" />
         <attr name="sLeftTextSize" format="reference|dimension" />
@@ -76,13 +77,4 @@
         </attr>
     </declare-styleable>
 
-    <!-- Controls the initial visibility of the view.  -->
-    <attr name="visibility">
-        <!-- Visible on screen; the default value. -->
-        <enum name="visible" value="0" />
-        <!-- Not displayed, but taken into account during layout (space is left for it). -->
-        <enum name="invisible" value="1" />
-        <!-- Completely hidden, as if the view had not been added. -->
-        <enum name="gone" value="2" />
-    </attr>
 </resources>

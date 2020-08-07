@@ -6,7 +6,6 @@ import android.view.View;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.blankj.utilcode.util.ConvertUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityDemandBinding;
