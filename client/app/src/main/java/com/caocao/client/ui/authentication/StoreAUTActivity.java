@@ -36,9 +36,14 @@ public class StoreAUTActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        binding.rvPhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        AddPhotoAdapter addAdapter = new AddPhotoAdapter(this, null);
-        binding.rvPhoto.setAdapter(addAdapter);
+        binding.rvStorePhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        AddPhotoAdapter addStoreAdapter = new AddPhotoAdapter(this, null);
+        binding.rvStorePhoto.setAdapter(addStoreAdapter);
+
+        binding.rvShowPhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        AddPhotoAdapter addShowAdapter = new AddPhotoAdapter(this, null);
+        binding.rvShowPhoto.setAdapter(addShowAdapter);
+
         binding.tvNext.setOnClickListener(view -> ActivityUtils.startActivity(CertificateAUTActivity.class));
     }
 

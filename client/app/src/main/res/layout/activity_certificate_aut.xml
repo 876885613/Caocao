@@ -33,7 +33,7 @@
                 android:paddingBottom="15dp" />
         </LinearLayout>
 
-        <LinearLayout style="@style/ReleaseBlockStyle">
+        <LinearLayout style="@style/ReleaseBlockStyle" android:visibility="gone">
 
             <com.caocao.client.view.SuperTextView
                 android:layout_width="match_parent"

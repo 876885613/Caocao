@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
+import com.caocao.client.http.entity.BaseResp;
 
 import org.reactivestreams.Subscription;
 
@@ -31,15 +32,23 @@ import io.reactivex.FlowableSubscriber;
 public class BaseSubscriber<T> implements FlowableSubscriber<T> {
 
 
-
+    private int page;
     private MutableLiveData<T> liveData;
 
     public BaseSubscriber(MutableLiveData<T> liveData) {
         this(liveData, false);
     }
 
+    public BaseSubscriber(MutableLiveData<T> liveData, int page) {
+        this(liveData, page, false);
+    }
 
     public BaseSubscriber(MutableLiveData<T> liveData, boolean loading) {
+        this.liveData = liveData;
+    }
+
+    public BaseSubscriber(MutableLiveData<T> liveData, int page, boolean loading) {
+        this.page = page;
         this.liveData = liveData;
     }
 
@@ -56,13 +65,20 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
 
     @Override
     public void onNext(T t) {
-        liveData.setValue(t);
+        if (t instanceof BaseResp) {
+            BaseResp resp = (BaseResp) t;
+            if (resp.getCode() == 100) {
+                resp.setPage(page);
+                liveData.setValue(t);
+            }
+        }
     }
 
 
     @Override
     public void onError(Throwable e) {
         LogUtils.e(e);
+        liveData.postValue(null);
     }
 
     @Override

@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@mipmap/ic_home_top_bg"
     android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:id="@+id/rl_search"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/et_search"
-            android:layout_alignBottom="@id/et_search"
-            android:layout_marginLeft="15dp"
-            android:drawableLeft="@mipmap/ic_address_cr"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:text="历城区"
-            android:textColor="@color/color_white"
-            android:textSize="14sp" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@mipmap/ic_home_search"
-            android:layout_alignTop="@id/et_search"
-            android:layout_alignBottom="@id/et_search"
-            android:layout_alignLeft="@id/et_search"
-            android:translationZ="0.5dp"
-            android:layout_marginLeft="15dp"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_search"
+        android:layout_height="160dp"
+        android:background="@mipmap/ic_home_top_bg">
+        <RelativeLayout
+            android:id="@+id/rl_search"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@id/tv_address"
-            android:background="@drawable/bg_round_35_fff"
-            android:lines="1"
-            android:paddingLeft="35dp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/et_search"
+                android:layout_alignBottom="@id/et_search"
+                android:layout_marginLeft="15dp"
+                android:drawableLeft="@mipmap/ic_address_cr"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_white"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignLeft="@id/et_search"
+                android:layout_alignTop="@id/et_search"
+                android:layout_alignBottom="@id/et_search"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/ic_home_search"
+                android:translationZ="0.5dp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toRightOf="@id/tv_address"
+                android:background="@drawable/bg_round_35_fff"
+                android:lines="1"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingLeft="35dp"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t3"/>
+        </RelativeLayout>
+    </LinearLayout>
 
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@mipmap/ic_home_banner" />
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="15dp" />
 
 
-</LinearLayout>
+</RelativeLayout>
 

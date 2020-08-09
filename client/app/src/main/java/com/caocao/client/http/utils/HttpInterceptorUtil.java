@@ -40,17 +40,12 @@ public class HttpInterceptorUtil {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 //添加请求头
-//                Request original = chain.request();
-//
-//                Request.Builder requestBuilder = original.newBuilder()
-//                        .addHeader("ctype", "APP-Android")
-//                        .addHeader("utype", "1")
-//                        .addHeader("token", BaseApplication.SPUtils.getString(SpConfig.TOKEN));
-//                Request request = requestBuilder.build();
-//
-//                return chain.proceed(request);
+                Request original = chain.request();
 
-                return null;
+                Request.Builder requestBuilder = original.newBuilder()
+                        .addHeader("token", "");
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
             }
         };
     }

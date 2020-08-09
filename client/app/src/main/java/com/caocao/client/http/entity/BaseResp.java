@@ -16,7 +16,7 @@ public class BaseResp<T> {
 
     private int    code;
     private String message;
-    private String status;
+    private int page;
     private T      data;
 
     public int getCode() {
@@ -35,12 +35,12 @@ public class BaseResp<T> {
         this.message = message;
     }
 
-    public String getStatus() {
-        return status;
+    public int getPage() {
+        return page;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPage(int page) {
+        this.page = page;
     }
 
     public T getData() {
@@ -53,7 +53,7 @@ public class BaseResp<T> {
         return "AppResponseBody{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
-                ", status='" + status + '\'' +
+                ", page='" + page + '\'' +
                 ", data=" + data +
                 '}';
     }

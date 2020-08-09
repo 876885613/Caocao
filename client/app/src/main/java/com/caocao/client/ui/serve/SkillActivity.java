@@ -28,9 +28,14 @@ public class SkillActivity extends BaseActivity {
     @Override
     protected void initView() {
         //添加图片
-        binding.rvPhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        AddPhotoAdapter addAdapter = new AddPhotoAdapter(this, null);
-        binding.rvPhoto.setAdapter(addAdapter);
+        binding.rvBannerPhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        AddPhotoAdapter addBannerAdapter = new AddPhotoAdapter(this, null);
+        binding.rvBannerPhoto.setAdapter(addBannerAdapter);
+
+        binding.rvServePhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        AddPhotoAdapter addServeAdapter = new AddPhotoAdapter(this, null);
+        binding.rvServePhoto.setAdapter(addServeAdapter);
+
         binding.tvNext.setOnClickListener(view -> ActivityUtils.startActivity(AddSpecActivity.class));
 
 

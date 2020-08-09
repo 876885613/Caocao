@@ -39,6 +39,9 @@ public class BaseApplication extends Application {
     //SharedPreferences 工具类
     public static SPUtils SPUtils;
 
+    public static String sRegion; //省市区
+    public static double sLatitude;   //获取纬度信息
+    public static double sLongitude;//获取经度信息
 
 
     public static Context getInstance() {
@@ -51,7 +54,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         sInstance = this;
 
-        initRequest("http://www.baidu.com", ApiService.class);
+        initRequest("http://ccdj.jiajiayong.com/", ApiService.class);
 
         registerActivityLifecycleCallbacks(mCallbacks);
         SPUtils = SPUtils.getInstance("caocao_client");

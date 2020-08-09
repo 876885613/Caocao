@@ -1,38 +1,50 @@
 package com.caocao.client.ui.home;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentHomeBinding;
+import com.caocao.client.http.entity.respons.BannerResp;
+import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.ui.MainViewModel;
 import com.caocao.client.ui.adapter.ADBannerAdapter;
+import com.caocao.client.ui.adapter.HomeBannerAdapter;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
-import com.youth.banner.adapter.BannerAdapter;
+import com.caocao.client.ui.goods.GoodsDetailsActivity;
+import com.caocao.client.utils.location.LocationUtils;
+import com.caocao.client.utils.location.RxPermissionListener;
+import com.caocao.client.utils.location.RxPermissionManager;
+import com.caocao.client.weight.DividerItemDecoration;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.indicator.RoundLinesIndicator;
-import com.youth.banner.transformer.AlphaPageTransformer;
 import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
 
 /**
  * @ProjectName: Caocao
@@ -46,61 +58,185 @@ import java.util.Map;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, RxPermissionListener {
 
     private FragmentHomeBinding binding;
-    private MainViewModel       mainVM;
+    private MainViewModel mainVM;
+    private HomeViewModel homeVM;
+    private HomeSortAdapter sortAdapter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        RxPermissionManager.requestPermissions(this, this,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+
+
+        setOnHandlerListener(msg -> {
+            String district = (String) msg.obj;
+            binding.homeTop.tvAddress.setText(district);
+            binding.tvAddress.setText(district);
+
+            homeVM.homeIndexGoods();
+        });
     }
 
-    //初始化首页分类数据
-    private List<SortResp> getSortData() {
-        List<SortResp> sortList = new ArrayList<>();
-        sortList.add(new SortResp(R.mipmap.ic_tongcheng, "曹操同城"));
-        sortList.add(new SortResp(R.mipmap.ic_jiazheng, "曹操家政"));
-        sortList.add(new SortResp(R.mipmap.ic_zhuangxiu, "曹操装修"));
-        sortList.add(new SortResp(R.mipmap.ic_baomu, "曹操保姆"));
-        sortList.add(new SortResp(R.mipmap.ic_baojie, "曹操保洁"));
-        sortList.add(new SortResp(R.mipmap.ic_banjia, "曹操搬家"));
-        sortList.add(new SortResp(R.mipmap.ic_weixiu, "曹操维修"));
-        sortList.add(new SortResp(R.mipmap.ic_huishou, "曹操回收"));
-        sortList.add(new SortResp(R.mipmap.ic_paotui, "曹操跑腿"));
-        sortList.add(new SortResp(R.mipmap.ic_more, "更多"));
-        return sortList;
-    }
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
         mainVM = getViewModel(MainViewModel.class);
         mainVM.serveData();
+
+        homeVM = getViewModel(HomeViewModel.class);
+
+
+        homeBanner();
+
+        homeSort();
+
+        homeSift();
+    }
+
+    private void homeSift() {
+        homeVM.homeChoiceGoods();
+
+        homeVM.homeChoiceGoodsLiveData.observe(this, choiceGoods -> {
+
+        });
+    }
+
+
+    private void homeSort() {
+        homeVM.homeSort();
+        homeVM.homeSortLiveData.observe(this, homeSort -> {
+            List<SortResp> sortRes = homeSort.getData();
+            sortRes.add(new SortResp(0, "更多", R.mipmap.ic_more));
+            sortAdapter.setNewData(sortRes);
+        });
+    }
+
+    private void homeBanner() {
+        homeVM.homeBanner();
+        homeVM.homeBannerLiveData.observe(this, homeBanner -> {
+            List<BannerResp> bannerRes = homeBanner.getData();
+
+            binding.homeTop.banner.addBannerLifecycleObserver(this)//添加生命周期观察者
+                    .setAdapter(new HomeBannerAdapter(context, bannerRes))//添加数据
+                    .setIndicator(new CircleIndicator(context), true)//设置轮播指示器
+                    .setIndicatorNormalColor(Color.parseColor("#aaffffff"))
+                    .setIndicatorSelectedColor(Color.parseColor("#ffffff"))
+                    .setIndicatorNormalWidth((int) BannerUtils.dp2px(6))
+                    .setIndicatorSelectedWidth((int) BannerUtils.dp2px(6))
+                    .start();
+        });
     }
 
     @Override
     protected void initView() {
         scrollView();
 
-        binding.rvSort.setLayoutManager(new GridLayoutManager(context, 5));
-        HomeSortAdapter sortAdapter = new HomeSortAdapter(R.layout.adapter_home_sort_item, getSortData());
-        binding.rvSort.setAdapter(sortAdapter);
+        initSearch();
+
+        sortView();
 
         adView();
 
         serveView();
     }
 
+
+    //搜索功能
+    private void initSearch() {
+        binding.homeTop.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("keyword", textView.getText().toString());
+                    ActivityUtils.startActivity(bundle, SearchActivity.class);
+                    KeyboardUtils.hideSoftInput(binding.homeTop.etSearch);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("keyword", textView.getText().toString());
+                    ActivityUtils.startActivity(bundle, SearchActivity.class);
+                    KeyboardUtils.hideSoftInput(binding.homeTop.etSearch);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+
+    //分类
+    private void sortView() {
+        binding.rvSort.setLayoutManager(new GridLayoutManager(context, 5));
+        sortAdapter = new HomeSortAdapter(R.layout.adapter_home_sort_item, null);
+        binding.rvSort.setAdapter(sortAdapter);
+
+        sortAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+    }
+
     //服务列表
     private void serveView() {
         binding.homeServe.rvServe.setLayoutManager(new LinearLayoutManager(context));
+
+        binding.homeServe.rvServe.addItemDecoration(new DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL_LIST));
         ServeListAdapter serveAdapter = new ServeListAdapter(R.layout.adapter_serve_item, null);
         binding.homeServe.rvServe.setAdapter(serveAdapter);
 
-        mainVM.serveLiveData.observe(this, serveLiveData -> {
-            serveAdapter.setNewData(serveLiveData);
+
+//        serveAdapter.setOnLoadMoreListener(() -> homeVM.homeIndexGoodsMore(), binding.homeServe.rvServe);
+
+
+        homeVM.homeIndexGoodsLiveData.observe(this, homeIndexGoods -> {
+            List<GoodsResp> goodsRes = homeIndexGoods.getData();
+
+            serveAdapter.setNewData(goodsRes);
+            /*
+            if (homeIndexGoods.getPage() == 1) {
+                serveAdapter.setNewData(goodsRes);
+            } else {
+                if (goodsRes == null || goodsRes.size() == 0) {
+                    serveAdapter.loadMoreEnd();
+                    return;
+                }
+                serveAdapter.addData(goodsRes);
+                serveAdapter.loadMoreComplete();
+            }
+             */
         });
+
+
+        serveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                int goodsId = serveAdapter.getData().get(position).goodsId;
+                Bundle bundle = new Bundle();
+                bundle.putInt("goodId",goodsId);
+                ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
+            }
+        });
+
+
     }
 
     //咨询广告
@@ -155,5 +291,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void accept() {
+        //定位
+        LocationUtils.getInstance(context.getApplicationContext()).onStartLocation();
+    }
+
+    @Override
+    public void refuse() {
+        LogUtils.e("权限refuse");
+    }
+
+    @Override
+    public void noAsk(String permissionName) {
+        LogUtils.e("权限noAsk");
+        RxPermissionManager.showPermissionDialog(this, permissionName);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LocationUtils.getInstance(context.getApplicationContext()).onStartLocation();
     }
 }

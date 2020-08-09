@@ -52,6 +52,7 @@ public class BaseRequest<T> {
 
 
         //http 证书问题
+        /*
         TrustManager[] trustManagers = new TrustManager[]{new X509TrustManager() {
             @Override
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -84,6 +85,7 @@ public class BaseRequest<T> {
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
+         */
     }
 
     private T api;

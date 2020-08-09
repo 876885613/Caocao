@@ -1,5 +1,10 @@
 package com.caocao.client.http.entity.respons;
 
+import com.caocao.client.http.entity.BaseResp;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * @ProjectName: Caocao
  * @Package: com.caocao.client.http.entity.respons
@@ -12,15 +17,22 @@ package com.caocao.client.http.entity.respons;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class SortResp {
+public class SortResp extends BaseResp<List<SortResp>> {
 
-    public SortResp(int resId, String sort) {
+    public SortResp(int id, String cateName, int resId) {
+        this.id = id;
+        this.cateName = cateName;
         this.resId = resId;
-        this.sort = sort;
     }
 
     public int resId;
 
-    public String sort;
 
+    public int id;
+
+    @SerializedName("cate_name")
+    public String cateName;
+
+    @SerializedName("cate_icon")
+    public String cateIcon;
 }

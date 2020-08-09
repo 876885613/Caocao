@@ -26,8 +26,6 @@ import io.reactivex.schedulers.Schedulers;
 public class BaseViewModel<T> extends ViewModel {
     public static ApiService api;
 
-    public static final int PAGE_SIZE = 10;
-
     /*解决背压*/
     private Flowable<T> sFlowable;
 
@@ -56,6 +54,13 @@ public class BaseViewModel<T> extends ViewModel {
         sFlowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<T>(liveData));
+        return this;
+    }
+
+    public BaseViewModel<T> send(MutableLiveData<T> liveData,int page) {
+        sFlowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<T>(liveData,page));
         return this;
     }
 

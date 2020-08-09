@@ -3,10 +3,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/bg_page"
     android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
@@ -25,7 +26,6 @@
             android:drawableLeft="@mipmap/ic_address_cr"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="历城区"
             android:textColor="@color/color_white"
             android:textSize="14sp" />
 
@@ -48,7 +48,11 @@
             android:layout_marginBottom="10dp"
             android:layout_toRightOf="@id/tv_address"
             android:background="@drawable/bg_round_35_fff"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:lines="1"
+            android:textColor="@color/t1"
+            android:textSize="@dimen/t3"
             android:paddingLeft="35dp" />
     </RelativeLayout>
 

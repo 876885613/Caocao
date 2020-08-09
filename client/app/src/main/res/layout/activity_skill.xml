@@ -148,10 +148,31 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_photo_ico"
+                app:sLeftText="服务展示图" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_serve_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/ReleaseBlockStyle">
+
+            <com.caocao.client.view.SuperTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_photo_ico"
                 app:sLeftText="顶部轮播图" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_photo"
+                android:id="@+id/rv_banner_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"

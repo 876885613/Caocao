@@ -37,7 +37,33 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
+
+    signingConfigs {
+        release {
+            storeFile file('./caocao.jks')
+            storePassword '123456'
+            keyAlias = 'CaoCao'
+            keyPassword '123456'
+        }
+        debug {
+            storeFile file('./caocao.jks')
+            storePassword '123456'
+            keyAlias = 'CaoCao'
+            keyPassword '123456'
+        }
+    }
+
+    sourceSets{
+        main{
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []    //disable automatic ndk-build
+        }
+    }
+
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,6 +71,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -52,6 +79,11 @@ dependencies {
     implementation project(path: ':BaseLibrary')
     //富文本编辑器
     implementation project(path: ':htmleditorlibrary')
+    //百度地图
+    implementation files('libs\\BaiduLBS_Android.jar')
+    //动态权限
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     //网络请求

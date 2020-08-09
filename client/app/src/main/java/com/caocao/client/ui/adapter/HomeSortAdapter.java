@@ -1,7 +1,10 @@
 package com.caocao.client.ui.adapter;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
 import com.caocao.client.R;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,7 +31,11 @@ public class HomeSortAdapter extends BaseQuickAdapter<SortResp, BaseViewHolder> 
 
     @Override
     protected void convert(BaseViewHolder helper, SortResp item) {
-        helper.setImageResource(R.id.iv_sort, item.resId);
-        helper.setText(R.id.tv_sort, item.sort);
+        if (!StringUtils.isEmpty(item.cateIcon)) {
+            Glide.with(mContext).load(item.cateIcon).<AppCompatImageView>into(helper.getView(R.id.iv_sort));
+        } else {
+            helper.setImageResource(R.id.iv_sort, item.resId);
+        }
+        helper.setText(R.id.tv_sort, item.cateName);
     }
 }

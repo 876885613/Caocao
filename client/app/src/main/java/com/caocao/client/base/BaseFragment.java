@@ -1,5 +1,6 @@
 package com.caocao.client.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +27,20 @@ import com.coder.baselibrary.base.AppFragment;
  */
 public abstract class BaseFragment extends AppFragment {
 
+    public BaseActivity activity;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initVmData(savedInstanceState);
 
         initView();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.activity = (BaseActivity) context;
     }
 
     /**
