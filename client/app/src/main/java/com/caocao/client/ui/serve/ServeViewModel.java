@@ -1,46 +1,56 @@
 package com.caocao.client.ui.serve;
 
-import com.caocao.client.R;
+import androidx.lifecycle.MutableLiveData;
+
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
-import com.caocao.client.ui.serve.bean.EditToolEntity;
-import com.caocao.client.ui.serve.bean.ToolType;
+import com.caocao.client.http.entity.respons.GoodsDetailResp;
+import com.caocao.client.http.entity.respons.GoodsResp;
+import com.caocao.client.http.entity.respons.SortResp;
 
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * @ProjectName: Caocao
+ * @Package: com.caocao.client.ui.serve
+ * @ClassName: ServeViewModel
+ * @Description: java类作用描述
+ * @Author: XuYu
+ * @CreateDate: 2020/8/10 11:54
+ * @UpdateUser: 更新者
+ * @UpdateDate: 2020/8/10 11:54
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
+ */
 public class ServeViewModel extends BaseViewModel {
+    public MutableLiveData<SortResp>        sortLiveData;
+    public MutableLiveData<GoodsResp>       indexGoodsLiveData;
+    public MutableLiveData<GoodsDetailResp> goodsDetailLiveData;
 
+    private int page;
 
     public ServeViewModel() {
+        sortLiveData = new MutableLiveData<>();
+        indexGoodsLiveData = new MutableLiveData<>();
+        goodsDetailLiveData = new MutableLiveData<>();
+    }
+
+    public void secondSort(int pid) {
+        request(api.sort(3, pid)).send(sortLiveData);
     }
 
 
-    public List<EditToolEntity> getEditToolList() {
-        return Arrays.asList(
-                new EditToolEntity(ToolType.Image.name(), R.mipmap.insert_img),
-                new EditToolEntity(ToolType.NewLine.name(), R.mipmap.new_line),
-                new EditToolEntity(ToolType.TextColor.name(), R.mipmap.color),
-                new EditToolEntity(ToolType.Heading.name(), R.mipmap.hhh),
-                new EditToolEntity(ToolType.Blod.name(), R.mipmap.bold),
-                new EditToolEntity(ToolType.Italic.name(), R.mipmap.italic),
-                new EditToolEntity(ToolType.Subscript.name(), R.mipmap.subscript),
-                new EditToolEntity(ToolType.Superscript.name(), R.mipmap.superscript),
-                new EditToolEntity(ToolType.Strikethrough.name(), R.mipmap.strikethrough),
-                new EditToolEntity(ToolType.Underline.name(), R.mipmap.underline),
-                new EditToolEntity(ToolType.JustifyLeft.name(), R.mipmap.justify_left),
-                new EditToolEntity(ToolType.JustifyCenter.name(), R.mipmap.justify_center),
-                new EditToolEntity(ToolType.JustifyRight.name(), R.mipmap.justify_right),
-                new EditToolEntity(ToolType.Blockquote.name(), R.mipmap.blockquote),
-                new EditToolEntity(ToolType.Undo.name(), R.mipmap.undo),
-                new EditToolEntity(ToolType.Redo.name(), R.mipmap.redo),
-                new EditToolEntity(ToolType.Indent.name(), R.mipmap.indent),
-                new EditToolEntity(ToolType.Outdent.name(), R.mipmap.outdent),
-                new EditToolEntity(ToolType.InsertLink.name(), R.mipmap.insert_link),
-                new EditToolEntity(ToolType.Checkbox.name(), R.mipmap.check_box),
-                new EditToolEntity(ToolType.TextBackgroundColor.name(), R.mipmap.background_color),
-                new EditToolEntity(ToolType.FontSize.name(), R.mipmap.font_size),
-                new EditToolEntity(ToolType.UnorderedList.name(), R.mipmap.unordered_list),
-                new EditToolEntity(ToolType.OrderedList.name(), R.mipmap.ordered_list)
-        );
+    public void goodsByCate(int pid) {
+        page = 1;
+        request(api.goodsByCate(BaseApplication.sRegion, pid, String.valueOf(BaseApplication.sLongitude),
+                String.valueOf(BaseApplication.sLatitude), page)).send(indexGoodsLiveData, page);
+    }
+
+    public void goodsByCateMore(int pid) {
+        page++;
+        request(api.goodsByCate(BaseApplication.sRegion, pid, String.valueOf(BaseApplication.sLongitude),
+                String.valueOf(BaseApplication.sLatitude), page)).send(indexGoodsLiveData, page);
+    }
+
+    public void goodsDetail(int goodsId) {
+        request(api.goodsDetail(goodsId)).send(goodsDetailLiveData);
     }
 }

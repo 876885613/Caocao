@@ -40,7 +40,7 @@ public class SearchActivity extends BaseActivity {
         serveAdapter = new ServeListAdapter(R.layout.adapter_search_item, null);
         binding.rvList.setAdapter(serveAdapter);
 
-        serveAdapter.setLoadMoreView(new AdapterLoadMoreView());
+//        serveAdapter.setLoadMoreView(new AdapterLoadMoreView());
         serveAdapter.setOnLoadMoreListener(() -> homeVM.homeSearchGoodsMore(keyword), binding.rvList);
 
     }

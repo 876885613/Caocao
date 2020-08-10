@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_sort"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@mipmap/ic_tongcheng" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="曹操同城"
+        android:textColor="@color/t1"
+        android:textSize="@dimen/t3" />
+
+</LinearLayout>

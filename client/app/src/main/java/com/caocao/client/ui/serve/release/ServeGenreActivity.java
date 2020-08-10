@@ -1,4 +1,4 @@
-package com.caocao.client.ui.serve;
+package com.caocao.client.ui.serve.release;
 
 import android.view.View;
 

@@ -1,10 +1,12 @@
 package com.caocao.client.http.api;
 
 import com.caocao.client.http.entity.respons.BannerResp;
+import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.SortResp;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -44,11 +46,16 @@ public interface ApiService {
     @POST("api/banner/getIndexBannerList")
     Flowable<BannerResp> homeBanner();
 
+
     /**
-     * 首页分类
+     * 分类
      */
+    @FormUrlEncoded
     @POST("api/service_cate/getIndexCateList")
-    Flowable<SortResp> homeSort();
+    Flowable<SortResp> sort(
+            @Field("level") int level,
+            @Field("pid") int pid
+    );
 
     /**
      * 首页精选到家
@@ -69,7 +76,8 @@ public interface ApiService {
     Flowable<GoodsResp> homeIndexGoods(
             @Field("region") String region,
             @Field("longitude") String longitude,
-            @Field("latitude") String latitude
+            @Field("latitude") String latitude,
+            @Field("page") int page
     );
 
     /**
@@ -84,4 +92,23 @@ public interface ApiService {
             @Field("latitude") String latitude,
             @Field("page") int page
     );
+
+    /**
+     * 二级分类服务列表
+     */
+    @FormUrlEncoded
+    @POST("api/goods/getGoodsByCate")
+    Flowable<GoodsResp> goodsByCate(
+            @Field("region") String region,
+            @Field("cate_id") int cateId,
+            @Field("longitude") String longitude,
+            @Field("latitude") String latitude,
+            @Field("page") int page
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/goods/getGoodsDetail")
+    Flowable<GoodsDetailResp> goodsDetail(@Field("goods_id") int goodsId);
+
 }

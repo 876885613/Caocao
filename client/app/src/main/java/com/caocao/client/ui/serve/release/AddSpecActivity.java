@@ -1,21 +1,22 @@
-package com.caocao.client.ui.serve;
+package com.caocao.client.ui.serve.release;
 
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.databinding.ActivitySkillReleaseBinding;
+import com.caocao.client.databinding.ActivityAddSpecBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.AddPhotoAdapter;
 
-public class SkillReleaseActivity extends BaseActivity {
+public class AddSpecActivity extends BaseActivity {
 
-    private ActivitySkillReleaseBinding binding;
+    private ActivityAddSpecBinding binding;
 
     @Override
     protected void initTitle() {
-        new DefaultNavigationBar.Builder(this).setTitle("发布技能").builder();
+        new DefaultNavigationBar.Builder(this).setTitle("添加规格").builder();
     }
 
     @Override
@@ -23,6 +24,9 @@ public class SkillReleaseActivity extends BaseActivity {
         binding.rvPhoto.setLayoutManager(new GridLayoutManager(this, 3));
         AddPhotoAdapter addAdapter = new AddPhotoAdapter(this, null);
         binding.rvPhoto.setAdapter(addAdapter);
+
+        binding.tvNext.setOnClickListener(view -> ActivityUtils.startActivity(SkillReleaseActivity.class));
+
     }
 
     @Override
@@ -32,7 +36,7 @@ public class SkillReleaseActivity extends BaseActivity {
 
     @Override
     public View initLayout() {
-        binding = ActivitySkillReleaseBinding.inflate(getLayoutInflater());
+        binding = ActivityAddSpecBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 }

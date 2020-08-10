@@ -81,6 +81,8 @@ dependencies {
     implementation project(path: ':htmleditorlibrary')
     //百度地图
     implementation files('libs\\BaiduLBS_Android.jar')
+
+
     //动态权限
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
@@ -121,6 +123,10 @@ dependencies {
 
     //三级联动
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    //评星
+    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
+
+
     //富文本编辑器
 //    implementation 'com.github.RexSuper:RichEditor:1.0.5'
 

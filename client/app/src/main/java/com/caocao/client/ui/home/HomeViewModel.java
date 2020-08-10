@@ -2,6 +2,7 @@ package com.caocao.client.ui.home;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.respons.BannerResp;
@@ -36,7 +37,7 @@ public class HomeViewModel extends BaseViewModel {
 
 
     public void homeSort() {
-        request(api.homeSort()).send(homeSortLiveData);
+        request(api.sort(2, 0)).send(homeSortLiveData);
     }
 
     public void homeChoiceGoods() {
@@ -47,13 +48,13 @@ public class HomeViewModel extends BaseViewModel {
     public void homeIndexGoods() {
         page = 1;
         request(api.homeIndexGoods(BaseApplication.sRegion,
-                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(homeIndexGoodsLiveData, page);
+                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude),page)).send(homeIndexGoodsLiveData, page);
     }
 
     public void homeIndexGoodsMore() {
         page++;
         request(api.homeIndexGoods(BaseApplication.sRegion,
-                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(homeIndexGoodsLiveData, page);
+                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude),page)).send(homeIndexGoodsLiveData, page);
     }
 
 

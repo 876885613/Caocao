@@ -1,4 +1,4 @@
-package com.caocao.client.ui.serve;
+package com.caocao.client.ui.serve.release;
 
 import android.view.View;
 
@@ -14,6 +14,7 @@ import com.caocao.client.ui.adapter.AddPhotoAdapter;
 import com.caocao.client.ui.adapter.EditToolAdapter;
 import com.caocao.client.ui.serve.bean.EditToolEntity;
 import com.caocao.client.ui.serve.bean.ToolType;
+import com.caocao.client.ui.serve.release.AddSpecActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 public class SkillActivity extends BaseActivity {

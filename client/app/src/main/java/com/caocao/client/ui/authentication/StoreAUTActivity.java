@@ -9,7 +9,6 @@ import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityStoreAutBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.AddPhotoAdapter;
-import com.caocao.client.ui.serve.AddSpecActivity;
 
 /**
  * @ProjectName: Caocao

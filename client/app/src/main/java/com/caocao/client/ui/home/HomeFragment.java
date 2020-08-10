@@ -12,32 +12,34 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentHomeBinding;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.SortResp;
-import com.caocao.client.ui.MainViewModel;
 import com.caocao.client.ui.adapter.ADBannerAdapter;
 import com.caocao.client.ui.adapter.HomeBannerAdapter;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
-import com.caocao.client.ui.goods.GoodsDetailsActivity;
+import com.caocao.client.ui.serve.GoodsDetailsActivity;
+import com.caocao.client.ui.serve.SecondLevelActivity;
 import com.caocao.client.utils.location.LocationUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
 import com.caocao.client.utils.location.RxPermissionManager;
 import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.util.BannerUtils;
 
@@ -58,11 +60,11 @@ import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener, RxPermissionListener {
+public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     private FragmentHomeBinding binding;
-    private MainViewModel mainVM;
-    private HomeViewModel homeVM;
+
+    private HomeViewModel   homeVM;
     private HomeSortAdapter sortAdapter;
 
 
@@ -80,15 +82,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             binding.homeTop.tvAddress.setText(district);
             binding.tvAddress.setText(district);
 
+            homeVM.homeChoiceGoods();
+
             homeVM.homeIndexGoods();
+
         });
     }
 
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
-        mainVM = getViewModel(MainViewModel.class);
-        mainVM.serveData();
+
 
         homeVM = getViewModel(HomeViewModel.class);
 
@@ -101,10 +105,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void homeSift() {
-        homeVM.homeChoiceGoods();
-
         homeVM.homeChoiceGoodsLiveData.observe(this, choiceGoods -> {
-
+            LogUtils.e(choiceGoods);
         });
     }
 
@@ -189,29 +191,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         sortAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("title", sortAdapter.getData().get(position).cateName);
+                bundle.putInt("id", sortAdapter.getData().get(position).id);
+                ActivityUtils.startActivity(bundle, SecondLevelActivity.class);
             }
         });
     }
 
     //服务列表
     private void serveView() {
-        binding.homeServe.rvServe.setLayoutManager(new LinearLayoutManager(context));
+        binding.homeServe.rvList.setLayoutManager(new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
 
-        binding.homeServe.rvServe.addItemDecoration(new DividerItemDecoration(context,
+        binding.homeServe.rvList.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.VERTICAL_LIST));
         ServeListAdapter serveAdapter = new ServeListAdapter(R.layout.adapter_serve_item, null);
-        binding.homeServe.rvServe.setAdapter(serveAdapter);
-
-
-//        serveAdapter.setOnLoadMoreListener(() -> homeVM.homeIndexGoodsMore(), binding.homeServe.rvServe);
+        binding.homeServe.rvList.setAdapter(serveAdapter);
 
 
         homeVM.homeIndexGoodsLiveData.observe(this, homeIndexGoods -> {
             List<GoodsResp> goodsRes = homeIndexGoods.getData();
 
-            serveAdapter.setNewData(goodsRes);
-            /*
             if (homeIndexGoods.getPage() == 1) {
                 serveAdapter.setNewData(goodsRes);
             } else {
@@ -222,20 +227,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 serveAdapter.addData(goodsRes);
                 serveAdapter.loadMoreComplete();
             }
-             */
         });
-
 
         serveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 int goodsId = serveAdapter.getData().get(position).goodsId;
                 Bundle bundle = new Bundle();
-                bundle.putInt("goodId",goodsId);
+                bundle.putInt("goodsId", goodsId);
                 ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
             }
         });
 
+
+
+        //刷新和加载
+        binding.homeServe.refresh.setHeaderHeight(0);
+        binding.homeServe.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                serveVM.goodsByCateMore(id);
+            }
+        });
 
     }
 
@@ -269,17 +286,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         binding.homeTop.rlSearch.measure(w, h);
         int height = binding.homeTop.rlSearch.getMeasuredHeight();
 
-        binding.scroll.setOnScrollChangeListener((View.OnScrollChangeListener) (view, i, i1, i2, i3) -> {
-            if (i3 > height && i3 < i1) {
-                binding.rlSearch.setVisibility(View.VISIBLE);
-                binding.homeTop.rlSearch.setVisibility(View.GONE);
-                binding.rlLogo.setVisibility(View.GONE);
-            } else if (i1 == 0) {
-                binding.rlSearch.setVisibility(View.GONE);
-                binding.homeTop.rlSearch.setVisibility(View.VISIBLE);
-                binding.rlLogo.setVisibility(View.VISIBLE);
+        binding.scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView view, int i, int i1, int i2, int i3) {
+
+                if (i3 > height && i3 < i1) {
+                    binding.rlSearch.setVisibility(View.VISIBLE);
+                    binding.homeTop.rlSearch.setVisibility(View.GONE);
+                    binding.rlLogo.setVisibility(View.GONE);
+                } else if (i1 == 0) {
+                    binding.rlSearch.setVisibility(View.GONE);
+                    binding.homeTop.rlSearch.setVisibility(View.VISIBLE);
+                    binding.rlLogo.setVisibility(View.VISIBLE);
+                }
+
+                if (i1 == (view.getChildAt(0).getMeasuredHeight() - view.getMeasuredHeight())) {
+                    homeVM.homeIndexGoodsMore();
+                }
             }
         });
+
     }
 
     @Override
@@ -288,10 +314,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         return binding.getRoot();
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 
     @Override
     public void accept() {

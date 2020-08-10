@@ -8,10 +8,13 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.request.RequestOptions;
 import com.caocao.client.R;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.utils.DrawableUtils;
+import com.caocao.client.weight.CornerTransform;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -36,18 +39,21 @@ public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsResp item) {
-        Glide.with(mContext).load(item.showImage).<AppCompatImageView>into(helper.getView(R.id.iv_thumb));
+        Glide.with(mContext).load(item.showImage)
+                . transform(new CornerTransform(mContext, 10))
+                .<AppCompatImageView>into(helper.getView(R.id.iv_thumb));
 
         helper.setText(R.id.tv_source, item.merchantType == 1 ? "个人" : "商家");
 
-        helper.setText(R.id.tv_title,item.goodsTitle);
+        helper.setText(R.id.tv_title, item.goodsTitle);
 
-        helper.setText(R.id.tv_cate_name,item.cateName);
+        helper.setText(R.id.tv_cate_name, item.cateName);
 
-        helper.setText(R.id.tv_serve_intro,item.goodsDetail);
+        helper.setText(R.id.tv_serve_intro, item.goodsDetail);
 
-        helper.setText(R.id.tv_price,mContext.getString(R.string.goods_price,item.goodsPrice));
-        helper.setText(R.id.tv_distance,mContext.getString(R.string.goods_distance,item.distance));
+        helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price, item.goodsPrice));
+        helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
+
 
         GradientDrawable sourceDrawable = DrawableUtils.getDrawable(Color.parseColor("#49cbff"), ConvertUtils.dp2px(1));
         helper.getView(R.id.tv_source).setBackground(sourceDrawable);

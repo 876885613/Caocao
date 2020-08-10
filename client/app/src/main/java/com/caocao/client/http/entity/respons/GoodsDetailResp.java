@@ -1,0 +1,102 @@
+package com.caocao.client.http.entity.respons;
+
+import com.caocao.client.http.entity.BaseResp;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+/**
+ * @ProjectName: Caocao
+ * @Package: com.caocao.client.http.entity.respons
+ * @ClassName: GoodsDetailResp
+ * @Description: 商品详情
+ * @Author: XuYu
+ * @CreateDate: 2020/8/10 16:19
+ * @UpdateUser: 更新者
+ * @UpdateDate: 2020/8/10 16:19
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
+ */
+public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
+
+    /**
+     * goods_id : 66
+     * goods_title : 健康小吃
+     * goods_price : 0.10
+     * show_image : http://ccdj.jiajiayong.com/merchant_uploads/20200803/e5094fb17ddd91109ef0bda7dc592a51.jpg
+     * goods_tags : 餐饮
+     * goods_detail : 健康小吃
+     * merchant_id : 18
+     * banner_image : []
+     * goods_detail_image : <p>好吃不贵</p>
+     * merchant_name : 冰粉水果捞
+     * merchant_type : 1
+     * username : 刘瑶瑶
+     * merchant_detail : 10元自选冰粉
+     * merchant_tag : 餐饮
+     * merchant_image : http://ccdj.jiajiayong.com/uploads/thumb20200802173926549.jpeg
+     * merchant_province : 山东省
+     * merchant_city : 济南市
+     * merchant_district : 历下区
+     * address_detail : 工业北路81号
+     * cate_name : 生活配送
+     * goods_spec : []
+     * collection_status : 0
+     */
+
+    @SerializedName("goods_id")
+    public int             goodsId;
+    @SerializedName("goods_title")
+    public String          goodsTitle;
+    @SerializedName("goods_price")
+    public String          goodsPrice;
+    @SerializedName("show_image")
+    public String          showImage;
+    @SerializedName("goods_tags")
+    public String          goodsTags;
+    @SerializedName("goods_detail")
+    public String          goodsDetail;
+    @SerializedName("merchant_id")
+    public int             merchantId;
+    @SerializedName("goods_detail_image")
+    public String          goodsDetailImage;
+    @SerializedName("merchant_name")
+    public String          merchantName;
+    @SerializedName("merchant_type")
+    public int             merchantType;
+    public String          username;
+    @SerializedName("merchant_detail")
+    public String          merchantDetail;
+    @SerializedName("merchant_tag")
+    public String          merchantTag;
+    @SerializedName("merchant_image")
+    public String          merchantImage;
+    @SerializedName("merchant_province")
+    public String          merchantProvince;
+    @SerializedName("merchant_city")
+    public String          merchantCity;
+    @SerializedName("merchant_district")
+    public String          merchantDistrict;
+    @SerializedName("address_detail")
+    public String          addressDetail;
+    @SerializedName("cate_name")
+    public String          cateName;
+    @SerializedName("collection_status")
+    public int             collectionStatus;
+    @SerializedName("banner_image")
+    public List<String>    bannerImage;
+    @SerializedName("goods_spec")
+    public List<GoodsSpec> goodsSpec;
+
+    public class GoodsSpec {
+        public int    id;
+        @SerializedName("goods_id")
+        public int    goodsId;
+        @SerializedName("spec_name")
+        public String specName;
+        @SerializedName("spec_price")
+        public String specPrice;
+        @SerializedName("spec_unit")
+        public String specUnit;
+    }
+}

@@ -3,25 +3,18 @@ package com.caocao.client.utils.location;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.base.BaseFragment;
-import com.caocao.client.ui.demand.DemandActivity;
-import com.caocao.client.ui.serve.ServeGenreActivity;
 import com.coder.baselibrary.dialog.AlertDialog;
 import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 import com.tbruyelle.rxpermissions2.Permission;

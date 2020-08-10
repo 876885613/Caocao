@@ -16,7 +16,7 @@ import com.caocao.client.databinding.ActivityMainBinding;
 import com.caocao.client.ui.demand.DemandActivity;
 import com.caocao.client.ui.home.HomeFragment;
 import com.caocao.client.ui.me.MeFragment;
-import com.caocao.client.ui.serve.ServeGenreActivity;
+import com.caocao.client.ui.serve.release.ServeGenreActivity;
 import com.coder.baselibrary.dialog.AlertDialog;
 import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 

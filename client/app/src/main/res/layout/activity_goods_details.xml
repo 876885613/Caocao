@@ -26,6 +26,7 @@
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:background="@color/color_white"
                     app:layout_constraintDimensionRatio="6:5"
                     tools:ignore="MissingConstraints" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -150,7 +151,7 @@
                     app:layout_constraintRight_toRightOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/tv_portrait"
+                    android:id="@+id/iv_portrait"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="15dp"
@@ -165,10 +166,21 @@
                     android:text="摩天轮"
                     android:textColor="@color/t1"
                     android:textSize="@dimen/t4"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_portrait"
-                    app:layout_constraintLeft_toRightOf="@id/tv_portrait"
-                    app:layout_constraintTop_toTopOf="@id/tv_portrait" />
+                    app:layout_constraintBottom_toBottomOf="@id/iv_portrait"
+                    app:layout_constraintLeft_toRightOf="@id/iv_portrait"
+                    app:layout_constraintTop_toTopOf="@id/iv_portrait" />
 
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rating="3"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_portrait"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_portrait"
+                    style="@style/GlimmerRatingBarStyle"
+                    android:progressTint="@color/t4"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_remark_content"
@@ -178,7 +190,7 @@
                     android:text="订单超时未评价，系统自动好评"
                     android:textColor="@color/t3"
                     android:textSize="@dimen/t2"
-                    app:layout_constraintTop_toBottomOf="@id/tv_portrait" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_portrait" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_remark_time"
