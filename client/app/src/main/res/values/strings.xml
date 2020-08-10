@@ -2,6 +2,8 @@
     <string name="app_name">Caocao</string>
 
 
-    <string name="goods_price">¥%1$s起</string>
+    <string name="goods_price_qi">¥%1$s起</string>
+    <string name="goods_price">¥%1$s</string>
     <string name="goods_distance">距您%1$skm</string>
+    <string name="good_spec_price_unit">%1$s/%2$s</string>
 </resources>

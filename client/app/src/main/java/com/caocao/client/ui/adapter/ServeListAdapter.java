@@ -51,7 +51,7 @@ public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder
 
         helper.setText(R.id.tv_serve_intro, item.goodsDetail);
 
-        helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price, item.goodsPrice));
+        helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price_qi, item.goodsPrice));
         helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
 
 

@@ -74,29 +74,20 @@ public class SecondLevelActivity extends BaseActivity {
         binding.secondServe.rvList.setAdapter(serveAdapter);
 
 
-        binding.scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                    //滑动到底部
-                    serveVM.goodsByCateMore(id);
-                }
-            }
-        });
 
 
         //刷新和加载
-//        binding.secondServe.refresh.setHeaderHeight(0);
-//        binding.secondServe.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//            }
-//
-//            @Override
-//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-//                serveVM.goodsByCateMore(id);
-//            }
-//        });
+        binding.refresh.setEnableRefresh(false);
+        binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                serveVM.goodsByCateMore(id);
+            }
+        });
     }
 
     private void sortView() {
@@ -138,7 +129,7 @@ public class SecondLevelActivity extends BaseActivity {
             } else {
                 serveAdapter.addData(goodsRes);
             }
-            RefreshUtils.setNoMore(binding.secondServe.refresh, indexGoods.getPage(), goodsRes.size());
+            RefreshUtils.setNoMore(binding.refresh, indexGoods.getPage(), goodsRes.size());
         });
 
     }

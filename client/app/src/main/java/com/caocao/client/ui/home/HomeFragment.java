@@ -33,6 +33,7 @@ import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
 import com.caocao.client.ui.serve.GoodsDetailsActivity;
 import com.caocao.client.ui.serve.SecondLevelActivity;
+import com.caocao.client.utils.RefreshUtils;
 import com.caocao.client.utils.location.LocationUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
 import com.caocao.client.utils.location.RxPermissionManager;
@@ -64,7 +65,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     private FragmentHomeBinding binding;
 
-    private HomeViewModel   homeVM;
+    private HomeViewModel homeVM;
     private HomeSortAdapter sortAdapter;
 
 
@@ -213,44 +214,34 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
         ServeListAdapter serveAdapter = new ServeListAdapter(R.layout.adapter_serve_item, null);
         binding.homeServe.rvList.setAdapter(serveAdapter);
 
-
         homeVM.homeIndexGoodsLiveData.observe(this, homeIndexGoods -> {
             List<GoodsResp> goodsRes = homeIndexGoods.getData();
-
             if (homeIndexGoods.getPage() == 1) {
                 serveAdapter.setNewData(goodsRes);
             } else {
-                if (goodsRes == null || goodsRes.size() == 0) {
-                    serveAdapter.loadMoreEnd();
-                    return;
-                }
                 serveAdapter.addData(goodsRes);
-                serveAdapter.loadMoreComplete();
             }
+            RefreshUtils.setNoMore(binding.refresh, homeIndexGoods.getPage(), goodsRes.size());
         });
 
-        serveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                int goodsId = serveAdapter.getData().get(position).goodsId;
-                Bundle bundle = new Bundle();
-                bundle.putInt("goodsId", goodsId);
-                ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
-            }
+        serveAdapter.setOnItemClickListener((adapter, view, position) -> {
+            int goodsId = serveAdapter.getData().get(position).goodsId;
+            Bundle bundle = new Bundle();
+            bundle.putInt("goodsId", goodsId);
+            ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
         });
-
 
 
         //刷新和加载
-        binding.homeServe.refresh.setHeaderHeight(0);
-        binding.homeServe.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        binding.refresh.setEnableRefresh(false);
+        binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
             }
 
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-//                serveVM.goodsByCateMore(id);
+                homeVM.homeIndexGoodsMore();
             }
         });
 
@@ -299,10 +290,6 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
                     binding.homeTop.rlSearch.setVisibility(View.VISIBLE);
                     binding.rlLogo.setVisibility(View.VISIBLE);
                 }
-
-                if (i1 == (view.getChildAt(0).getMeasuredHeight() - view.getMeasuredHeight())) {
-                    homeVM.homeIndexGoodsMore();
-                }
             }
         });
 
@@ -313,7 +300,6 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
         binding = FragmentHomeBinding.inflate(inflater);
         return binding.getRoot();
     }
-
 
 
     @Override

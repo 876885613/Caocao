@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_page"
@@ -51,9 +52,9 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:lines="1"
+            android:paddingLeft="35dp"
             android:textColor="@color/t1"
-            android:textSize="@dimen/t3"
-            android:paddingLeft="35dp" />
+            android:textSize="@dimen/t3" />
     </RelativeLayout>
 
 
@@ -72,49 +73,58 @@
             android:src="@mipmap/ic_home_log" />
     </RelativeLayout>
 
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/home_top"
-                layout="@layout/layout_home_top" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_sort"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_round_5_fff"
-                android:paddingLeft="12dp"
-                android:paddingTop="15dp"
-                android:paddingRight="12dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <include
-                android:id="@+id/home_consult"
-                layout="@layout/layout_home_consult" />
-
-            <include
-                android:id="@+id/home_sift"
-                layout="@layout/layout_home_sift" />
-
-            <include
-                android:id="@+id/home_serve"
-                layout="@layout/layout_home_serve" />
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+                <include
+                    android:id="@+id/home_top"
+                    layout="@layout/layout_home_top" />
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_round_5_fff"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="12dp" />
+
+                <include
+                    android:id="@+id/home_consult"
+                    layout="@layout/layout_home_consult" />
+
+                <include
+                    android:id="@+id/home_sift"
+                    layout="@layout/layout_home_sift" />
+
+                <include
+                    android:id="@+id/home_serve"
+                    layout="@layout/layout_home_serve" />
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlAccentColor="@color/t3"
+            app:srlPrimaryColor="@color/color_white" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

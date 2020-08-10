@@ -8,7 +8,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginRight="1dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_table_row_l"
+        android:background="#F8F8F8"
         android:gravity="center"
         android:text="服务名称" />
 
@@ -19,7 +19,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginTop="2dp"
         android:layout_weight="1"
+        android:background="#F8F8F8"
         android:gravity="center"
-        android:background="@drawable/bg_table_row_r"
         android:text="服务价格" />
 </TableRow>

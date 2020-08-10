@@ -75,7 +75,8 @@ public class LocationUtils {
 
             BaseApplication.sLatitude = latitude;
             BaseApplication.sLongitude = longitude;
-            BaseApplication.sRegion = province + "," + city + "," + district;
+//            BaseApplication.sRegion = province + "," + city + "," + district;
+            BaseApplication.sRegion =   "山东省,济南市,历下区";
 
             Message msg = new Message();
             msg.what = 200;
