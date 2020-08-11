@@ -144,7 +144,21 @@ public interface ApiService {
     @POST("api/customer/collectionGoods")
     Flowable<BaseResp> collectionGoods(@Field("goods_id") int goodsId);
 
+    /**
+     * 商户详情
+     *
+     * @param merchantId
+     * @return
+     */
     @FormUrlEncoded
     @POST("api/merchant/merchantDetail")
     Flowable<MerchantResp> merchantDetail(@Field("merchant_id") int merchantId);
+
+    /**
+     * 一级分类
+     *
+     * @return
+     */
+    @POST("api/service_cate/getCateList")
+    Flowable<SortResp> cateList();
 }

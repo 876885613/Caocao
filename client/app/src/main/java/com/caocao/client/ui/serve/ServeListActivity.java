@@ -1,4 +1,4 @@
-package com.caocao.client.ui.home;
+package com.caocao.client.ui.serve;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,10 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.databinding.ActivitySearchBinding;
+import com.caocao.client.databinding.LayoutRefreshListBinding;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.ServeListAdapter;
@@ -22,22 +21,24 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
 
-public class SearchActivity extends BaseActivity {
+public class ServeListActivity extends BaseActivity {
 
-    private ActivitySearchBinding binding;
-    private HomeViewModel homeVM;
+    private LayoutRefreshListBinding binding;
+
     private ServeListAdapter serveAdapter;
-    private String keyword;
+    private ServeViewModel serveVM;
+    private int id;
 
     @Override
     protected void initTitle() {
         new DefaultNavigationBar.Builder(this)
-                .setTitle("搜索")
+                .setTitle("服务列表")
                 .builder();
     }
 
     @Override
     protected void initView() {
+
         binding.rvList.setLayoutManager(new LinearLayoutManager(this));
 
         binding.rvList.addItemDecoration(new DividerItemDecoration(this,
@@ -58,41 +59,36 @@ public class SearchActivity extends BaseActivity {
         binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                serveVM.goodsByCate(id);
             }
 
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                homeVM.homeSearchGoodsMore(keyword);
+                serveVM.goodsByCateMore(id);
             }
         });
     }
 
     @Override
     protected void initData() {
-        keyword = getIntent().getStringExtra("keyword");
-        LogUtils.e(keyword);
+        id = getIntent().getIntExtra("id", 0);
+        serveVM = getViewModel(ServeViewModel.class);
+        serveVM.goodsByCate(id);
 
-        homeVM = getViewModel(HomeViewModel.class);
-        homeVM.homeSearchGoods(keyword);
-
-        homeVM.homeIndexGoodsLiveData.observe(this, searchGoods -> {
-            List<GoodsResp> goodsRes = searchGoods.getData();
-            if (searchGoods.getPage() == 1) {
-                serveAdapter.setNewData(goodsRes);
+        serveVM.indexGoodsLiveData.observe(this, goodsRes -> {
+            List<GoodsResp> goods = goodsRes.getData();
+            if (goodsRes.getPage() == 1) {
+                serveAdapter.setNewData(goods);
             } else {
-
                 serveAdapter.addData(goodsRes);
             }
-
-            RefreshUtils.setNoMore(binding.refresh, searchGoods.getPage(), goodsRes.size());
-
+            RefreshUtils.setNoMore(binding.refresh, goodsRes.getPage(), goods.size());
         });
-
     }
 
     @Override
     public View initLayout() {
-        binding = ActivitySearchBinding.inflate(getLayoutInflater());
+        binding = LayoutRefreshListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 }

@@ -35,4 +35,8 @@ public class SortResp extends BaseResp<List<SortResp>> {
 
     @SerializedName("cate_icon")
     public String cateIcon;
+
+    public List<SortResp> children;
+
+
 }

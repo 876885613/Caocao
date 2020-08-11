@@ -2,6 +2,7 @@ package com.caocao.client.ui.serve.googs;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -24,6 +25,7 @@ import com.caocao.client.ui.adapter.GoodsBannerAdapter;
 import com.caocao.client.ui.login.LoginUtils;
 import com.caocao.client.ui.serve.RemarkMoreActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
+import com.caocao.client.ui.serve.order.PlaceOrderActivity;
 import com.caocao.client.weight.CornerTransform;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.util.BannerUtils;
@@ -34,14 +36,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsDetailsActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityGoodsDetailsBinding binding;
-    private ServeViewModel              serveVM;
-    private int                         goodsId;
-    private GoodsDetailResp             goodsRes;
+    private ServeViewModel serveVM;
+    private int goodsId;
+    private GoodsDetailResp goodsRes;
 
     @Override
     protected void initTitle() {
@@ -54,6 +57,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected void initView() {
         binding.rlCollect.setOnClickListener(this);
         binding.tvStore.setOnClickListener(this);
+        binding.tvPlaceOrder.setOnClickListener(this);
     }
 
     @Override
@@ -210,8 +214,16 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.tv_store:
+                if (goodsRes.merchantType == 1) {
+                    return;
+                }
                 bundle.putInt("merchantId", goodsRes.merchantId);
                 ActivityUtils.startActivity(bundle, MerchantDetailsActivity.class);
+                break;
+            case R.id.tv_place_order:
+                bundle.putParcelableArrayList("goodsSpec", (ArrayList<? extends Parcelable>) goodsRes.goodsSpec);
+                bundle.putInt("goodsId", goodsRes.goodsId);
+                ActivityUtils.startActivity(bundle, PlaceOrderActivity.class);
                 break;
         }
     }

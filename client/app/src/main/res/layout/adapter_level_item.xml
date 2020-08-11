@@ -11,7 +11,7 @@
         android:button="@drawable/selector_level_label"
         android:textColor="@drawable/selector_text_order_tab"
         android:text="家政服务"
-        android:gravity="center"
-        android:checked="true"/>
+        android:clickable="false"
+        android:gravity="center"/>
 
 </LinearLayout>

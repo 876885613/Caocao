@@ -93,6 +93,14 @@
             android:name=".ui.serve.level.ServeMoreActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.serve.ServeListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.order.PlaceOrderActivity"
+            android:screenOrientation="portrait" />
+
         <!--    百度地图    -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

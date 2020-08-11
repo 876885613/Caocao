@@ -86,4 +86,10 @@ public class ServeViewModel extends BaseViewModel {
     public void merchantDetail(int merchantId) {
         request(api.merchantDetail(merchantId)).send(merchantLiveData);
     }
+
+
+    public void cateList(){
+        request(api.cateList()).send(sortLiveData);
+    }
+
 }

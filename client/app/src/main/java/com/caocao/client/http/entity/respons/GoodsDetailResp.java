@@ -1,5 +1,8 @@
 package com.caocao.client.http.entity.respons;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.caocao.client.http.entity.BaseResp;
 import com.google.gson.annotations.SerializedName;
 
@@ -88,7 +91,7 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
     @SerializedName("goods_spec")
     public List<GoodsSpec> goodsSpec;
 
-    public class GoodsSpec {
+    public class GoodsSpec implements Parcelable {
         public int    id;
         @SerializedName("goods_id")
         public int    goodsId;
@@ -98,5 +101,43 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
         public String specPrice;
         @SerializedName("spec_unit")
         public String specUnit;
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.id);
+            dest.writeInt(this.goodsId);
+            dest.writeString(this.specName);
+            dest.writeString(this.specPrice);
+            dest.writeString(this.specUnit);
+        }
+
+        public GoodsSpec() {
+        }
+
+        protected GoodsSpec(Parcel in) {
+            this.id = in.readInt();
+            this.goodsId = in.readInt();
+            this.specName = in.readString();
+            this.specPrice = in.readString();
+            this.specUnit = in.readString();
+        }
+
+        public final Creator<GoodsSpec> CREATOR = new Creator<GoodsSpec>() {
+            @Override
+            public GoodsSpec createFromParcel(Parcel source) {
+                return new GoodsSpec(source);
+            }
+
+            @Override
+            public GoodsSpec[] newArray(int size) {
+                return new GoodsSpec[size];
+            }
+        };
     }
 }

@@ -282,6 +282,7 @@
         </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_place_order"
             style="@style/ButtonStyle"
             android:layout_height="35dp"
             android:layout_marginLeft="18dp"

@@ -41,7 +41,7 @@ public class MerchantServeAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, GoodsResp item) {
         Glide.with(mContext).load(item.showImage)
-                . transform(new CornerTransform(mContext, SizeUtils.dp2px(2)))
+                .transform(new CornerTransform(mContext, SizeUtils.dp2px(2)))
                 .<AppCompatImageView>into(helper.getView(R.id.iv_thumb));
 
         helper.setText(R.id.tv_source, merchantType == 1 ? "个人" : "商家");
@@ -54,11 +54,9 @@ public class MerchantServeAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHo
 
         helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price_qi, item.goodsPrice));
 
-        if(!StringUtils.isEmpty(item.distance)){
-            helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
-        }else {
-            helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, "0"));
-        }
+
+        helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance,
+                StringUtils.isEmpty(item.distance) ? "0" : item.distance));
 
 
         GradientDrawable sourceDrawable = DrawableUtils.getDrawable(Color.parseColor("#49cbff"), ConvertUtils.dp2px(1));

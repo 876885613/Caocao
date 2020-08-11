@@ -19,17 +19,17 @@ public class RefreshUtils {
     //上拉加载刷新数据 分页工具
     public static void setNoMore(SmartRefreshLayout refresh, int page, int count) {
         if (page == 1) {
-            if (count == 0) {
+            if (count < 10) {
                 if (refresh.getState() == RefreshState.None) {
                     refresh.setNoMoreData(true);
                 } else {
                     refresh.finishRefreshWithNoMoreData();
                 }
-            } else {
+            }  else {
                 refresh.finishRefresh();
             }
         } else {
-            if (count == 0) {
+            if (count < 10) {
                 refresh.finishLoadMoreWithNoMoreData();
             } else {
                 refresh.finishLoadMore();
