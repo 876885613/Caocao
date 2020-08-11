@@ -4,8 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
+import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
+import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SortResp;
 
 /**
@@ -25,12 +28,22 @@ public class ServeViewModel extends BaseViewModel {
     public MutableLiveData<GoodsResp>       indexGoodsLiveData;
     public MutableLiveData<GoodsDetailResp> goodsDetailLiveData;
 
+    public MutableLiveData<RemarkResp> remarkLiveData;
+
+    public MutableLiveData<BaseResp>     collectionLiveData;
+    public MutableLiveData<MerchantResp> merchantLiveData;
+
     private int page;
 
     public ServeViewModel() {
         sortLiveData = new MutableLiveData<>();
         indexGoodsLiveData = new MutableLiveData<>();
         goodsDetailLiveData = new MutableLiveData<>();
+        remarkLiveData = new MutableLiveData<>();
+
+        collectionLiveData = new MutableLiveData<>();
+
+        merchantLiveData = new MutableLiveData<>();
     }
 
     public void secondSort(int pid) {
@@ -52,5 +65,25 @@ public class ServeViewModel extends BaseViewModel {
 
     public void goodsDetail(int goodsId) {
         request(api.goodsDetail(goodsId)).send(goodsDetailLiveData);
+    }
+
+
+    public void orderRemarkList(int goodId) {
+        page = 1;
+        request(api.orderRemarkList(goodId, page)).send(remarkLiveData, page);
+    }
+
+    public void orderRemarkListMore(int goodId) {
+        page++;
+        request(api.orderRemarkList(goodId, page)).send(remarkLiveData, page);
+    }
+
+
+    public void collectionGoods(int goodId) {
+        request(api.collectionGoods(goodId)).send(collectionLiveData);
+    }
+
+    public void merchantDetail(int merchantId) {
+        request(api.merchantDetail(merchantId)).send(merchantLiveData);
     }
 }

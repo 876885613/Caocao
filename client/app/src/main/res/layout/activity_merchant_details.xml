@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_page"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_round_5_fff"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="13dp"
+            tools:ignore="MissingConstraints">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="5:3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="家政保洁"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4"
+                app:layout_constraintTop_toBottomOf="@id/banner" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="打扫卫生，清洁服务"
+                android:textColor="@color/t2"
+                android:textSize="@dimen/t2"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="营业时间"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4"
+                app:layout_constraintTop_toBottomOf="@id/tv_intro" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_time_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="08:00-24:00"
+                android:textColor="@color/t2"
+                android:textSize="@dimen/t2"
+                app:layout_constraintBottom_toBottomOf="@id/tv_time"
+                app:layout_constraintLeft_toRightOf="@id/tv_time"
+                app:layout_constraintTop_toTopOf="@id/tv_time" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="店铺地址"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4"
+                app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="济南市历城区全福街道"
+                android:textColor="@color/t2"
+                android:textSize="@dimen/t2"
+                app:layout_constraintBottom_toBottomOf="@id/tv_address"
+                app:layout_constraintLeft_toRightOf="@id/tv_address"
+                app:layout_constraintTop_toTopOf="@id/tv_address" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_round_5_fff" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

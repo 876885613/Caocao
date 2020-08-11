@@ -1,12 +1,13 @@
-package com.caocao.client.ui.serve;
+package com.caocao.client.ui.serve.level;
 
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivitySecondLevelBinding;
@@ -15,6 +16,8 @@ import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
+import com.caocao.client.ui.serve.ServeViewModel;
+import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
 import com.caocao.client.utils.RefreshUtils;
 import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -74,7 +77,11 @@ public class SecondLevelActivity extends BaseActivity {
         binding.secondServe.rvList.setAdapter(serveAdapter);
 
 
-
+        serveAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("goodsId",serveAdapter.getData().get(position).goodsId);
+            ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
+        });
 
         //刷新和加载
         binding.refresh.setEnableRefresh(false);

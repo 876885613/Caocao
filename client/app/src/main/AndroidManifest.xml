@@ -69,12 +69,28 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.serve.GoodsDetailsActivity"
+            android:name=".ui.serve.googs.GoodsDetailsActivity"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name=".ui.serve.SecondLevelActivity"
+            android:name=".ui.serve.level.SecondLevelActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.RemarkMoreActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.googs.MerchantDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.serve.level.ServeMoreActivity"
             android:screenOrientation="portrait" />
 
         <!--    百度地图    -->

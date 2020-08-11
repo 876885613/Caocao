@@ -1,8 +1,11 @@
 package com.caocao.client.http.api;
 
+import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
+import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SortResp;
 
 import io.reactivex.Flowable;
@@ -106,9 +109,42 @@ public interface ApiService {
             @Field("page") int page
     );
 
-
+    /**
+     * 商品详情
+     *
+     * @param goodsId
+     * @return
+     */
     @FormUrlEncoded
     @POST("api/goods/getGoodsDetail")
     Flowable<GoodsDetailResp> goodsDetail(@Field("goods_id") int goodsId);
 
+
+    /**
+     * 评论列表
+     *
+     * @param goodsId
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/order_comment/getOrderCommentList")
+    Flowable<RemarkResp> orderRemarkList(
+            @Field("goods_id") int goodsId,
+            @Field("page") int page
+    );
+
+    /**
+     * 收藏服务 或 取消收藏服务
+     *
+     * @param goodsId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/customer/collectionGoods")
+    Flowable<BaseResp> collectionGoods(@Field("goods_id") int goodsId);
+
+    @FormUrlEncoded
+    @POST("api/merchant/merchantDetail")
+    Flowable<MerchantResp> merchantDetail(@Field("merchant_id") int merchantId);
 }

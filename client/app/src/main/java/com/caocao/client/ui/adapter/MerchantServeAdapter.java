@@ -8,11 +8,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
-import com.bumptech.glide.request.RequestOptions;
 import com.caocao.client.R;
-import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.utils.DrawableUtils;
 import com.caocao.client.weight.CornerTransform;
@@ -24,17 +22,19 @@ import java.util.List;
 /**
  * @ProjectName: Caocao
  * @Package: com.caocao.client.ui.adapter
- * @ClassName: ServeListAdapter
- * @Description: 服务列表Adapter
+ * @ClassName: MerchantServeAdapter
+ * @Description: 商家服务列表
  * @Author: XuYu
- * @CreateDate: 2020/8/4 16:50
+ * @CreateDate: 2020/8/11 16:18
  * @UpdateUser: 更新者
- * @UpdateDate: 2020/8/4 16:50
+ * @UpdateDate: 2020/8/11 16:18
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder> {
-    public ServeListAdapter(int layoutResId, @Nullable List<GoodsResp> data) {
+public class MerchantServeAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder> {
+    private int merchantType;
+
+    public MerchantServeAdapter(int layoutResId, @Nullable List<GoodsResp> data) {
         super(layoutResId, data);
     }
 
@@ -44,7 +44,7 @@ public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder
                 . transform(new CornerTransform(mContext, SizeUtils.dp2px(2)))
                 .<AppCompatImageView>into(helper.getView(R.id.iv_thumb));
 
-        helper.setText(R.id.tv_source, item.merchantType == 1 ? "个人" : "商家");
+        helper.setText(R.id.tv_source, merchantType == 1 ? "个人" : "商家");
 
         helper.setText(R.id.tv_title, item.goodsTitle);
 
@@ -53,7 +53,12 @@ public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder
         helper.setText(R.id.tv_serve_intro, item.goodsDetail);
 
         helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price_qi, item.goodsPrice));
-        helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
+
+        if(!StringUtils.isEmpty(item.distance)){
+            helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
+        }else {
+            helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, "0"));
+        }
 
 
         GradientDrawable sourceDrawable = DrawableUtils.getDrawable(Color.parseColor("#49cbff"), ConvertUtils.dp2px(1));
@@ -64,5 +69,9 @@ public class ServeListAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHolder
 
         GradientDrawable introDrawable = DrawableUtils.getDrawable(Color.parseColor("#f5f5f5"), ConvertUtils.dp2px(1));
         helper.getView(R.id.tv_serve_intro).setBackground(introDrawable);
+    }
+
+    public void setMerchantType(int merchantType) {
+        this.merchantType = merchantType;
     }
 }

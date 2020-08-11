@@ -40,7 +40,6 @@ public abstract class BaseActivity extends AppActivity {
     static final int DELAY = 2000;
 
 
-
     public BaseActivity mActivity;
 
     public MultipleStatusView mMultipleStatusView;
@@ -60,9 +59,9 @@ public abstract class BaseActivity extends AppActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(isTransparency){
+        if (isTransparency) {
             statusLan(Color.parseColor("#00000000"));
-        }else {
+        } else {
             statusLan(Color.parseColor("#FFFFFFFF"));
         }
 
@@ -197,6 +196,14 @@ public abstract class BaseActivity extends AppActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        StatusBarCompat.setStatusBarColor(getWindow(),color, true);
+        StatusBarCompat.setStatusBarColor(getWindow(), color, true);
+    }
+
+    public int getIntValue(String key) {
+        return getIntent().getIntExtra(key, 0);
+    }
+
+    public String getStringValue(String key) {
+        return getIntent().getStringExtra(key);
     }
 }

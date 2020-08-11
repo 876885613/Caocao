@@ -31,8 +31,9 @@ import com.caocao.client.ui.adapter.ADBannerAdapter;
 import com.caocao.client.ui.adapter.HomeBannerAdapter;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
-import com.caocao.client.ui.serve.GoodsDetailsActivity;
-import com.caocao.client.ui.serve.SecondLevelActivity;
+import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
+import com.caocao.client.ui.serve.level.SecondLevelActivity;
+import com.caocao.client.ui.serve.level.ServeMoreActivity;
 import com.caocao.client.utils.RefreshUtils;
 import com.caocao.client.utils.location.LocationUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
@@ -65,18 +66,13 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     private FragmentHomeBinding binding;
 
-    private HomeViewModel homeVM;
+    private HomeViewModel   homeVM;
     private HomeSortAdapter sortAdapter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        RxPermissionManager.requestPermissions(this, this,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-
 
         setOnHandlerListener(msg -> {
             String district = (String) msg.obj;
@@ -90,6 +86,13 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        RxPermissionManager.requestPermissions(this, this,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+    }
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
@@ -192,6 +195,10 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
         sortAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (sortAdapter.getData().get(position).cateName.equals("更多")) {
+                    ActivityUtils.startActivity(ServeMoreActivity.class);
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("title", sortAdapter.getData().get(position).cateName);
                 bundle.putInt("id", sortAdapter.getData().get(position).id);

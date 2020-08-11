@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:background="@drawable/bg_round_5_fff"
+    android:padding="10dp"
     tools:ignore="MissingConstraints">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -65,15 +64,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:ellipsize="end"
         android:paddingLeft="10dp"
         android:paddingTop="1dp"
         android:paddingRight="10dp"
         android:paddingBottom="1dp"
+        android:singleLine="true"
         android:text="专业保洁服务"
         android:textColor="@color/t2"
         android:textSize="@dimen/t2"
-        android:singleLine="true"
-        android:ellipsize="end"
         app:layout_constraintLeft_toRightOf="@id/tv_cate_name"
         app:layout_constraintTop_toTopOf="@id/tv_cate_name" />
 

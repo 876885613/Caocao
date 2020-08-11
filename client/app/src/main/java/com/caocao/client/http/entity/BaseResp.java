@@ -15,7 +15,7 @@ package com.caocao.client.http.entity;
 public class BaseResp<T> {
 
     private int    code;
-    private String message;
+    private String msg;
     private int page;
     private T      data;
 
@@ -27,12 +27,12 @@ public class BaseResp<T> {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String message) {
+        this.msg = message;
     }
 
     public int getPage() {
@@ -52,7 +52,7 @@ public class BaseResp<T> {
     public String toString() {
         return "AppResponseBody{" +
                 "code=" + code +
-                ", message='" + message + '\'' +
+                ", msg='" + msg + '\'' +
                 ", page='" + page + '\'' +
                 ", data=" + data +
                 '}';

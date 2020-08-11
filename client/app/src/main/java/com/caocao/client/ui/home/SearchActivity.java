@@ -1,9 +1,12 @@
 package com.caocao.client.ui.home;
 
+import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
@@ -11,18 +14,19 @@ import com.caocao.client.databinding.ActivitySearchBinding;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.ServeListAdapter;
-import com.caocao.client.utils.AdapterLoadMoreView;
+import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
 import com.caocao.client.weight.DividerItemDecoration;
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
 
 public class SearchActivity extends BaseActivity {
 
     private ActivitySearchBinding binding;
-    private HomeViewModel homeVM;
-    private ServeListAdapter serveAdapter;
-    private String keyword;
+    private HomeViewModel         homeVM;
+    private ServeListAdapter      serveAdapter;
+    private String                keyword;
 
     @Override
     protected void initTitle() {
@@ -40,9 +44,26 @@ public class SearchActivity extends BaseActivity {
         serveAdapter = new ServeListAdapter(R.layout.adapter_search_item, null);
         binding.rvList.setAdapter(serveAdapter);
 
-//        serveAdapter.setLoadMoreView(new AdapterLoadMoreView());
-        serveAdapter.setOnLoadMoreListener(() -> homeVM.homeSearchGoodsMore(keyword), binding.rvList);
 
+        serveAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("goodsId", serveAdapter.getData().get(position).goodsId);
+            ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
+        });
+
+
+        //刷新和加载
+        binding.refresh.setEnableRefresh(false);
+        binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                homeVM.homeSearchGoodsMore(keyword);
+            }
+        });
     }
 
     @Override

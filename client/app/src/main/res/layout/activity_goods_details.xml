@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_page"
-            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,7 +141,7 @@
                     android:textSize="@dimen/t4" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_all"
+                    android:id="@+id/tv_remark_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="查看全部"
@@ -171,16 +170,14 @@
                     app:layout_constraintTop_toTopOf="@id/iv_portrait" />
 
 
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/rating_bar"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:rating="3"
+                    android:src="@mipmap/ic_rating5"
                     app:layout_constraintBottom_toBottomOf="@id/iv_portrait"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/iv_portrait"
-                    style="@style/GlimmerRatingBarStyle"
-                    android:progressTint="@color/t4"/>
+                    app:layout_constraintTop_toTopOf="@id/iv_portrait" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_remark_content"
@@ -203,10 +200,13 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_remark_content" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_remark_img"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/bg_page"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:layout_constraintDimensionRatio="5:3"
                     app:layout_constraintTop_toBottomOf="@id/tv_remark_time" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -217,14 +217,13 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/color_white"
                 android:orientation="vertical"
-                android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingRight="15dp"
                 android:paddingBottom="15dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
                     android:text="服务详情"
                     android:textColor="@color/t1"
                     android:textSize="@dimen/t4" />
@@ -233,6 +232,7 @@
                     android:id="@+id/web_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     tools:ignore="WebViewLayout" />
             </LinearLayout>
 
@@ -262,17 +262,24 @@
             android:textColor="@color/t1"
             android:textSize="@dimen/t2" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/cb_collect"
+        <RelativeLayout
+            android:id="@+id/rl_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:drawableTop="@drawable/selector_goods_collect"
-            android:drawablePadding="2dp"
-            android:text="收藏"
-            android:button="@null"
-            android:textColor="@color/t1"
-            android:textSize="@dimen/t2" />
+            android:layout_marginLeft="18dp">
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:clickable="false"
+                android:drawableTop="@drawable/selector_goods_collect"
+                android:drawablePadding="2dp"
+                android:focusable="false"
+                android:text="收藏"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t2" />
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/ButtonStyle"

@@ -10,6 +10,7 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.caocao.client.R;
 import com.caocao.client.http.BaseRequest;
@@ -40,8 +41,6 @@ public class BaseApplication extends Application {
     //网络请求
     public static BaseRequest<ApiService> sHttpRequest;
 
-    //SharedPreferences 工具类
-    public static SPUtils SPUtils;
 
     public static String sRegion; //省市区
     public static double sLatitude;   //获取纬度信息
@@ -76,7 +75,8 @@ public class BaseApplication extends Application {
         initRequest("http://ccdj.jiajiayong.com/", ApiService.class);
 
         registerActivityLifecycleCallbacks(mCallbacks);
-        SPUtils = SPUtils.getInstance("caocao_client");
+
+        SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance("caocao_client"));
     }
 
 
