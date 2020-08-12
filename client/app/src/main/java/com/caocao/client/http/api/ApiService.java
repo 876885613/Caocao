@@ -1,6 +1,7 @@
 package com.caocao.client.http.api;
 
 import com.caocao.client.http.entity.BaseResp;
+import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
@@ -161,4 +162,16 @@ public interface ApiService {
      */
     @POST("api/service_cate/getCateList")
     Flowable<SortResp> cateList();
+
+    /**
+     * 地址列表
+     *
+     * @return
+     */
+    @POST("api/customer_address/getAddressList")
+    Flowable<AddressResp> addressList();
+
+
+    @POST("api/customer_address/createAddress")
+    Flowable<BaseResp> editAddress(@Body AddressResp address);
 }

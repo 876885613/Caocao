@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
+import com.caocao.client.http.entity.respons.AddressResp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,15 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<List<BaseResp>> orderLiveData;
 
+    public MutableLiveData<AddressResp> addressLiveData;
+
+    public MutableLiveData<BaseResp> editAddressLiveData;
+
     public MeViewModel() {
         orderLiveData = new MutableLiveData<>();
+        addressLiveData = new MutableLiveData<>();
+
+        editAddressLiveData = new MutableLiveData<>();
     }
 
     public void orderData() {
@@ -34,5 +42,13 @@ public class MeViewModel extends BaseViewModel {
             serveList.add(new BaseResp());
         }
         orderLiveData.setValue(serveList);
+    }
+
+    public void addressList() {
+        request(api.addressList()).send(addressLiveData);
+    }
+
+    public void editAddress(AddressResp address) {
+        request(api.editAddress(address)).send(editAddressLiveData);
     }
 }

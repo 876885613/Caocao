@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.caocao.client.http.entity.BaseResp;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
+public class GoodsDetailResp extends BaseResp<GoodsDetailResp> implements Parcelable{
 
     /**
      * goods_id : 66
@@ -91,7 +92,7 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
     @SerializedName("goods_spec")
     public List<GoodsSpec> goodsSpec;
 
-    public class GoodsSpec implements Parcelable {
+    public static class GoodsSpec implements Parcelable {
         public int    id;
         @SerializedName("goods_id")
         public int    goodsId;
@@ -128,7 +129,7 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
             this.specUnit = in.readString();
         }
 
-        public final Creator<GoodsSpec> CREATOR = new Creator<GoodsSpec>() {
+        public static final Creator<GoodsSpec> CREATOR = new Creator<GoodsSpec>() {
             @Override
             public GoodsSpec createFromParcel(Parcel source) {
                 return new GoodsSpec(source);
@@ -140,4 +141,77 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> {
             }
         };
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.goodsId);
+        dest.writeString(this.goodsTitle);
+        dest.writeString(this.goodsPrice);
+        dest.writeString(this.showImage);
+        dest.writeString(this.goodsTags);
+        dest.writeString(this.goodsDetail);
+        dest.writeInt(this.merchantId);
+        dest.writeString(this.goodsDetailImage);
+        dest.writeString(this.merchantName);
+        dest.writeInt(this.merchantType);
+        dest.writeString(this.username);
+        dest.writeString(this.merchantDetail);
+        dest.writeString(this.merchantTag);
+        dest.writeString(this.merchantImage);
+        dest.writeString(this.merchantProvince);
+        dest.writeString(this.merchantCity);
+        dest.writeString(this.merchantDistrict);
+        dest.writeString(this.addressDetail);
+        dest.writeString(this.cateName);
+        dest.writeInt(this.collectionStatus);
+        dest.writeStringList(this.bannerImage);
+        dest.writeList(this.goodsSpec);
+    }
+
+    public GoodsDetailResp() {
+    }
+
+    protected GoodsDetailResp(Parcel in) {
+        this.goodsId = in.readInt();
+        this.goodsTitle = in.readString();
+        this.goodsPrice = in.readString();
+        this.showImage = in.readString();
+        this.goodsTags = in.readString();
+        this.goodsDetail = in.readString();
+        this.merchantId = in.readInt();
+        this.goodsDetailImage = in.readString();
+        this.merchantName = in.readString();
+        this.merchantType = in.readInt();
+        this.username = in.readString();
+        this.merchantDetail = in.readString();
+        this.merchantTag = in.readString();
+        this.merchantImage = in.readString();
+        this.merchantProvince = in.readString();
+        this.merchantCity = in.readString();
+        this.merchantDistrict = in.readString();
+        this.addressDetail = in.readString();
+        this.cateName = in.readString();
+        this.collectionStatus = in.readInt();
+        this.bannerImage = in.createStringArrayList();
+        this.goodsSpec = new ArrayList<GoodsSpec>();
+        in.readList(this.goodsSpec, GoodsSpec.class.getClassLoader());
+    }
+
+    public static final Creator<GoodsDetailResp> CREATOR = new Creator<GoodsDetailResp>() {
+        @Override
+        public GoodsDetailResp createFromParcel(Parcel source) {
+            return new GoodsDetailResp(source);
+        }
+
+        @Override
+        public GoodsDetailResp[] newArray(int size) {
+            return new GoodsDetailResp[size];
+        }
+    };
 }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bg_round_5_fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="姓名："
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/tv_name"
+                android:background="@color/color_white"
+                android:hint="姓名"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_divider_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_tel"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="手机号："
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_tel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/tv_tel"
+                android:background="@color/color_white"
+                android:hint="将通过此号码联系你"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_divider_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/address"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="服务地址："
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/address"
+                android:gravity="center_vertical"
+                android:hint="选择省市区"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_divider_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_detail_address"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="详细地址："
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/tv_detail_address"
+                android:background="@color/color_white"
+                android:hint="输入详细地址"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t4" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_save_address"
+            style="@style/ButtonStyle"
+            android:text="保存并使用" />
+    </RelativeLayout>
+</RelativeLayout>

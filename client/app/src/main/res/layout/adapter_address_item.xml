@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_round_5_fff"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textColor="@color/t1"
+            android:textSize="@dimen/t4" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/tv_name"
+            android:text="186123456789"
+            android:textColor="@color/t1"
+            android:textSize="@dimen/t4" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="山东省济南市"
+        android:textColor="@color/t2"
+        android:textSize="@dimen/t2" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_divider_line"
+        android:layout_marginTop="12.5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:text="删除"
+            android:drawablePadding="8dp"
+            android:textSize="@dimen/t2"
+            android:textColor="@color/t3"
+            android:drawableLeft="@mipmap/ic_address_del"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="编辑"
+            android:layout_marginRight="25dp"
+            android:drawablePadding="8dp"
+            android:textSize="@dimen/t2"
+            android:textColor="@color/t3"
+            android:layout_toLeftOf="@id/tv_del"
+            android:drawableLeft="@mipmap/ic_address_edit"/>
+    </RelativeLayout>
+</LinearLayout>

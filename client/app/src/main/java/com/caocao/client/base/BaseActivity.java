@@ -3,6 +3,7 @@ package com.caocao.client.base;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +24,9 @@ import com.caocao.client.utils.AutoUtils;
 import com.coder.baselibrary.base.AppActivity;
 import com.coder.baselibrary.statusView.MultipleStatusView;
 import com.githang.statusbar.StatusBarCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ProjectName: Caocao
@@ -205,5 +209,12 @@ public abstract class BaseActivity extends AppActivity {
 
     public String getStringValue(String key) {
         return getIntent().getStringExtra(key);
+    }
+
+    public <T extends Parcelable> List<T> getParcelableArrayListExtra(String key) {
+        return getIntent().getParcelableArrayListExtra(key);
+    }
+    public <T extends Parcelable> T getParcelableExtra(String key) {
+        return getIntent().getParcelableExtra(key);
     }
 }
