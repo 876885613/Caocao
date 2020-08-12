@@ -1,17 +1,23 @@
 package com.caocao.client.ui.me.address;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityEditAddressBinding;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.me.MeViewModel;
+import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 
 /**
  * @ProjectName: Caocao
@@ -28,11 +34,11 @@ import com.caocao.client.ui.me.MeViewModel;
 public class EditAddressActivity extends BaseActivity implements View.OnClickListener, OnAddressCallBackListener {
 
     //1：编辑 0：添加
-    private int                        source;
+    private int source;
     private ActivityEditAddressBinding binding;
-    private LocalParseUtils            localParseUtils;
-    private MeViewModel                meVM;
-    private AddressResp                address;
+    private LocalParseUtils localParseUtils;
+    private MeViewModel meVM;
+    private AddressResp address;
 
 
     @Override
@@ -41,7 +47,6 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
         localParseUtils = LocalParseUtils.getInstance(this);
         localParseUtils.initAddressData();
 
-        address = new AddressResp();
     }
 
     @Override
@@ -56,20 +61,52 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     protected void initView() {
         binding.tvAddress.setOnClickListener(this);
         binding.tvSaveAddress.setOnClickListener(this);
+
+        binding.etName.addTextChangedListener(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                address.name = s.toString();
+            }
+        });
+
+        binding.etTel.addTextChangedListener(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                address.phone = s.toString();
+            }
+        });
+
+        binding.etDetailAddress.addTextChangedListener(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                address.detail = s.toString();
+            }
+        });
+
     }
 
     @Override
     protected void initData() {
+
+
         if (source == 1) {
-            AddressResp address = getParcelableExtra("address");
+            address = getParcelableExtra("address");
             binding.etName.setText(address.name);
             binding.etTel.setText(address.phone);
             binding.tvAddress.setText(address.province + address.city + address.area);
             binding.etDetailAddress.setText(address.detail);
+        } else {
+            address = new AddressResp();
         }
 
         meVM = getViewModel(MeViewModel.class);
 
+
+        meVM.editAddressLiveData.observe(this, baseRes -> {
+            ToastUtils.showShort(baseRes.getMsg());
+            setResult(200);
+            finish();
+        });
     }
 
     @Override
@@ -92,9 +129,26 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
 
 
     private void editAddress() {
+        if (StringUtils.isEmpty(address.name)) {
+            ToastUtils.showShort("请输入姓名");
+            return;
+        }
 
-        address.name = binding.etName.getText().toString();
-        address.phone = binding.etTel.getText().toString();
+        if (StringUtils.isEmpty(address.phone) || !RegexUtils.isMobileExact(address.phone)) {
+            ToastUtils.showShort("请输入正确的手机号");
+            return;
+        }
+
+        if (StringUtils.isEmpty(address.province + address.city + address.area)) {
+            ToastUtils.showShort("请选择省市区");
+            return;
+        }
+        if (StringUtils.isEmpty(address.detail)) {
+            ToastUtils.showShort("请输入详细地址");
+            return;
+        }
+
+        meVM.editAddress(address);
     }
 
 

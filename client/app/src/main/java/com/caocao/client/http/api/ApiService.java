@@ -171,7 +171,21 @@ public interface ApiService {
     @POST("api/customer_address/getAddressList")
     Flowable<AddressResp> addressList();
 
-
+    /**
+     * 编辑地址
+     *
+     * @param address
+     * @return
+     */
     @POST("api/customer_address/createAddress")
     Flowable<BaseResp> editAddress(@Body AddressResp address);
+
+    /**
+     * 删除地址
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/customer_address/delAddress")
+    Flowable<BannerResp> deleteAddress(@Field("id") int id);
 }

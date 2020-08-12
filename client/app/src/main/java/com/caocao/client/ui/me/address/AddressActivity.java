@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityAddressBinding;
@@ -20,6 +21,8 @@ import com.caocao.client.ui.adapter.ServeListAdapter;
 import com.caocao.client.ui.me.MeViewModel;
 import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.coder.baselibrary.dialog.AlertDialog;
+import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
@@ -38,8 +41,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 public class AddressActivity extends BaseActivity {
 
     private ActivityAddressBinding binding;
-    private MeViewModel            meVM;
-    private AddressAdapter         addressAdapter;
+    private MeViewModel meVM;
+    private AddressAdapter addressAdapter;
 
     //1 ： 订单 0：个人信息
     private int source;
@@ -86,16 +89,33 @@ public class AddressActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.tv_del:
+                        int id = addressAdapter.getData().get(position).id;
+                        showDelDialog(id);
                         break;
                     case R.id.tv_edit:
                         Bundle bundle = new Bundle();
                         bundle.putInt("source", 1);
-                        bundle.putParcelable("address",addressAdapter.getData().get(position));
-                        ActivityUtils.startActivity(bundle,EditAddressActivity.class);
+                        bundle.putParcelable("address", addressAdapter.getData().get(position));
+                        ActivityUtils.startActivityForResult(bundle, AddressActivity.this, EditAddressActivity.class, 200);
                         break;
                 }
             }
         });
+    }
+
+    private void showDelDialog(int id) {
+        new AlertDialog.Builder(this)
+                .setView(R.layout.dialog_general)
+                .setText(R.id.tv_title, "确认要删除吗？")
+                .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
+
+                    @Override
+                    public void onClickCall(View v) {
+                        meVM.deleteAddress(id);
+                    }
+                })
+                .setOnClickListener(R.id.tv_cancel, null)
+                .show();
     }
 
     @Override
@@ -108,11 +128,23 @@ public class AddressActivity extends BaseActivity {
             addressAdapter.setNewData(addressRes.getData());
         });
 
+        meVM.editAddressLiveData.observe(this, delRes -> {
+            ToastUtils.showShort(delRes.getMsg());
+            meVM.addressList();
+        });
     }
 
     @Override
     public View initLayout() {
         binding = ActivityAddressBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200 && resultCode == 200) {
+            meVM.addressList();
+        }
     }
 }

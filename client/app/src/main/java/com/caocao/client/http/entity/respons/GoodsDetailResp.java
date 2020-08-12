@@ -21,7 +21,7 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class GoodsDetailResp extends BaseResp<GoodsDetailResp> implements Parcelable{
+public class GoodsDetailResp extends BaseResp<GoodsDetailResp> implements Parcelable {
 
     /**
      * goods_id : 66
@@ -49,53 +49,53 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> implements Parcel
      */
 
     @SerializedName("goods_id")
-    public int             goodsId;
+    public int goodsId;
     @SerializedName("goods_title")
-    public String          goodsTitle;
+    public String goodsTitle;
     @SerializedName("goods_price")
-    public String          goodsPrice;
+    public String goodsPrice;
     @SerializedName("show_image")
-    public String          showImage;
+    public String showImage;
     @SerializedName("goods_tags")
-    public String          goodsTags;
+    public String goodsTags;
     @SerializedName("goods_detail")
-    public String          goodsDetail;
+    public String goodsDetail;
     @SerializedName("merchant_id")
-    public int             merchantId;
+    public int merchantId;
     @SerializedName("goods_detail_image")
-    public String          goodsDetailImage;
+    public String goodsDetailImage;
     @SerializedName("merchant_name")
-    public String          merchantName;
+    public String merchantName;
     @SerializedName("merchant_type")
-    public int             merchantType;
-    public String          username;
+    public int merchantType;
+    public String username;
     @SerializedName("merchant_detail")
-    public String          merchantDetail;
+    public String merchantDetail;
     @SerializedName("merchant_tag")
-    public String          merchantTag;
+    public String merchantTag;
     @SerializedName("merchant_image")
-    public String          merchantImage;
+    public String merchantImage;
     @SerializedName("merchant_province")
-    public String          merchantProvince;
+    public String merchantProvince;
     @SerializedName("merchant_city")
-    public String          merchantCity;
+    public String merchantCity;
     @SerializedName("merchant_district")
-    public String          merchantDistrict;
+    public String merchantDistrict;
     @SerializedName("address_detail")
-    public String          addressDetail;
+    public String addressDetail;
     @SerializedName("cate_name")
-    public String          cateName;
+    public String cateName;
     @SerializedName("collection_status")
-    public int             collectionStatus;
+    public int collectionStatus;
     @SerializedName("banner_image")
-    public List<String>    bannerImage;
+    public List<String> bannerImage;
     @SerializedName("goods_spec")
     public List<GoodsSpec> goodsSpec;
 
     public static class GoodsSpec implements Parcelable {
-        public int    id;
+        public int id;
         @SerializedName("goods_id")
-        public int    goodsId;
+        public int goodsId;
         @SerializedName("spec_name")
         public String specName;
         @SerializedName("spec_price")
@@ -103,6 +103,7 @@ public class GoodsDetailResp extends BaseResp<GoodsDetailResp> implements Parcel
         @SerializedName("spec_unit")
         public String specUnit;
 
+        public int specNum;
 
         @Override
         public int describeContents() {

@@ -51,4 +51,8 @@ public class MeViewModel extends BaseViewModel {
     public void editAddress(AddressResp address) {
         request(api.editAddress(address)).send(editAddressLiveData);
     }
+
+    public void deleteAddress(int id) {
+        request(api.deleteAddress(id)).send(editAddressLiveData);
+    }
 }
