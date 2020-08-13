@@ -2,14 +2,10 @@ package com.caocao.client.ui.me.address;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
@@ -18,6 +14,7 @@ import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.me.MeViewModel;
 import com.caocao.client.ui.wrapper.TextWatcherWrapper;
+import com.caocao.client.utils.LocalParseUtils;
 
 /**
  * @ProjectName: Caocao
@@ -44,7 +41,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        localParseUtils = LocalParseUtils.getInstance(this);
+        localParseUtils = LocalParseUtils.getInstance(getApplicationContext());
         localParseUtils.initAddressData();
 
     }
@@ -119,7 +116,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_address:
-                localParseUtils.showAddressDialog(this);
+                localParseUtils.showAddressDialog(this,this);
                 break;
             case R.id.tv_save_address:
                 editAddress();
@@ -129,28 +126,8 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
 
 
     private void editAddress() {
-        if (StringUtils.isEmpty(address.name)) {
-            ToastUtils.showShort("请输入姓名");
-            return;
-        }
-
-        if (StringUtils.isEmpty(address.phone) || !RegexUtils.isMobileExact(address.phone)) {
-            ToastUtils.showShort("请输入正确的手机号");
-            return;
-        }
-
-        if (StringUtils.isEmpty(address.province + address.city + address.area)) {
-            ToastUtils.showShort("请选择省市区");
-            return;
-        }
-        if (StringUtils.isEmpty(address.detail)) {
-            ToastUtils.showShort("请输入详细地址");
-            return;
-        }
-
         meVM.editAddress(address);
     }
-
 
     @Override
     public void onAddress(String province, String city, String area) {

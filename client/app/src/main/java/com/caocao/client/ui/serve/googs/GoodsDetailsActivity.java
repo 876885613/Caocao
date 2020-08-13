@@ -73,7 +73,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         remarkView();
 
-        serveVM.collectionLiveData.observe(this, collectionRes -> {
+        serveVM.baseLiveData.observe(this, collectionRes -> {
             ToastUtils.showShort(collectionRes.getMsg());
             binding.cbCollect.setChecked(!binding.cbCollect.isChecked());
         });
@@ -86,7 +86,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
             RemarkResp remark = remarkRes.getData().get(0);
-            binding.tvRemark.setText(getString(R.string.good_remark_num, remarkRes.getData().size()));
+            binding.tvRemark.setText(getString(R.string.goods_remark_num, remarkRes.getData().size()));
             Glide.with(this)
                     .load(remark.headimgurl)
                     .placeholder(R.mipmap.ic_default_portrait)
@@ -178,7 +178,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             }
 
             tvSpecName.setText(goodsSpecs.get(i).specName);
-            tvSpecPrice.setText(getString(R.string.good_spec_price_unit, goodsSpecs.get(i).specPrice, goodsSpecs.get(i).specUnit));
+            tvSpecPrice.setText(getString(R.string.goods_spec_price_unit, goodsSpecs.get(i).specPrice, goodsSpecs.get(i).specUnit));
             binding.table.addView(view);
         }
     }

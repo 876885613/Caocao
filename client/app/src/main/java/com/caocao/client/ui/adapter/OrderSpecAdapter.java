@@ -24,7 +24,7 @@ public class OrderSpecAdapter extends BaseQuickAdapter<GoodsDetailResp.GoodsSpec
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailResp.GoodsSpec item) {
         helper.setText(R.id.tv_time, item.specName);
-        helper.setText(R.id.tv_price, mContext.getString(R.string.good_spec_price_unit_symbol, item.specPrice, item.specUnit));
+        helper.setText(R.id.tv_price, mContext.getString(R.string.goods_spec_price_unit_symbol, item.specPrice, item.specUnit));
 
         if (!(position == helper.getAdapterPosition())) {
             item.specNum = 0;

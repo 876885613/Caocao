@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -23,61 +22,61 @@ import com.caocao.client.R;
 
 public class SuperTextView extends RelativeLayout {
 
-    private int mLeftTextColor     = Color.parseColor("#2a2a2a");
+    private int mLeftTextColor = Color.parseColor("#2a2a2a");
     private int mLeftTextHintColor = Color.parseColor("#999999");
 
-    private int mRightTextColor     = Color.parseColor("#2a2a2a");
+    private int mRightTextColor = Color.parseColor("#2a2a2a");
     private int mRightTextHintColor = Color.parseColor("#999999");
 
     private int mBottomDividerColor = Color.parseColor("#e5e5e5");
 
-    private int    mLeftIconRes;
-    private int    mRightIconRes;
-    private int    mLeftTextRes;
-    private int    mLeftTextResL;
+    private int mLeftIconRes;
+    private int mRightIconRes;
+    private int mLeftTextRes;
+    private int mLeftTextResL;
     private String mLeftText;
     private String mLeftTextL;
-    private int    mRightTextRes;
+    private int mRightTextRes;
     private String mRightText;
-    private float  mLeftTextSize;
+    private float mLeftTextSize;
 
     private float mRightTextSize;
 
-    private int   mLeftTextColorRes;
-    private int   mRightTextColorRes;
-    private int   mLeftTextHintColorRes;
-    private int   mRightTextHintColorRes;
-    private int   mLeftTvDrawableLeftRes;
-    private int   mLeftTvDrawableRightRes;
-    private int   mBottomDividerColorRes;
+    private int mLeftTextColorRes;
+    private int mRightTextColorRes;
+    private int mLeftTextHintColorRes;
+    private int mRightTextHintColorRes;
+    private int mLeftTvDrawableLeftRes;
+    private int mLeftTvDrawableRightRes;
+    private int mBottomDividerColorRes;
     private float mBottomDividerHeight;
-    private int   mBottomDividerHeightRes;
+    private int mBottomDividerHeightRes;
     private float mBottomDividerMarginLeft;
-    private int   mBottomDividerMarginLeftRes;
+    private int mBottomDividerMarginLeftRes;
     private float mBottomDividerMarginRight;
-    private int   mBottomDividerMarginRightRes;
-    private int   mBottomDividerVisibility;
+    private int mBottomDividerMarginRightRes;
+    private int mBottomDividerVisibility;
 
     private String mLeftTextHint;
-    private int    mLeftTextHintRes;
+    private int mLeftTextHintRes;
     private String mRightTextHint;
-    private int    mRightTextHintRes;
-    private int    mRightTvDrawableLeftRes;
-    private int    mRightTvDrawableRightRes;
-    private int    mRightEditRes;
+    private int mRightTextHintRes;
+    private int mRightTvDrawableLeftRes;
+    private int mRightTvDrawableRightRes;
+    private int mRightEditRes;
     private String mRightEdit;
-    private int    mRightEditHintRes;
+    private int mRightEditHintRes;
     private String mRightEditHint;
 
 
-    private AppCompatTextView  tvRightView;
-    private AppCompatTextView  tvLeftView;
-    private AppCompatEditText  etRightView;
+    private AppCompatTextView tvRightView;
+    private AppCompatTextView tvLeftView;
+    private AppCompatEditText etRightView;
     private AppCompatImageView ivRightView;
-    private int                inputType;
-    private AppCompatTextView  tvLeftViewL;
-    private int                mLeftTextMarginLRes;
-    private float              mLeftTextMarginL;
+    private int inputType;
+    private AppCompatTextView tvLeftViewL;
+    private int mLeftTextMarginLRes;
+    private float mLeftTextMarginL;
 
     public SuperTextView(Context context) {
         this(context, null);
@@ -272,7 +271,7 @@ public class SuperTextView extends RelativeLayout {
 
         if (mRightTextColorRes != 0) {
             tvRightView.setTextColor(getResources().getColor(mRightTextColorRes));
-        }else {
+        } else {
             tvRightView.setTextColor(mRightTextColor);
         }
 
@@ -344,6 +343,10 @@ public class SuperTextView extends RelativeLayout {
         return tvRightView;
     }
 
+    public void setRightTextOnClickListener(OnClickListener listener) {
+        tvRightView.setOnClickListener(listener);
+    }
+
     public AppCompatTextView getLeftTextView() {
         return tvLeftView;
     }
@@ -351,6 +354,11 @@ public class SuperTextView extends RelativeLayout {
     public AppCompatEditText getRightEditView() {
         return etRightView;
     }
+
+    public void setRightEditTextWatcher(TextWatcher watcher){
+        etRightView.addTextChangedListener(watcher);
+    }
+
 
     public AppCompatImageView getRightImageView() {
         return ivRightView;

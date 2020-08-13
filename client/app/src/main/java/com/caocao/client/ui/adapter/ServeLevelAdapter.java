@@ -35,8 +35,6 @@ public class ServeLevelAdapter extends BaseQuickAdapter<SortResp, BaseViewHolder
         helper.setText(R.id.cb_level, item.cateName);
         helper.setChecked(R.id.cb_level, position == helper.getAdapterPosition());
 
-        LogUtils.e(position == helper.getAdapterPosition());
-        LogUtils.e(position );
         LogUtils.e(helper.getAdapterPosition() );
     }
 

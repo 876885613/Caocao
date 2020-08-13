@@ -2,18 +2,12 @@ package com.caocao.client.http;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.JsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.caocao.client.R;
 import com.caocao.client.http.entity.BaseResp;
 
 import org.reactivestreams.Subscription;
-
-import java.lang.reflect.Type;
 
 import io.reactivex.FlowableSubscriber;
 
@@ -70,6 +64,8 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
             if (resp.getCode() == 100) {
                 resp.setPage(page);
                 liveData.setValue(t);
+            } else if (resp.getCode() == 101) {
+                ToastUtils.showShort(resp.getMsg());
             }
         }
     }

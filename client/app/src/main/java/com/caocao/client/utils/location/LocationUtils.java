@@ -22,9 +22,9 @@ public class LocationUtils {
 
 
     public static LocationUtils getInstance(Context context) {
-        if (sLocationClient == null) {
+        if (sInstance == null) {
             synchronized (LocationUtils.class) {
-                if (sLocationClient == null) {
+                if (sInstance == null) {
                     sInstance = new LocationUtils(context);
                 }
             }

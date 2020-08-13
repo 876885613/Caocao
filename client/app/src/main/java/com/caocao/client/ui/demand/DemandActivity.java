@@ -1,24 +1,44 @@
 package com.caocao.client.ui.demand;
 
 
+import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import androidx.annotation.Nullable;
+
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityDemandBinding;
+import com.caocao.client.http.entity.request.DemandReq;
+import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.me.address.OnAddressCallBackListener;
+import com.caocao.client.ui.serve.ServeViewModel;
+import com.caocao.client.ui.wrapper.TextWatcherWrapper;
+import com.caocao.client.utils.DateUtils;
+import com.caocao.client.utils.LocalParseUtils;
 import com.coder.baselibrary.dialog.AlertDialog;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-public class DemandActivity extends BaseActivity implements View.OnClickListener {
+public class DemandActivity extends BaseActivity implements View.OnClickListener, OnSortCallBackListener, OnAddressCallBackListener {
 
     private ActivityDemandBinding binding;
     private DemandViewModel demandVm;
+    private ServeViewModel serveVM;
+    private LocalParseUtils localParseUtils;
+    private DemandReq demandReq;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        localParseUtils = LocalParseUtils.getInstance(getApplicationContext());
+        localParseUtils.initAddressData();
+        super.onCreate(savedInstanceState);
+        demandReq = new DemandReq();
+    }
 
     @Override
     protected void initTitle() {
@@ -29,11 +49,111 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initView() {
-        binding.stvSort.getRightTextView().setOnClickListener(view -> selectSortDialog());
         binding.stvMakeSum.getLeftTextView().setOnClickListener(view -> showHintDialog("关于预约金",
                 "预约金是您预先支付的定金，您交付后，平台将暂时替您保管，在您确认完成需求后，在将钱付给服务人员，需求如果为完成，将退还给你。"));
-        binding.stvServeTime.getRightTextView().setOnClickListener(view -> selectServeTimeDialog());
 
+        binding.stvSort.setOnClickListener(this);
+
+
+        binding.stvMakeSum.setRightEditTextWatcher(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.reservePrice = s.toString();
+            }
+        });
+
+        binding.stvExpectSum.setRightEditTextWatcher(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.expectedPrice = s.toString();
+            }
+        });
+
+        binding.stvIndate.setRightTextOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localParseUtils.showServeTimeDialog(DemandActivity.this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        try {
+                            String YMD = localParseUtils.getServeYMD().get(options1);
+                            String hour = localParseUtils.getServeHour().get(options2);
+                            String min = localParseUtils.getServeMin().get(options3);
+                            binding.stvIndate.getRightTextView().setText(getString(R.string.goods_serve_time, YMD, hour, min));
+                            Date endDate = DateUtils.stringToDate(getString(R.string.goods_serve_time, YMD, hour, min),
+                                    "yyyy-MM-dd  HH:mm");
+                            demandReq.endTime = endDate;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+
+        binding.etDemandContent.setContentTextWatcher(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.demandDepict = s.toString();
+            }
+        });
+
+        binding.stvServeTime.setRightTextOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localParseUtils.showServeTimeDialog(DemandActivity.this,new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        try {
+                            String YMD = localParseUtils.getServeYMD().get(options1);
+                            String hour = localParseUtils.getServeHour().get(options2);
+                            String min = localParseUtils.getServeMin().get(options3);
+                            binding.stvServeTime.getRightTextView().setText(getString(R.string.goods_serve_time, YMD, hour, min));
+                            Date endDate = DateUtils.stringToDate(getString(R.string.goods_serve_time, YMD, hour, min),
+                                    "yyyy-MM-dd  HH:mm");
+                            demandReq.serviceTime = endDate;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+
+        binding.stvContacts.setRightEditTextWatcher(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.contactPerson = s.toString();
+            }
+        });
+
+        binding.stvTel.setRightEditTextWatcher(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.mobile = s.toString();
+            }
+        });
+
+        binding.stvMakeAddress.setRightTextOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localParseUtils.showAddressDialog(DemandActivity.this, DemandActivity.this);
+            }
+        });
+
+        binding.etAddress.addTextChangedListener(new TextWatcherWrapper() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                demandReq.address = s.toString();
+            }
+        });
+
+        binding.tvRelease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                demandVm.createDemand(demandReq);
+            }
+        });
     }
 
 
@@ -49,8 +169,22 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initData() {
+        serveVM = getViewModel(ServeViewModel.class);
         demandVm = getViewModel(DemandViewModel.class);
+
+        serveVM.cateList();
+
+        serveVM.sortLiveData.observe(this, sortResp -> {
+            localParseUtils.buildSortData(sortResp);
+        });
+
+        demandVm.baseResp.observe(this, demandReq -> {
+            LogUtils.e(demandReq);
+
+        });
+
     }
+
 
     @Override
     public View initLayout() {
@@ -61,83 +195,24 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.stv_sort:
+                localParseUtils.showSortDialog(this,this);
+                break;
         }
     }
 
 
-    //分类选择监听器
-    OnOptionsSelectListener sortSelectListener = (options1, option2, options3, v) -> {
-        //返回的分别是三个级别的选中位置
-//                String tx = options1Items.get(options1).getPickerViewText()
-//                        + options2Items.get(options1).get(option2)
-//                        + options3Items.get(options1).get(option2).get(options3).getPickerViewText();
-////                tvOptions.setText(tx);
-    };
-
-    //服务时间选择监听器
-    OnOptionsSelectListener serveTimeSelectListener = (options1, options2, options3, v) -> {
-
-//            String str = "food:" + food.get(options1)
-//                    + "\nclothes:" + clothes.get(options2)
-//                    + "\ncomputer:" + computer.get(options3);
-//
-//            Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
-    };
-
-    private void selectSortDialog() {
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, sortSelectListener)
-                .setSubmitColor(getResources().getColor(R.color.color_theme))
-                .setCancelColor(getResources().getColor(R.color.color_theme))
-                .setTitleText("请选择")
-                .setTitleColor(getResources().getColor(R.color.t1))
-                .setLineSpacingMultiplier(2f)
-                .build();
-        pvOptions.setPicker(getFirstSort(), getSecondSort(), getThreeSort());
-        pvOptions.show();
+    @Override
+    public void onSort(SortResp sort1, SortResp sort2, SortResp sort3) {
+        demandReq.cateId = sort3.id;
+        binding.stvSort.getRightTextView().setText(sort3.cateName);
     }
 
-
-    private void selectServeTimeDialog() {
-        OptionsPickerView pvNoOptions = new OptionsPickerBuilder(this, serveTimeSelectListener)
-                .setSubmitColor(getResources().getColor(R.color.color_theme))
-                .setCancelColor(getResources().getColor(R.color.color_theme))
-                .setTitleText("请选择")
-                .setTitleColor(getResources().getColor(R.color.t1))
-                .setLineSpacingMultiplier(2f)
-                .build();
-
-        pvNoOptions.setNPicker(demandVm.getYMD(), demandVm.getHour(), demandVm.getMin());
-        pvNoOptions.show();
-    }
-
-
-    private List<String> getFirstSort() {
-        List<String> sort = new ArrayList<>();
-        sort.add("消毒杀菌");
-        sort.add("窗帘清洗");
-        sort.add("洗衣机清洗");
-        sort.add("油烟机清洗");
-        sort.add("冰箱清洗");
-        return sort;
-    }
-
-    private List<List<String>> getSecondSort() {
-        List<List<String>> sort = new ArrayList<>();
-        sort.add(getFirstSort());
-        sort.add(getFirstSort());
-        sort.add(getFirstSort());
-        sort.add(getFirstSort());
-        sort.add(getFirstSort());
-        return sort;
-    }
-
-    private List<List<List<String>>> getThreeSort() {
-        List<List<List<String>>> sort = new ArrayList<>();
-        sort.add(getSecondSort());
-        sort.add(getSecondSort());
-        sort.add(getSecondSort());
-        sort.add(getSecondSort());
-        sort.add(getSecondSort());
-        return sort;
+    @Override
+    public void onAddress(String province, String city, String area) {
+        demandReq.province = province;
+        demandReq.city = city;
+        demandReq.area = area;
+        binding.stvMakeAddress.getRightTextView().setText(province + city + area);
     }
 }

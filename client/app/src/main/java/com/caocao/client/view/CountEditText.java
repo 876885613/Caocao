@@ -13,9 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.caocao.client.R;
-
 
 
 public class CountEditText extends RelativeLayout {
@@ -57,10 +55,10 @@ public class CountEditText extends RelativeLayout {
             hint = typedArray.getString(R.styleable.CountEditText_etHint);
             etContent.setHint(hint);
             //提示文字颜色
-            etContent.setHintTextColor(typedArray.getColor(R.styleable.CountEditText_etHintColor, Color.rgb(155,155,155)));
+            etContent.setHintTextColor(typedArray.getColor(R.styleable.CountEditText_etHintColor, Color.rgb(155, 155, 155)));
             //最小高度
-            etContent.setMinHeight(typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etMinHeight, (int)dp2px(60)));
-            etContent.setMinimumHeight(typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etMinHeight, (int)dp2px(60)));
+            etContent.setMinHeight(typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etMinHeight, (int) dp2px(60)));
+            etContent.setMinimumHeight(typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etMinHeight, (int) dp2px(60)));
             //最大字符
             MaxNum = typedArray.getInt(R.styleable.CountEditText_etMaxLength, 100);
             //横线颜色
@@ -69,30 +67,30 @@ public class CountEditText extends RelativeLayout {
             vLineUp.setBackgroundColor(LineColor);
             //输入文字大小
             etContent.setTextSize(px2sp(context,
-                    typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etTextSize,26)));
+                    typedArray.getDimensionPixelOffset(R.styleable.CountEditText_etTextSize, 26)));
             //输入文字颜色
             TextColor = typedArray.getColor(R.styleable.CountEditText_etTextColor, Color.BLACK);
             etContent.setTextColor(TextColor);
             //设置提示统计文字大小
             tvNum.setTextSize(px2sp(context,
-                    typedArray.getDimensionPixelSize(R.styleable.CountEditText_etPromptTextSize,12)));
+                    typedArray.getDimensionPixelSize(R.styleable.CountEditText_etPromptTextSize, 12)));
             //设置提示统计文字颜色
             tvNum.setTextColor(typedArray.getColor(R.styleable.CountEditText_etPromptTextColor, Color.BLACK));
             //设置提示统计显示类型
-            int t = typedArray.getInt(R.styleable.CountEditText_etType,0);
-            if(t == 0)TYPES = SINGULAR;
+            int t = typedArray.getInt(R.styleable.CountEditText_etType, 0);
+            if (t == 0) TYPES = SINGULAR;
             else TYPES = PERCENTAGE;
-            if(TYPES.equals(SINGULAR)){//类型1
+            if (TYPES.equals(SINGULAR)) {//类型1
                 tvNum.setText(String.valueOf(MaxNum));
-            }else if(TYPES.equals(PERCENTAGE)){//类型2
-                tvNum.setText(0+"/"+MaxNum);
+            } else if (TYPES.equals(PERCENTAGE)) {//类型2
+                tvNum.setText(0 + "/" + MaxNum);
             }
             //设置提示位置
-            int promptPosition = typedArray.getInt(R.styleable.CountEditText_etPromptPosition,0);
-            if(promptPosition == 0){//上方
+            int promptPosition = typedArray.getInt(R.styleable.CountEditText_etPromptPosition, 0);
+            if (promptPosition == 0) {//上方
                 vLineDn.setVisibility(View.VISIBLE);
                 vLineUp.setVisibility(View.GONE);
-            }else{//下方
+            } else {//下方
                 vLineUp.setVisibility(View.VISIBLE);
                 vLineDn.setVisibility(View.GONE);
             }
@@ -109,6 +107,7 @@ public class CountEditText extends RelativeLayout {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
     private static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
@@ -116,14 +115,15 @@ public class CountEditText extends RelativeLayout {
 
     /**
      * 设置显示
+     *
      * @return
      */
     @Deprecated
-    public CountEditText show(){
-        if(TYPES.equals(SINGULAR)){//类型1
+    public CountEditText show() {
+        if (TYPES.equals(SINGULAR)) {//类型1
             tvNum.setText(String.valueOf(MaxNum));
-        }else if(TYPES.equals(PERCENTAGE)){//类型2
-            tvNum.setText(0+"/"+MaxNum);
+        } else if (TYPES.equals(PERCENTAGE)) {//类型2
+            tvNum.setText(0 + "/" + MaxNum);
         }
         //设置长度
         etContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MaxNum)});
@@ -134,74 +134,80 @@ public class CountEditText extends RelativeLayout {
 
     /**
      * 设置横线颜色
+     *
      * @param color --颜色值
      * @return
      */
     @Deprecated
-    public CountEditText setLineColor(String color){
+    public CountEditText setLineColor(String color) {
         vLineUp.setBackgroundColor(Color.parseColor(color));
         vLineDn.setBackgroundColor(Color.parseColor(color));
         return this;
     }
 
     /**
-     *
      * 设置类型
+     *
      * @param type --类型
      * @return
      */
     @Deprecated
-    public CountEditText setType(String type){
+    public CountEditText setType(String type) {
         TYPES = type;
         return this;
     }
 
     /**
      * 设置最大字数
+     *
      * @param num --字数
      * @return
      */
     @Deprecated
-    public CountEditText setLength(int num){
+    public CountEditText setLength(int num) {
         this.MaxNum = num;
         return this;
     }
 
     /**
      * 设置文本框的Hint
+     *
      * @param str --设置内容
      * @return
      */
     @Deprecated
-    public CountEditText setEtHint(String str){
+    public CountEditText setEtHint(String str) {
         etContent.setHint(str);
         return this;
     }
 
     /**
      * 设置文本框的最小高度
+     *
      * @param px --最小高度(单位px)
      * @return
      */
     @Deprecated
-    public CountEditText setEtMinHeight(int px){
+    public CountEditText setEtMinHeight(int px) {
         etContent.setMinHeight(px);
         return this;
     }
 
     /**
      * 获取输入内容
+     *
      * @return 内容
      */
-    public String getText(){
+    public String getText() {
         return etContent.getText().toString();
     }
 
     /**
      * 设置默认内容
+     *
      * @param str --内容
      */
-    public void setText(String str){
+    public void setText(String str) {
         etContent.setText(str);
         etContent.setSelection(etContent.getText().length());
     }
@@ -209,6 +215,7 @@ public class CountEditText extends RelativeLayout {
     private TextWatcher mTextWatcher = new TextWatcher() {
         private int editStart;
         private int editEnd;
+
         public void afterTextChanged(Editable s) {
             editStart = etContent.getSelectionStart();
             editEnd = etContent.getSelectionEnd();
@@ -226,28 +233,36 @@ public class CountEditText extends RelativeLayout {
             setLeftCount();
         }
 
-        public void beforeTextChanged(CharSequence s, int start, int count,int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
-        public void onTextChanged(CharSequence s, int start, int before,int count) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
     };
 
-    /** 刷新剩余输入字数 */
+    /**
+     * 刷新剩余输入字数
+     */
     private void setLeftCount() {
-        if(TYPES.equals(SINGULAR)){//类型1
+        if (TYPES.equals(SINGULAR)) {//类型1
             tvNum.setText(String.valueOf((MaxNum - getInputCount())));
-        }else if(TYPES.equals(PERCENTAGE)){//类型2
-            tvNum.setText(MaxNum-(MaxNum - getInputCount())+"/"+MaxNum);
+        } else if (TYPES.equals(PERCENTAGE)) {//类型2
+            tvNum.setText(MaxNum - (MaxNum - getInputCount()) + "/" + MaxNum);
         }
 
     }
 
-    /** 获取用户输入内容字数 */
+    /**
+     * 获取用户输入内容字数
+     */
     private long getInputCount() {
         return calculateLength(etContent.getText().toString());
     }
+
     /**
      * 计算分享内容的字数，一个汉字=两个英文字母，一个中文标点=两个英文标点
      * 注意：该函数的不适用于对单个字符进行计算，因为单个字符四舍五入后都是1
+     *
      * @param cs
      * @return
      */
@@ -273,5 +288,13 @@ public class CountEditText extends RelativeLayout {
     private float dp2px(float dipValue) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return (dipValue * scale + 0.5f);
+    }
+
+    public EditText getEtContent() {
+        return etContent;
+    }
+
+    public void setContentTextWatcher(TextWatcher watcher){
+        etContent.addTextChangedListener(watcher);
     }
 }

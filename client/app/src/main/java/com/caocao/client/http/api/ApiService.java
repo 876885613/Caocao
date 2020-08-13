@@ -1,6 +1,8 @@
 package com.caocao.client.http.api;
 
 import com.caocao.client.http.entity.BaseResp;
+import com.caocao.client.http.entity.request.DemandReq;
+import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
@@ -182,10 +184,23 @@ public interface ApiService {
 
     /**
      * 删除地址
+     *
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("api/customer_address/delAddress")
-    Flowable<BannerResp> deleteAddress(@Field("id") int id);
+    Flowable<BaseResp> deleteAddress(@Field("id") int id);
+
+    /**
+     * 创建订单
+     *
+     * @param order
+     * @return
+     */
+    @POST("api/order/createOrder")
+    Flowable<BaseResp> createOrder(@Body OrderReq order);
+
+    @POST("api/customer_demand/createDemand")
+    Flowable<BaseResp> createDemand(@Body DemandReq demand);
 }

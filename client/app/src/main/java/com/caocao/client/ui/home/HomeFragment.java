@@ -66,7 +66,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     private FragmentHomeBinding binding;
 
-    private HomeViewModel   homeVM;
+    private HomeViewModel homeVM;
     private HomeSortAdapter sortAdapter;
 
 
@@ -118,25 +118,32 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
     private void homeSort() {
         homeVM.homeSort();
         homeVM.homeSortLiveData.observe(this, homeSort -> {
-            List<SortResp> sortRes = homeSort.getData();
-            sortRes.add(new SortResp(0, "更多", R.mipmap.ic_more));
-            sortAdapter.setNewData(sortRes);
+            try {
+                List<SortResp> sortRes = homeSort.getData();
+                sortRes.add(new SortResp(0, "更多", R.mipmap.ic_more));
+                sortAdapter.setNewData(sortRes);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
     private void homeBanner() {
         homeVM.homeBanner();
         homeVM.homeBannerLiveData.observe(this, homeBanner -> {
-            List<BannerResp> bannerRes = homeBanner.getData();
-
-            binding.homeTop.banner.addBannerLifecycleObserver(this)//添加生命周期观察者
-                    .setAdapter(new HomeBannerAdapter(context, bannerRes))//添加数据
-                    .setIndicator(new CircleIndicator(context), true)//设置轮播指示器
-                    .setIndicatorNormalColor(Color.parseColor("#aaffffff"))
-                    .setIndicatorSelectedColor(Color.parseColor("#ffffff"))
-                    .setIndicatorNormalWidth((int) BannerUtils.dp2px(6))
-                    .setIndicatorSelectedWidth((int) BannerUtils.dp2px(6))
-                    .start();
+            try {
+                List<BannerResp> bannerRes = homeBanner.getData();
+                binding.homeTop.banner.addBannerLifecycleObserver(this)//添加生命周期观察者
+                        .setAdapter(new HomeBannerAdapter(context, bannerRes))//添加数据
+                        .setIndicator(new CircleIndicator(context), true)//设置轮播指示器
+                        .setIndicatorNormalColor(Color.parseColor("#aaffffff"))
+                        .setIndicatorSelectedColor(Color.parseColor("#ffffff"))
+                        .setIndicatorNormalWidth((int) BannerUtils.dp2px(6))
+                        .setIndicatorSelectedWidth((int) BannerUtils.dp2px(6))
+                        .start();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 

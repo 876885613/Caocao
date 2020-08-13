@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@color/bg_page"
         android:orientation="vertical">
 
@@ -156,6 +158,7 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_tel_ico"
                 app:sLeftText="联系电话"
+                android:inputType="number"
                 app:sRightEditHint="请输入联系电话" />
 
 
@@ -171,6 +174,7 @@
                 app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="3dp"
@@ -196,6 +200,7 @@
             android:background="@color/color_white">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_release"
                 style="@style/ButtonStyle"
                 android:text="确认发布" />
 

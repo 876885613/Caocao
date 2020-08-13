@@ -113,8 +113,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        //实例方式 ： 在VM中做网络请求和逻辑处理
-//        MainVM vm = getViewModel(MainVM.class);
     }
 
 }

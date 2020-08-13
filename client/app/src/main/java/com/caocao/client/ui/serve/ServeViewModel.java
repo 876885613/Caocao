@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
+import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
@@ -24,13 +25,13 @@ import com.caocao.client.http.entity.respons.SortResp;
  * @Version: 1.0
  */
 public class ServeViewModel extends BaseViewModel {
-    public MutableLiveData<SortResp>        sortLiveData;
-    public MutableLiveData<GoodsResp>       indexGoodsLiveData;
+    public MutableLiveData<SortResp> sortLiveData;
+    public MutableLiveData<GoodsResp> indexGoodsLiveData;
     public MutableLiveData<GoodsDetailResp> goodsDetailLiveData;
 
     public MutableLiveData<RemarkResp> remarkLiveData;
 
-    public MutableLiveData<BaseResp>     collectionLiveData;
+    public MutableLiveData<BaseResp> baseLiveData;
     public MutableLiveData<MerchantResp> merchantLiveData;
 
     private int page;
@@ -41,7 +42,7 @@ public class ServeViewModel extends BaseViewModel {
         goodsDetailLiveData = new MutableLiveData<>();
         remarkLiveData = new MutableLiveData<>();
 
-        collectionLiveData = new MutableLiveData<>();
+        baseLiveData = new MutableLiveData<>();
 
         merchantLiveData = new MutableLiveData<>();
     }
@@ -80,7 +81,7 @@ public class ServeViewModel extends BaseViewModel {
 
 
     public void collectionGoods(int goodId) {
-        request(api.collectionGoods(goodId)).send(collectionLiveData);
+        request(api.collectionGoods(goodId)).send(baseLiveData);
     }
 
     public void merchantDetail(int merchantId) {
@@ -88,8 +89,12 @@ public class ServeViewModel extends BaseViewModel {
     }
 
 
-    public void cateList(){
+    public void cateList() {
         request(api.cateList()).send(sortLiveData);
     }
 
+
+    public void createOrder(OrderReq order) {
+        request(api.createOrder(order)).send(baseLiveData);
+    }
 }

@@ -2,42 +2,20 @@ package com.caocao.client.ui.demand;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.caocao.client.http.BaseViewModel;
-import com.caocao.client.utils.DateUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.caocao.client.http.entity.BaseResp;
+import com.caocao.client.http.entity.request.DemandReq;
 
 public class DemandViewModel extends BaseViewModel {
 
+    public MutableLiveData<BaseResp> baseResp;
+
     public DemandViewModel() {
+        baseResp = new MutableLiveData<>();
     }
 
-    public List<String> getYMD() {
-        List<String> yearList = new ArrayList<>();
-        yearList.add(TimeUtils.date2String(new Date(), new SimpleDateFormat("yyyy-MM-dd")));
-        yearList.add(DateUtils.beforeAfterDate(1));
-        yearList.add(DateUtils.beforeAfterDate(2));
-        yearList.add(DateUtils.beforeAfterDate(3));
-        return yearList;
+    public void createDemand(DemandReq demand) {
+        request(api.createDemand(demand)).send(baseResp);
     }
 
-    public List<String> getHour() {
-        List<String> hourList = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            hourList.add(i + "时");
-        }
-        return hourList;
-    }
-
-
-    public List<String> getMin() {
-        List<String> minList = new ArrayList<>();
-        minList.add("00分钟");
-        minList.add("30分钟");
-        return minList;
-    }
 }

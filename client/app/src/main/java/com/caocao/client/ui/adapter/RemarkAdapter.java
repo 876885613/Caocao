@@ -1,12 +1,9 @@
 package com.caocao.client.ui.adapter;
 
-import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -40,6 +37,8 @@ public class RemarkAdapter extends BaseQuickAdapter<RemarkResp, BaseViewHolder> 
 
         Glide.with(mContext).load(item.headimgurl)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .error(R.mipmap.ic_default_portrait)
+                .placeholder(R.mipmap.ic_default_portrait)
                 .<AppCompatImageView>into(helper.getView(R.id.iv_portrait));
 
         helper.setText(R.id.tv_name, item.nickname);

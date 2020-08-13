@@ -41,6 +41,7 @@
         android:layout_centerVertical="true"
         android:textColor="@color/t1"
         android:textColorHint="@color/t3"
+        android:gravity="right|center_vertical"
         android:textSize="@dimen/t3"
         android:visibility="invisible" />
 
@@ -52,6 +53,7 @@
         android:layout_centerVertical="true"
         android:background="@color/color_white"
         android:textColor="@color/t1"
+        android:gravity="right|center_vertical"
         android:textColorHint="@color/t3"
         android:textSize="@dimen/t3"
         android:visibility="invisible" />

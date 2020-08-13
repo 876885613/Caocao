@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityServeMoreBinding;
@@ -100,7 +99,7 @@ public class ServeMoreActivity extends BaseActivity {
 
         serveVM.sortLiveData.observe(this, sortRes -> {
             levelAdapter.setNewData(sortRes.getData());
-
+            binding.tvChildrenTitle.setText(levelAdapter.getData().get(0).children.get(0).cateName);
             List<SortResp> children = levelAdapter.getData().get(0).children.get(0).children;
             sortAdapter.setNewData(children);
         });

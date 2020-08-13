@@ -1,6 +1,7 @@
 package com.caocao.client.http.entity.respons;
 
 import com.caocao.client.http.entity.BaseResp;
+import com.contrarywind.interfaces.IPickerViewData;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -17,12 +18,15 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class SortResp extends BaseResp<List<SortResp>> {
+public class SortResp extends BaseResp<List<SortResp>> implements IPickerViewData {
 
     public SortResp(int id, String cateName, int resId) {
         this.id = id;
         this.cateName = cateName;
         this.resId = resId;
+    }
+
+    public SortResp() {
     }
 
     public int resId;
@@ -39,4 +43,19 @@ public class SortResp extends BaseResp<List<SortResp>> {
     public List<SortResp> children;
 
 
+    @Override
+    public String getPickerViewText() {
+        return this.cateName;
+    }
+
+    @Override
+    public String toString() {
+        return "SortResp{" +
+                "resId=" + resId +
+                ", id=" + id +
+                ", cateName='" + cateName + '\'' +
+                ", cateIcon='" + cateIcon + '\'' +
+                ", children=" + children +
+                '}';
+    }
 }

@@ -1,20 +1,10 @@
 package com.caocao.client.http;
 
 import com.caocao.client.http.utils.HttpInterceptorUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -92,8 +82,9 @@ public class BaseRequest<T> {
 
 
     public BaseRequest(String host, Class clazz) {
+        Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create()) //设置gson转换器, 将返回的json数据转为实体
+                .addConverterFactory(GsonConverterFactory.create(gson)) //设置gson转换器, 将返回的json数据转为实体
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())   //设置CallAdapter
                 .baseUrl(host)
                 .client(client)                                               //设置客户端okhttp相关参数
