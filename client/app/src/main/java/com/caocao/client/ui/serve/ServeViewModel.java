@@ -25,13 +25,13 @@ import com.caocao.client.http.entity.respons.SortResp;
  * @Version: 1.0
  */
 public class ServeViewModel extends BaseViewModel {
-    public MutableLiveData<SortResp> sortLiveData;
-    public MutableLiveData<GoodsResp> indexGoodsLiveData;
+    public MutableLiveData<SortResp>        sortLiveData;
+    public MutableLiveData<GoodsResp>       indexGoodsLiveData;
     public MutableLiveData<GoodsDetailResp> goodsDetailLiveData;
 
     public MutableLiveData<RemarkResp> remarkLiveData;
 
-    public MutableLiveData<BaseResp> baseLiveData;
+    public MutableLiveData<BaseResp>     baseLiveData;
     public MutableLiveData<MerchantResp> merchantLiveData;
 
     private int page;
@@ -96,5 +96,10 @@ public class ServeViewModel extends BaseViewModel {
 
     public void createOrder(OrderReq order) {
         request(api.createOrder(order)).send(baseLiveData);
+    }
+
+
+    public void isAgentByAddress() {
+        request(api.isAgentByAddress(BaseApplication.sRegion)).send(baseLiveData);
     }
 }

@@ -10,6 +10,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.caocao.client.R;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //将数据和控件绑定
+
     }
 
     @Override
@@ -47,8 +51,9 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imageItem = itemView.findViewById(R.id.iv_image);
         }
+
+
     }
 }

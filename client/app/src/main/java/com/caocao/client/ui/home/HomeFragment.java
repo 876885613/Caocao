@@ -97,9 +97,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
     @Override
     protected void initVmData(Bundle savedInstanceState) {
 
-
         homeVM = getViewModel(HomeViewModel.class);
-
 
         homeBanner();
 
@@ -329,7 +327,6 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     @Override
     public void noAsk(String permissionName) {
-        LogUtils.e("权限noAsk");
         RxPermissionManager.showPermissionDialog(this, permissionName);
     }
 

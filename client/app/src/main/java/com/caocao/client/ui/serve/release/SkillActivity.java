@@ -1,5 +1,6 @@
 package com.caocao.client.ui.serve.release;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -8,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
@@ -17,6 +19,7 @@ import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.AddPhotoAdapter;
 import com.caocao.client.ui.adapter.EditToolAdapter;
+import com.caocao.client.ui.adapter.GridImageAdapter;
 import com.caocao.client.ui.demand.OnSortCallBackListener;
 import com.caocao.client.ui.me.address.OnAddressCallBackListener;
 import com.caocao.client.ui.serve.ServeViewModel;
@@ -24,14 +27,24 @@ import com.caocao.client.ui.serve.bean.EditToolEntity;
 import com.caocao.client.ui.serve.bean.ToolType;
 import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 import com.caocao.client.utils.LocalParseUtils;
+import com.caocao.client.utils.image.GlideEngine;
+import com.caocao.client.utils.location.RxPermissionListener;
+import com.caocao.client.utils.location.RxPermissionManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.listener.OnResultCallbackListener;
 
-public class SkillActivity extends BaseActivity implements OnSortCallBackListener, OnAddressCallBackListener {
+import java.util.List;
+
+public class SkillActivity extends BaseActivity implements
+        OnSortCallBackListener, OnAddressCallBackListener, RxPermissionListener {
 
     private ActivitySkillBinding binding;
-    private LocalParseUtils localParseUtils;
-    private SettleApplyReq applyReq;
-    private ServeViewModel serveVM;
+    private LocalParseUtils      localParseUtils;
+    private SettleApplyReq       applyReq;
+    private ServeViewModel       serveVM;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +52,16 @@ public class SkillActivity extends BaseActivity implements OnSortCallBackListene
         localParseUtils.initAddressData();
         super.onCreate(savedInstanceState);
 
+        initPermission();
+
         applyReq = new SettleApplyReq();
         applyReq.type = 1;
+    }
+
+    private void initPermission() {
+        RxPermissionManager.requestPermissions(this, this,
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     @Override
@@ -86,18 +107,67 @@ public class SkillActivity extends BaseActivity implements OnSortCallBackListene
             }
         });
 
-        //添加图片
-        binding.rvBannerPhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        AddPhotoAdapter addBannerAdapter = new AddPhotoAdapter(this, null);
-        binding.rvBannerPhoto.setAdapter(addBannerAdapter);
 
-        binding.rvServePhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        AddPhotoAdapter addServeAdapter = new AddPhotoAdapter(this, null);
-        binding.rvServePhoto.setAdapter(addServeAdapter);
+        serveShowImage();
+
+        bannerImage();
 
         binding.tvNext.setOnClickListener(view -> ActivityUtils.startActivity(AddSpecActivity.class));
 
         editToolView();
+    }
+
+
+    //顶部轮播图片
+    private void bannerImage() {
+        binding.rvBannerPhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        GridImageAdapter addBannerAdapter = new GridImageAdapter(null, 3);
+        addBannerAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
+            @Override
+            public void onTakePhotoClick(View view, int position) {
+                photoSelect(2);
+            }
+        });
+        binding.rvBannerPhoto.setAdapter(addBannerAdapter);
+    }
+
+    private void photoSelect(int type) {
+        boolean granted = PermissionUtils.isGranted(Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (!granted) {
+            initPermission();
+            return;
+        }
+
+        PictureSelector.create(SkillActivity.this)
+                .openGallery(PictureMimeType.ofImage())
+                .imageEngine(GlideEngine.createGlideEngine())
+                .forResult(new OnResultCallbackListener<LocalMedia>() {
+                    @Override
+                    public void onResult(List<LocalMedia> result) {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+    }
+
+
+    //服务展示图
+    private void serveShowImage() {
+        binding.rvServePhoto.setLayoutManager(new GridLayoutManager(this, 3));
+        GridImageAdapter addServeAdapter = new GridImageAdapter(null, 1);
+        addServeAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
+            @Override
+            public void onTakePhotoClick(View view, int position) {
+                photoSelect(1);
+            }
+        });
+        binding.rvServePhoto.setAdapter(addServeAdapter);
     }
 
     //文本编辑器工具
@@ -149,5 +219,18 @@ public class SkillActivity extends BaseActivity implements OnSortCallBackListene
         applyReq.merchantCity = city;
         applyReq.merchantDistrict = area;
         binding.stvMakeAddress.getRightTextView().setText(province + city + area);
+    }
+
+    @Override
+    public void accept() {
+    }
+
+    @Override
+    public void refuse() {
+    }
+
+    @Override
+    public void noAsk(String permissionName) {
+        RxPermissionManager.showPermissionDialog(this, permissionName);
     }
 }

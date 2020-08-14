@@ -201,6 +201,22 @@ public interface ApiService {
     @POST("api/order/createOrder")
     Flowable<BaseResp> createOrder(@Body OrderReq order);
 
+    /**
+     * 发布需求
+     *
+     * @param demand
+     * @return
+     */
     @POST("api/customer_demand/createDemand")
     Flowable<BaseResp> createDemand(@Body DemandReq demand);
+
+    /**
+     * 判断当前区域是否有加盟商
+     *
+     * @param region
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/agent/isAgentByAddress")
+    Flowable<BaseResp> isAgentByAddress(@Field("region") String region);
 }

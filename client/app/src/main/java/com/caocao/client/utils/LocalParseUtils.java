@@ -42,17 +42,17 @@ import java.util.List;
 public class LocalParseUtils {
 
     public static LocalParseUtils sInstance;
-    private final Context mContent;
+    private final Context         mContent;
 
 
     //地址
-    private List<AddressBean> address1Items = new ArrayList<>();
-    private ArrayList<ArrayList<String>> address2Items = new ArrayList<>();
+    private List<AddressBean>                       address1Items = new ArrayList<>();
+    private ArrayList<ArrayList<String>>            address2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> address3Items = new ArrayList<>();
 
     //分类
-    private List<SortResp> sort1Items = new ArrayList<>();
-    private List<List<SortResp>> sort2Items = new ArrayList<>();
+    private List<SortResp>             sort1Items = new ArrayList<>();
+    private List<List<SortResp>>       sort2Items = new ArrayList<>();
     private List<List<List<SortResp>>> sort3Items = new ArrayList<>();
 
     public static LocalParseUtils getInstance(Context context) {
@@ -76,7 +76,7 @@ public class LocalParseUtils {
      *
      * @param listener
      */
-    public void showAddressDialog(Context context,OnAddressCallBackListener listener) {
+    public void showAddressDialog(Context context, OnAddressCallBackListener listener) {
 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
             @Override
@@ -237,7 +237,7 @@ public class LocalParseUtils {
      *
      * @param listener
      */
-    public void showSortDialog(Context context,OnSortCallBackListener listener) {
+    public void showSortDialog(Context context, OnSortCallBackListener listener) {
         if (sort1Items.size() == 0 || sort2Items.size() == 0 || sort3Items.size() == 0) {
             ToastUtils.showShort("分类数据为空");
             return;
@@ -277,9 +277,15 @@ public class LocalParseUtils {
 
     public void buildSortData(SortResp sortRes) {
         sort1Items = sortRes.getData();
+
         for (int i = 0; i < sort1Items.size(); i++) {
             ArrayList<SortResp> secondSortList = new ArrayList<>();
             ArrayList<List<SortResp>> threeSortList = new ArrayList<>();
+
+            if (sort1Items.get(i).children == null || sort1Items.get(i).children.size() == 0) {
+                secondSortList.add(new SortResp(0, "", 0));
+                threeSortList.add(new ArrayList<>());
+            }
 
             for (int c = 0; c < sort1Items.get(i).children.size(); c++) {//遍历一级分类下的所有二级分类
                 SortResp secondSort = sort1Items.get(i).children.get(c);
@@ -290,7 +296,7 @@ public class LocalParseUtils {
                 //如果无数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
                 if (sort1Items.get(i).children.get(c).children == null
                         || sort1Items.get(i).children.get(c).children.size() == 0) {
-                    threeSort.add(new SortResp(0, "", 0));
+                    threeSort.addAll(new ArrayList<>());
                 } else {
                     threeSort.addAll(sort1Items.get(i).children.get(c).children);
                 }
