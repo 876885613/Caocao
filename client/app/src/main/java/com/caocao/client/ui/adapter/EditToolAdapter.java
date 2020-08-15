@@ -16,7 +16,8 @@ public class EditToolAdapter extends BaseQuickAdapter<EditToolEntity, BaseViewHo
                 new EditToolEntity(ToolType.Image.name(), R.mipmap.insert_img),
                 new EditToolEntity(ToolType.NewLine.name(), R.mipmap.new_line),
                 new EditToolEntity(ToolType.TextColor.name(), R.mipmap.color),
-                new EditToolEntity(ToolType.Heading.name(), R.mipmap.hhh),
+                new EditToolEntity(ToolType.TextSizeAdd.name(), R.mipmap.text_size_add),
+                new EditToolEntity(ToolType.TextSizeMin.name(), R.mipmap.text_size_min),
                 new EditToolEntity(ToolType.Blod.name(), R.mipmap.bold),
                 new EditToolEntity(ToolType.Italic.name(), R.mipmap.italic),
                 new EditToolEntity(ToolType.Subscript.name(), R.mipmap.subscript),
@@ -31,10 +32,10 @@ public class EditToolAdapter extends BaseQuickAdapter<EditToolEntity, BaseViewHo
                 new EditToolEntity(ToolType.Redo.name(), R.mipmap.redo),
                 new EditToolEntity(ToolType.Indent.name(), R.mipmap.indent),
                 new EditToolEntity(ToolType.Outdent.name(), R.mipmap.outdent),
-                new EditToolEntity(ToolType.InsertLink.name(), R.mipmap.insert_link),
+//                new EditToolEntity(ToolType.InsertLink.name(), R.mipmap.insert_link),
                 new EditToolEntity(ToolType.Checkbox.name(), R.mipmap.check_box),
                 new EditToolEntity(ToolType.TextBackgroundColor.name(), R.mipmap.background_color),
-                new EditToolEntity(ToolType.FontSize.name(), R.mipmap.font_size),
+//                new EditToolEntity(ToolType.FontSize.name(), R.mipmap.font_size),
                 new EditToolEntity(ToolType.UnorderedList.name(), R.mipmap.unordered_list),
                 new EditToolEntity(ToolType.OrderedList.name(), R.mipmap.ordered_list)
         ));

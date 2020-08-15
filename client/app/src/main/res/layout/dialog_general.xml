@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_round_5_fff"
+    android:background="@drawable/bg_round_10_fff"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -10,7 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="确认删除吗？"
+        android:lineSpacingExtra="3dp"
         android:textColor="@color/t1"
         android:textSize="@dimen/t4" />
 
@@ -46,7 +49,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="确认"
-            android:textColor="@color/t4"
+            android:textColor="@color/color_theme"
             android:textSize="@dimen/t4"
             android:textStyle="bold" />
     </LinearLayout>

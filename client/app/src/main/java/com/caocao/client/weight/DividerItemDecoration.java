@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.annotation.DrawableRes;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,7 +90,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             //最后一行不画分割线
-            if (i == childCount - 1){
+            if (i == childCount - 1) {
                 continue;
             }
 
@@ -128,21 +129,27 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
+
         int childAdapterPosition = parent.getChildAdapterPosition(view);
         int childLayoutPosition = parent.getChildLayoutPosition(view);
         int itemCount = parent.getAdapter().getItemCount();
 
-        if (mOrientation == VERTICAL_LIST) {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-        } else {
-            //最后一列不加分割线
-            if (childAdapterPosition != itemCount - 1){
+        if (parent.getLayoutManager() instanceof LinearLayoutManager &&
+                childAdapterPosition != itemCount - 1 &&
+                !(parent.getLayoutManager() instanceof GridLayoutManager)) {
+            if (mOrientation == VERTICAL_LIST) {
+                outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+            } else {
                 outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+            }
+        } else {
+            if (childAdapterPosition != itemCount - 1) {
+                outRect.set(0, 0, mRightPadding, 0);
             }
         }
     }
 
-    private int dp2px(Context context, float dip){
+    private int dp2px(Context context, float dip) {
         return (int) (context.getResources().getDisplayMetrics().density * dip);
     }
 }

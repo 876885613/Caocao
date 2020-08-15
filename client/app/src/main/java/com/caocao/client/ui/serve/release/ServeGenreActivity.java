@@ -3,12 +3,15 @@ package com.caocao.client.ui.serve.release;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
+import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityServeGenreBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.authentication.IdentityAUTActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
+import com.coder.baselibrary.dialog.AlertDialog;
+import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 
 public class ServeGenreActivity extends BaseActivity {
 
@@ -41,10 +44,21 @@ public class ServeGenreActivity extends BaseActivity {
 
         serveVM.isAgentByAddress();
 
-        serveVM.baseLiveData.observe(this, baseResp -> {
-            if (!baseResp.getMsg().equals("该区域已有代理")) {
+        serveVM.errorLiveData.observe(this, baseResp -> {
+            new AlertDialog.Builder(ServeGenreActivity.this)
+                    .setView(R.layout.dialog_general)
+                    .setText(R.id.tv_title, "当前所在的" + BaseApplication.sRegion.split(",")[2]
+                            + "没有运营商,您可以选择继续申请发布技能,也可以选择申请加盟")
+                    .setText(R.id.tv_cancel, "加盟")
+                    .setText(R.id.tv_affirm, "继续申请")
+                    .setOnClickListener(R.id.tv_affirm,null)
+                    .setOnClickListener(R.id.tv_cancel, new OnClickListenerWrapper() {
+                        @Override
+                        public void onClickCall(View v) {
 
-            }
+                        }
+                    })
+                    .show();
         });
     }
 

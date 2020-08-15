@@ -10,12 +10,16 @@ import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
 import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SortResp;
+import com.caocao.client.http.entity.respons.UploadResp;
 
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * @ProjectName: matata-android-students
@@ -49,7 +53,7 @@ public interface ApiService {
     /**
      * 首页轮播图
      */
-    @POST("api/banner/getIndexBannerList")
+    @POST("/api/banner/getIndexBannerList")
     Flowable<BannerResp> homeBanner();
 
 
@@ -57,7 +61,7 @@ public interface ApiService {
      * 分类
      */
     @FormUrlEncoded
-    @POST("api/service_cate/getIndexCateList")
+    @POST("/api/service_cate/getIndexCateList")
     Flowable<SortResp> sort(
             @Field("level") int level,
             @Field("pid") int pid
@@ -67,7 +71,7 @@ public interface ApiService {
      * 首页精选到家
      */
     @FormUrlEncoded
-    @POST("api/goods/getChoiceGoodsList")
+    @POST("/api/goods/getChoiceGoodsList")
     Flowable<GoodsResp> homeChoiceGoods(
             @Field("region") String region,
             @Field("longitude") String longitude,
@@ -78,7 +82,7 @@ public interface ApiService {
      * 首页附近服务
      */
     @FormUrlEncoded
-    @POST("api/goods/getIndexGoodsList")
+    @POST("/api/goods/getIndexGoodsList")
     Flowable<GoodsResp> homeIndexGoods(
             @Field("region") String region,
             @Field("longitude") String longitude,
@@ -90,7 +94,7 @@ public interface ApiService {
      * 首页搜索
      */
     @FormUrlEncoded
-    @POST("api/goods/searchGoods")
+    @POST("/api/goods/searchGoods")
     Flowable<GoodsResp> homeSearchGoods(
             @Field("region") String region,
             @Field("keyword") String keyword,
@@ -103,7 +107,7 @@ public interface ApiService {
      * 二级分类服务列表
      */
     @FormUrlEncoded
-    @POST("api/goods/getGoodsByCate")
+    @POST("/api/goods/getGoodsByCate")
     Flowable<GoodsResp> goodsByCate(
             @Field("region") String region,
             @Field("cate_id") int cateId,
@@ -119,7 +123,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/goods/getGoodsDetail")
+    @POST("/api/goods/getGoodsDetail")
     Flowable<GoodsDetailResp> goodsDetail(@Field("goods_id") int goodsId);
 
 
@@ -131,7 +135,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/order_comment/getOrderCommentList")
+    @POST("/api/order_comment/getOrderCommentList")
     Flowable<RemarkResp> orderRemarkList(
             @Field("goods_id") int goodsId,
             @Field("page") int page
@@ -144,7 +148,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/customer/collectionGoods")
+    @POST("/api/customer/collectionGoods")
     Flowable<BaseResp> collectionGoods(@Field("goods_id") int goodsId);
 
     /**
@@ -154,7 +158,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/merchant/merchantDetail")
+    @POST("/api/merchant/merchantDetail")
     Flowable<MerchantResp> merchantDetail(@Field("merchant_id") int merchantId);
 
     /**
@@ -162,7 +166,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("api/service_cate/getCateList")
+    @POST("/api/service_cate/getCateList")
     Flowable<SortResp> cateList();
 
     /**
@@ -170,7 +174,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("api/customer_address/getAddressList")
+    @POST("/api/customer_address/getAddressList")
     Flowable<AddressResp> addressList();
 
     /**
@@ -179,7 +183,7 @@ public interface ApiService {
      * @param address
      * @return
      */
-    @POST("api/customer_address/createAddress")
+    @POST("/api/customer_address/createAddress")
     Flowable<BaseResp> editAddress(@Body AddressResp address);
 
     /**
@@ -189,7 +193,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/customer_address/delAddress")
+    @POST("/api/customer_address/delAddress")
     Flowable<BaseResp> deleteAddress(@Field("id") int id);
 
     /**
@@ -198,7 +202,7 @@ public interface ApiService {
      * @param order
      * @return
      */
-    @POST("api/order/createOrder")
+    @POST("/api/order/createOrder")
     Flowable<BaseResp> createOrder(@Body OrderReq order);
 
     /**
@@ -207,7 +211,7 @@ public interface ApiService {
      * @param demand
      * @return
      */
-    @POST("api/customer_demand/createDemand")
+    @POST("/api/customer_demand/createDemand")
     Flowable<BaseResp> createDemand(@Body DemandReq demand);
 
     /**
@@ -217,6 +221,17 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("api/agent/isAgentByAddress")
+    @POST("/api/agent/isAgentByAddress")
     Flowable<BaseResp> isAgentByAddress(@Field("region") String region);
+
+
+    /**
+     * 上传附件
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("/api/uploads/picture")
+    Flowable<UploadResp> upload(@Part MultipartBody.Part file);
+
 }

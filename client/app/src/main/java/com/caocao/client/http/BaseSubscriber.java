@@ -28,23 +28,25 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
 
     private int page;
     private MutableLiveData<T> liveData;
+    private MutableLiveData<T> errorLiveData;
+
+
 
     public BaseSubscriber(MutableLiveData<T> liveData) {
-        this(liveData, false);
+        this(liveData, 0);
     }
 
     public BaseSubscriber(MutableLiveData<T> liveData, int page) {
-        this(liveData, page, false);
+        this(liveData, null, page);
     }
 
-    public BaseSubscriber(MutableLiveData<T> liveData, boolean loading) {
-        this.liveData = liveData;
-    }
 
-    public BaseSubscriber(MutableLiveData<T> liveData, int page, boolean loading) {
+    public BaseSubscriber(MutableLiveData<T> liveData, MutableLiveData<T> errorLiveData, int page) {
         this.page = page;
         this.liveData = liveData;
+        this.errorLiveData = errorLiveData;
     }
+
 
     @Override
     public void onSubscribe(Subscription s) {
@@ -64,8 +66,11 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
             if (resp.getCode() == 100) {
                 resp.setPage(page);
                 liveData.setValue(t);
-            } else if (resp.getCode() == 101) {
+            } else {
                 ToastUtils.showShort(resp.getMsg());
+                if (errorLiveData != null) {
+                    errorLiveData.setValue(t);
+                }
             }
         }
     }

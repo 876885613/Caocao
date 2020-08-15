@@ -1,89 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_page">
+    android:background="@color/bg_page"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_spec"
-        style="@style/ReleaseBlockStyle">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
 
-        <com.caocao.client.view.SuperTextView
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:sLeftIcon="@mipmap/ic_spec_ico"
-            app:sLeftText="添加规格"
-            app:sRightIcon="@mipmap/ic_del_ico" />
+            android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="12dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_spec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fastScrollEnabled="false" />
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/color_divider_line" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rv_spec"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/bg_round_5_ff6203"
+                android:paddingLeft="35dp"
+                android:paddingTop="6dp"
+                android:paddingRight="35dp"
+                android:paddingBottom="6dp"
+                android:text="新增"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/color_white" />
 
-
-        <com.caocao.client.view.SuperTextView
-            android:id="@+id/stv_spec_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:sLeftIcon="@mipmap/ic_spec_name_ico"
-            app:sLeftText="规格名称"
-            app:sRightEditHint="请输入规格名称" />
-
-        <com.caocao.client.view.SuperTextView
-            android:id="@+id/stv_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:sLeftIcon="@mipmap/ic_price_ico"
-            app:sLeftText="价格 (元)"
-            app:sRightEditHint="0.00元" />
-
-        <com.caocao.client.view.SuperTextView
-            android:id="@+id/stv_unit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:sBottomDividerVisibility="gone"
-            app:sLeftIcon="@mipmap/ic_unit_ico"
-            app:sLeftText="单位"
-            app:sRightEditHint="请输入收费单位" />
-    </LinearLayout>
+        </RelativeLayout>
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_spec"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/bg_round_5_ff6203"
-        android:paddingLeft="35dp"
-        android:paddingTop="6dp"
-        android:paddingRight="35dp"
-        android:paddingBottom="6dp"
-        android:text="新增"
-        android:textColor="@color/color_white" />
+    </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -99,4 +58,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

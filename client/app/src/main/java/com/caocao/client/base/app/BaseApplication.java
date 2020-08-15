@@ -47,6 +47,8 @@ public class BaseApplication extends Application {
     public static double sLongitude;//获取经度信息
 
 
+    public static final String HOST_PATH = "http://ccdj.jiajiayong.com";
+
     //初始化刷新工具
     //static 代码段可以防止内存泄露
     static {
@@ -72,7 +74,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         sInstance = this;
 
-        initRequest("http://ccdj.jiajiayong.com/", ApiService.class);
+        initRequest(HOST_PATH, ApiService.class);
 
         registerActivityLifecycleCallbacks(mCallbacks);
 

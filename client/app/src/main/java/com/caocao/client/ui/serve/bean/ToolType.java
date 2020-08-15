@@ -1,6 +1,7 @@
 package com.caocao.client.ui.serve.bean;
 
 public enum ToolType {
+
     Image,
     NewLine,
     Blod,
@@ -13,7 +14,8 @@ public enum ToolType {
     JustifyCenter,
     JustifyRight,
     Blockquote,
-    Heading,
+    TextSizeMin,
+    TextSizeAdd,
     Undo,
     Redo,
     Indent,
@@ -25,4 +27,6 @@ public enum ToolType {
     FontSize,
     UnorderedList,
     OrderedList,
+
+
 }

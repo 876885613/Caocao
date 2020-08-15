@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_spec"
+    style="@style/ReleaseBlockStyle">
+    <com.caocao.client.view.SuperTextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:sLeftIcon="@mipmap/ic_spec_ico"
+        app:sLeftText="添加规格"
+        app:sRightIcon="@mipmap/ic_del_ico" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="12dp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_divider_line" />
+
+
+    <com.caocao.client.view.SuperTextView
+        android:id="@+id/stv_spec_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:sLeftIcon="@mipmap/ic_spec_name_ico"
+        app:sLeftText="规格名称"
+        app:sRightEditHint="请输入规格名称" />
+
+    <com.caocao.client.view.SuperTextView
+        android:id="@+id/stv_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:sLeftIcon="@mipmap/ic_price_ico"
+        app:sLeftText="价格 (元)"
+        app:sRightEditHint="0.00元" />
+
+    <com.caocao.client.view.SuperTextView
+        android:id="@+id/stv_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:sBottomDividerVisibility="gone"
+        app:sLeftIcon="@mipmap/ic_unit_ico"
+        app:sLeftText="单位"
+        app:sRightEditHint="请输入收费单位" />
+</LinearLayout>
+

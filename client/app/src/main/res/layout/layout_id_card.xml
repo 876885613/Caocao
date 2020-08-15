@@ -15,10 +15,12 @@
         app:sRightEditHint="输入身份证号" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_front"
+        android:layout_width="195dp"
+        android:layout_height="121dp"
         android:src="@mipmap/ic_id_card_front"
         android:layout_gravity="center_horizontal"
+        android:scaleType="fitXY"
         android:layout_marginTop="18dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -31,10 +33,12 @@
         android:text="上传身份证正面"/>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_reverse"
+        android:layout_width="195dp"
+        android:layout_height="121dp"
         android:src="@mipmap/ic_id_card_reverse"
         android:layout_gravity="center_horizontal"
+        android:scaleType="fitXY"
         android:layout_marginTop="25dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView

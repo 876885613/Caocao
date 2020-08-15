@@ -33,6 +33,7 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_tel_ico"
                 app:sLeftText="联系人电话"
+                android:inputType="number"
                 app:sRightEditHint="请输入电话" />
 
             <com.caocao.client.view.SuperTextView
@@ -43,6 +44,7 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_tel_ico"
                 app:sLeftText="设置密码"
+                android:inputType="text"
                 app:sRightEditHint="请设置密码" />
         </LinearLayout>
 
@@ -80,7 +82,7 @@
             android:background="@color/color_white">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_next"
+                android:id="@+id/tv_release"
                 style="@style/ButtonStyle"
                 android:text="确认发布" />
         </RelativeLayout>

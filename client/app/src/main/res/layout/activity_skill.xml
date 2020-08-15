@@ -201,12 +201,33 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp" />
 
+
+            <LinearLayout
+                android:id="@+id/ll_main_color"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/bg_page"
+                android:visibility="gone">
+
+                <com.caocao.client.view.ColorPickerView
+                    android:id="@+id/cpv_main_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="#f2f1f6"
+                    app:indicatorColor="#fff"
+                    app:indicatorEnable="true"
+                    app:orientation="horizontal" />
+            </LinearLayout>
+
+
             <com.rex.editor.view.RichEditorNew
                 android:id="@+id/richEditor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="100dp"
+                android:minHeight="150dp"
                 android:layout_margin="15dp"/>
+
 
         </LinearLayout>
 

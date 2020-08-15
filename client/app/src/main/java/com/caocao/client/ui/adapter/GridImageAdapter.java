@@ -1,20 +1,21 @@
 package com.caocao.client.ui.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.caocao.client.R;
 import com.caocao.client.base.app.BaseApplication;
+import com.luck.picture.lib.entity.LocalMedia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,33 +33,32 @@ import java.util.List;
 @SuppressLint("InflateParams")
 public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.ImageViewHolder> {
 
-    private List<String> mData;
-    private int          mCountLimit = 6;
+    private List<LocalMedia> mData;
+    private int mCountLimit = 6;
 
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
         void onTakePhotoClick(View view, int position);
-//        void onItemClick(View view, int position);
 
-//        void onItemDelClick(View view, int position);
+        void onItemClick(View view, int position);
+
+        void onItemDelClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public GridImageAdapter(List<String> data) {
-        this.mData = data;
-        this.mCountLimit = 3;
+    public GridImageAdapter(List<LocalMedia> data) {
+        this(data, 3);
     }
 
-    public GridImageAdapter(List<String> data, int count) {
-        this.mData = data;
-        this.mCountLimit = count;
+    public GridImageAdapter(List<LocalMedia> data, int count) {
+        this(data, count, null);
     }
 
-    public GridImageAdapter(List<String> data, int count, OnItemClickListener onItemClickListener) {
+    public GridImageAdapter(List<LocalMedia> data, int count, OnItemClickListener onItemClickListener) {
         this.mData = data;
         this.mCountLimit = count;
         this.mOnItemClickListener = onItemClickListener;
@@ -79,23 +79,40 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.Imag
                     .placeholder(R.mipmap.ic_add_photo)
                     .error(R.mipmap.ic_add_photo)
                     .into(holder.imageView);
-
+            holder.delView.setVisibility(View.INVISIBLE);
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             holder.imageView.setOnClickListener(v -> mOnItemClickListener.onTakePhotoClick(v, position));
         } else {
+            holder.delView.setVisibility(View.VISIBLE);
             // 网络图片
             Glide.with(BaseApplication.getInstance())
-                    .load(mData.get(position))
-                    .placeholder(R.mipmap.ic_default_image)
+                    .load(mData.get(position).getPath())
                     .error(R.mipmap.ic_default_image)
                     .into(holder.imageView);
+
+            holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            holder.imageView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
+
+            holder.delView.setOnClickListener(v -> mOnItemClickListener.onItemDelClick(v, position));
         }
     }
 
     /**
      * 添加并更新数据
      */
-    public void setNewData(List<String> data) {
+    public void setNewData(List<LocalMedia> data) {
         mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void addData(LocalMedia data) {
+        if (mData == null) {
+            mData = new ArrayList<>();
+            mData.add(data);
+        } else {
+            mData.add(data);
+        }
         notifyDataSetChanged();
     }
 
@@ -110,11 +127,18 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.Imag
     }
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
+        private AppCompatImageView imageView;
+        private AppCompatImageView delView;
 
         private ImageViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_image);
+
+            delView = itemView.findViewById(R.id.iv_del);
         }
+    }
+
+    public List<LocalMedia> getData() {
+        return mData;
     }
 }

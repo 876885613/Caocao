@@ -159,7 +159,7 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
 
     private void showHintDialog(String title, String content) {
         new AlertDialog.Builder(this, R.style.DialogAlter)
-                .setView(R.layout.dailog_release_hint)
+                .setView(R.layout.dialog_release_hint)
                 .fullWidth()
                 .setText(R.id.tv_title, title)
                 .setText(R.id.tv_content, content)

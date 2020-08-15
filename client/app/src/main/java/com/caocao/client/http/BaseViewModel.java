@@ -51,28 +51,23 @@ public class BaseViewModel<T> extends ViewModel {
      * @return
      */
     public BaseViewModel<T> send(MutableLiveData<T> liveData) {
+        return this.send(liveData, 0);
+
+    }
+
+    public BaseViewModel<T> send(MutableLiveData<T> liveData, int page) {
+        return this.send(liveData, null,page);
+    }
+
+    public BaseViewModel<T> send(MutableLiveData<T> liveData, MutableLiveData<T> errorLiveData) {
+        return this.send(liveData, errorLiveData,0);
+    }
+
+    public BaseViewModel<T> send(MutableLiveData<T> liveData, MutableLiveData<T> errorLiveData, int page) {
         sFlowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<T>(liveData));
+                .subscribe(new BaseSubscriber<T>(liveData, errorLiveData, page));
         return this;
     }
 
-    public BaseViewModel<T> send(MutableLiveData<T> liveData,int page) {
-        sFlowable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<T>(liveData,page));
-        return this;
-    }
-
-    /**
-     * 发送请求
-     *
-     * @return
-     */
-    public BaseViewModel send(MutableLiveData<T> liveData, boolean isLoading) {
-        sFlowable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber(liveData,isLoading));
-        return this;
-    }
 }

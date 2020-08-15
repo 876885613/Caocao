@@ -4,27 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityAddressBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.AddressAdapter;
-import com.caocao.client.ui.adapter.ServeListAdapter;
 import com.caocao.client.ui.me.MeViewModel;
 import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.coder.baselibrary.dialog.AlertDialog;
 import com.coder.baselibrary.dialog.OnClickListenerWrapper;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 /**
  * @ProjectName: Caocao
