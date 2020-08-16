@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.caocao.client.base.BaseFragment;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**

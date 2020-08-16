@@ -27,7 +27,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_tel"
-                android:layout_width="55dp"
+                android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="手机号"
@@ -49,7 +49,54 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_divider_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_code"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="验证码"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_code"
+                android:layout_toLeftOf="@+id/tv_send_code"
+                android:background="@color/color_white"
+                android:hint="请输入验证码"
+                android:textColor="@color/t1"
+                android:inputType="number"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_send_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="center_vertical|right"
+                android:text="发送验证码"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_theme"
+                android:textSize="@dimen/t2"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/color_divider_line" />
         </RelativeLayout>
@@ -63,7 +110,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_password"
-                android:layout_width="55dp"
+                android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="密码"
@@ -85,18 +132,55 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/color_divider_line" />
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_confirm_password"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="确认密码"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_confirm_password"
+                android:background="@color/color_white"
+                android:hint="请输入密码"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:inputType="textPassword"
+                android:textSize="@dimen/t4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_divider_line" />
+        </RelativeLayout>
+
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_login"
+            android:id="@+id/tv_register"
             style="@style/ButtonStyle"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="60dp"
-            android:text="立即登录" />
+            android:text="立即注册" />
 
 
         <RelativeLayout
@@ -115,11 +199,11 @@
                 android:textSize="@dimen/t2" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_register"
+                android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="没有账号? 去注册"
+                android:text="已有账号? 去登陆"
                 android:textColor="@color/color_theme"
                 android:textSize="@dimen/t2" />
         </RelativeLayout>
@@ -138,9 +222,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:checked="true"
             android:text="登录即代表同意《用户协议》"
             android:textColor="#444444"
+            android:checked="true"
             android:textSize="@dimen/t2" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

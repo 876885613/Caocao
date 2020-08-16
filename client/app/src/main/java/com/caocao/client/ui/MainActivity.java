@@ -15,6 +15,7 @@ import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.ActivityMainBinding;
 import com.caocao.client.ui.demand.DemandActivity;
 import com.caocao.client.ui.home.HomeFragment;
+import com.caocao.client.ui.login.LoginUtils;
 import com.caocao.client.ui.me.MeFragment;
 import com.caocao.client.ui.serve.release.ServeGenreActivity;
 import com.coder.baselibrary.dialog.AlertDialog;
@@ -91,7 +92,9 @@ public class MainActivity extends BaseActivity {
                         .setOnClickListener(R.id.iv_demand, new OnClickListenerWrapper() {
                             @Override
                             public void onClickCall(View v) {
-                                ActivityUtils.startActivity(DemandActivity.class);
+                                if (LoginUtils.isLogin()) {
+                                    ActivityUtils.startActivity(DemandActivity.class);
+                                }
                             }
                         })
                         .create();

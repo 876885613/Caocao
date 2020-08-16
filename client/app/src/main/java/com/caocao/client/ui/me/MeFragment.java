@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.SPStaticUtils;
+import com.bumptech.glide.Glide;
+import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentMeBinding;
-import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.me.order.OrderActivity;
 
 /**
@@ -36,6 +38,11 @@ public class MeFragment extends BaseFragment {
         binding.tvOrder.setOnClickListener(view -> {
             ActivityUtils.startActivity(OrderActivity.class);
         });
+
+        String headimgurl = SPStaticUtils.getString("headimgurl","");
+        Glide.with(this).load(headimgurl).error(R.mipmap.ic_default_portrait).into(binding.ivPortrait);
+        binding.tvName.setText(SPStaticUtils.getString("nickname",""));
+        binding.tvTel.setText(SPStaticUtils.getString("phone",""));
     }
 
 

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityAddSpecBinding;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
@@ -86,7 +86,7 @@ public class AddSpecActivity extends BaseActivity implements RxPermissionListene
 
             @Override
             public void onItemClick(GridImageAdapter adapter, int position) {
-                pictureSelectionModel.openExternalPreview(position, adapter.getData());
+
             }
 
             @Override
@@ -136,10 +136,10 @@ public class AddSpecActivity extends BaseActivity implements RxPermissionListene
                         fieldMap.put("specUnit", "请补全第" + i + "个规格");
                         fieldMap.put("specImage", "请补全第" + i + "个规格");
                         String msg = CheckNotNullUtils.checkNotNull(applyReq.spec.get(i - 1), fieldMap);
-//                        if (!StringUtils.isEmpty(msg)) {
-//                            ToastUtils.showShort(msg);
-//                            return;
-//                        }
+                        if (!StringUtils.isEmpty(msg)) {
+                            ToastUtils.showShort(msg);
+                            return;
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("apply", applyReq);
                         ActivityUtils.startActivity(bundle, SkillReleaseActivity.class);
@@ -183,7 +183,7 @@ public class AddSpecActivity extends BaseActivity implements RxPermissionListene
         uploadVM.uploadLiveData.observe(this, uploadRes -> {
             LogUtils.e(uploadRes.getData().uploadUrl);
             LocalMedia localMedia = new LocalMedia();
-            localMedia.setPath(BaseApplication.HOST_PATH + uploadRes.getData().uploadUrl);
+            localMedia.setPath(uploadRes.getData().uploadUrl);
 
             gridImageAdapter.addData(localMedia);
             specAdapter.getData().get(position).specImage = gridImageAdapter.getData().get(0).getPath();

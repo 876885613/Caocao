@@ -15,10 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivitySkillBinding;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.SortResp;
@@ -26,6 +26,7 @@ import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.AddPhotoAdapter;
 import com.caocao.client.ui.adapter.EditToolAdapter;
 import com.caocao.client.ui.adapter.GridImageAdapter;
+import com.caocao.client.ui.bean.CheckBean;
 import com.caocao.client.ui.demand.OnSortCallBackListener;
 import com.caocao.client.ui.image.UploadViewModel;
 import com.caocao.client.ui.me.address.OnAddressCallBackListener;
@@ -45,9 +46,11 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.caocao.client.ui.bean.CheckBean.CheckType.INTEGER;
 
 public class SkillActivity extends BaseActivity implements
         OnSortCallBackListener, OnAddressCallBackListener, RxPermissionListener {
@@ -95,12 +98,8 @@ public class SkillActivity extends BaseActivity implements
         initColorPicker();
 
 
-        binding.stvSort.setRightTextOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                localParseUtils.showSortDialog(SkillActivity.this, SkillActivity.this);
-            }
-        });
+        binding.stvSort.setRightTextOnClickListener(v ->
+                localParseUtils.showSortDialog(SkillActivity.this, SkillActivity.this));
 
         binding.etServeIntro.setContentTextWatcher(new TextWatcherWrapper() {
             @Override
@@ -116,12 +115,8 @@ public class SkillActivity extends BaseActivity implements
             }
         });
 
-        binding.stvMakeAddress.setRightTextOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                localParseUtils.showAddressDialog(SkillActivity.this, SkillActivity.this);
-            }
-        });
+        binding.stvMakeAddress.setRightTextOnClickListener(v ->
+                localParseUtils.showAddressDialog(SkillActivity.this, SkillActivity.this));
 
         binding.etDetailAddress.addTextChangedListener(new TextWatcherWrapper() {
             @Override
@@ -135,12 +130,7 @@ public class SkillActivity extends BaseActivity implements
 
         bannerImage();
 
-        binding.tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNext();
-            }
-        });
+        binding.tvNext.setOnClickListener(v -> toNext());
 
         editToolView();
     }
@@ -163,35 +153,28 @@ public class SkillActivity extends BaseActivity implements
 
         applyReq.detailImage = binding.richEditor.getHtml();
 
+        Map<CheckBean, String> checkParam = new LinkedHashMap();
+        checkParam.put(new CheckBean(INTEGER, applyReq.cateId), "请选择技能分类");
+        checkParam.put(new CheckBean(applyReq.goodsTitle), "请填写技能标题");
+        checkParam.put(new CheckBean(applyReq.goodsDetail), "请填写服务介绍");
+        checkParam.put(new CheckBean(applyReq.merchantProvince), "请选择服务省份");
+        checkParam.put(new CheckBean(applyReq.merchantCity), "请选择服务城市");
+        checkParam.put(new CheckBean(applyReq.merchantDistrict), "请选择服务区域");
+        checkParam.put(new CheckBean(applyReq.addressDetail), "请填写服务详情地址");
+        checkParam.put(new CheckBean(applyReq.showImage), "请上传服务展示图");
+        checkParam.put(new CheckBean(applyReq.bannerImage), "请上传顶部轮播图");
+        checkParam.put(new CheckBean(applyReq.detailImage), "请填写服务详细信息");
 
-
-        Map<String, String> fieldMap = new HashMap();
-        fieldMap.put("cateId", "请选择技能分类");
-        fieldMap.put("goodsTitle", "请填写技能标题");
-        fieldMap.put("goodsDetail", "请填写服务介绍");
-        fieldMap.put("merchantProvince", "请选择服务省份");
-        fieldMap.put("merchantCity", "请选择服务城市");
-        fieldMap.put("merchantDistrict", "请选择服务城市");
-        fieldMap.put("addressDetail", "请填写服务详情地址");
-        fieldMap.put("showImage", "请上传服务展示图");
-        fieldMap.put("bannerImage", "请上传顶部轮播图");
-        fieldMap.put("detailImage", "请填写服务详细信息");
-
-        try {
-            String msg = CheckNotNullUtils.checkNotNull(applyReq, fieldMap);
-//            if (!StringUtils.isEmpty(msg)) {
-//                ToastUtils.showShort(msg);
-//                return;
-//            }
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("apply", applyReq);
-            ActivityUtils.startActivity(bundle, AddSpecActivity.class);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        String msg = CheckNotNullUtils.checkNotNull(checkParam);
+        if (!StringUtils.isEmpty(msg)) {
+            ToastUtils.showShort(msg);
+            return;
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("apply", applyReq);
+        ActivityUtils.startActivity(bundle, AddSpecActivity.class);
     }
-
 
     //顶部轮播图片
     private void bannerImage() {
@@ -208,7 +191,6 @@ public class SkillActivity extends BaseActivity implements
 
             @Override
             public void onItemClick(View view, int position) {
-                pictureSelectionModel.openExternalPreview(position, addBannerAdapter.getData());
             }
 
             @Override
@@ -226,8 +208,6 @@ public class SkillActivity extends BaseActivity implements
             uploadVM.initPermission(this, this, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
             return;
         }
-
-
         pictureSelectionModel = uploadVM.pictureSelection(this, new OnResultCallbackListener<LocalMedia>() {
             @Override
             public void onResult(List<LocalMedia> result) {
@@ -256,7 +236,7 @@ public class SkillActivity extends BaseActivity implements
 
             @Override
             public void onItemClick(View view, int position) {
-                pictureSelectionModel.openExternalPreview(position, addServeAdapter.getData());
+
             }
 
             @Override
@@ -457,15 +437,15 @@ public class SkillActivity extends BaseActivity implements
 
 
         uploadVM.uploadLiveData.observe(this, uploadRes -> {
-            LogUtils.e(uploadRes.getData().uploadUrl);
+
             LocalMedia localMedia = new LocalMedia();
-            localMedia.setPath(BaseApplication.HOST_PATH + uploadRes.getData().uploadUrl);
+            localMedia.setPath(uploadRes.getData().uploadUrl);
             if (IMAGE_SOURCE == 1) {
                 addServeAdapter.addData(localMedia);
             } else if (IMAGE_SOURCE == 2) {
                 addBannerAdapter.addData(localMedia);
             } else if (IMAGE_SOURCE == 3) {
-                binding.richEditor.insertImage(BaseApplication.HOST_PATH + uploadRes.getData().uploadUrl);
+                binding.richEditor.insertImage(uploadRes.getData().uploadUrl);
             }
         });
     }
@@ -502,7 +482,6 @@ public class SkillActivity extends BaseActivity implements
     public void noAsk(String permissionName) {
         RxPermissionManager.showPermissionDialog(this, permissionName);
     }
-
 
     /**
      * 初始化颜色选择器

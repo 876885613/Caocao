@@ -8,8 +8,10 @@ import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityServeGenreBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
-import com.caocao.client.ui.authentication.IdentityAUTActivity;
+import com.caocao.client.ui.login.LoginUtils;
+import com.caocao.client.ui.serve.AgentApplyActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
+import com.caocao.client.ui.serve.authentication.IdentityAUTActivity;
 import com.coder.baselibrary.dialog.AlertDialog;
 import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 
@@ -29,10 +31,12 @@ public class ServeGenreActivity extends BaseActivity {
         binding.tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.rbMe.isChecked()) {
-                    ActivityUtils.startActivity(SkillActivity.class);
-                } else {
-                    ActivityUtils.startActivity(IdentityAUTActivity.class);
+                if (LoginUtils.isLogin()) {
+                    if (binding.rbMe.isChecked()) {
+                        ActivityUtils.startActivity(SkillActivity.class);
+                    } else {
+                        ActivityUtils.startActivity(IdentityAUTActivity.class);
+                    }
                 }
             }
         });
@@ -51,11 +55,13 @@ public class ServeGenreActivity extends BaseActivity {
                             + "没有运营商,您可以选择继续申请发布技能,也可以选择申请加盟")
                     .setText(R.id.tv_cancel, "加盟")
                     .setText(R.id.tv_affirm, "继续申请")
-                    .setOnClickListener(R.id.tv_affirm,null)
+                    .setOnClickListener(R.id.tv_affirm, null)
                     .setOnClickListener(R.id.tv_cancel, new OnClickListenerWrapper() {
                         @Override
                         public void onClickCall(View v) {
-
+                            if(LoginUtils.isLogin()){
+                            ActivityUtils.startActivity(AgentApplyActivity.class);
+                            }
                         }
                     })
                     .show();

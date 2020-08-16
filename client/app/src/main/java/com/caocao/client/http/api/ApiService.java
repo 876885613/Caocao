@@ -3,12 +3,15 @@ package com.caocao.client.http.api;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.request.DemandReq;
 import com.caocao.client.http.entity.request.OrderReq;
+import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
+import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
 import com.caocao.client.http.entity.respons.RemarkResp;
+import com.caocao.client.http.entity.respons.SiteInfoResp;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.http.entity.respons.UploadResp;
 
@@ -227,6 +230,7 @@ public interface ApiService {
 
     /**
      * 上传附件
+     *
      * @param file
      * @return
      */
@@ -234,4 +238,79 @@ public interface ApiService {
     @POST("/api/uploads/picture")
     Flowable<UploadResp> upload(@Part MultipartBody.Part file);
 
+    /**
+     * 申请入驻
+     *
+     * @param demand
+     * @return
+     */
+    @POST("/api/merchant/apply")
+    Flowable<BaseResp> apply(@Body SettleApplyReq demand);
+
+    /**
+     * 注册
+     *
+     * @param phone
+     * @param code
+     * @param password
+     * @param repeatPassword
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/login/register")
+    Flowable<BaseResp> register(
+            @Field("phone") String phone,
+            @Field("code") String code,
+            @Field("password") String password,
+            @Field("repeat_password") String repeatPassword
+    );
+
+    /**
+     * 验证码
+     *
+     * @param phone
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/login/sendRegisterSms")
+    Flowable<BaseResp> sendCode(@Field("phone") String phone);
+
+    /**
+     * 登录
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/login/login")
+    Flowable<LoginResp> login(@Field("phone") String phone, @Field("password") String password);
+
+    /**
+     * 总部信息
+     *
+     * @return
+     */
+    @POST("/api/agent/siteInfo")
+    Flowable<SiteInfoResp> siteInfo();
+
+    /**
+     * 加盟
+     *
+     * @param region
+     * @param name
+     * @param identity
+     * @param mobile
+     * @param comment
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/agent/agentApply")
+    Flowable<BaseResp> agentApply(
+            @Field("region") String region,
+            @Field("name") String name,
+            @Field("identity") int identity,
+            @Field("mobile") String mobile,
+            @Field("comment") String comment
+    );
 }

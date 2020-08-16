@@ -24,7 +24,7 @@
                 app:sLeftText="店铺门头照" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_store_photo"
+                android:id="@+id/rv_door_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
@@ -50,15 +50,6 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="15dp" />
 
-            <com.caocao.client.view.SuperTextView
-                android:id="@+id/stv_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                app:sLeftIcon="@mipmap/ic_store_ico"
-                app:sLeftText="用户名称"
-                app:sRightEditHint="请输入您的姓名" />
 
             <com.caocao.client.view.SuperTextView
                 android:id="@+id/stv_store_name"
@@ -78,6 +69,7 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_store_ico"
                 app:sLeftText="客服电话"
+                android:inputType="number"
                 app:sRightEditHint="请输入客服电话" />
 
             <com.caocao.client.view.SuperTextView
@@ -145,6 +137,7 @@
                 app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_address_detail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="3dp"

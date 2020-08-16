@@ -86,7 +86,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.Imag
             holder.delView.setVisibility(View.VISIBLE);
             // 网络图片
             Glide.with(BaseApplication.getInstance())
-                    .load(mData.get(position).getPath())
+                    .load(BaseApplication.HOST_PATH + mData.get(position).getPath())
                     .error(R.mipmap.ic_default_image)
                     .into(holder.imageView);
 

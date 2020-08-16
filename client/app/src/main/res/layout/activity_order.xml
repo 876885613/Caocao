@@ -30,7 +30,7 @@
             android:paddingRight="35dp">
 
             <RadioButton
-                android:id="@+id/rb_home"
+                android:id="@+id/rb_serve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -44,7 +44,7 @@
                 android:textStyle="bold" />
 
             <RadioButton
-                android:id="@+id/rb_me"
+                android:id="@+id/rb_release"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

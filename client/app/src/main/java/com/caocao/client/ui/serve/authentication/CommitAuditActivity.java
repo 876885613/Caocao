@@ -1,4 +1,4 @@
-package com.caocao.client.ui.authentication;
+package com.caocao.client.ui.serve.authentication;
 
 import android.view.View;
 
@@ -23,9 +23,7 @@ import com.caocao.client.ui.MainActivity;
 public class CommitAuditActivity extends BaseActivity {
 
 
-
     private ActivityCommitAuditBinding binding;
-
 
     @Override
     protected void initTitle() {

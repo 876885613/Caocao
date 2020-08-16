@@ -1,4 +1,4 @@
-package com.caocao.client.ui.serve.release;
+package com.caocao.client.ui.serve.authentication;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -17,17 +16,14 @@ import com.bumptech.glide.Glide;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.app.BaseApplication;
-import com.caocao.client.databinding.ActivitySkillReleaseBinding;
+import com.caocao.client.databinding.ActivityIdentityAutBinding;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
-import com.caocao.client.ui.adapter.AddPhotoAdapter;
-import com.caocao.client.ui.adapter.GridImageAdapter;
 import com.caocao.client.ui.bean.CheckBean;
 import com.caocao.client.ui.image.UploadViewModel;
-import com.caocao.client.ui.serve.ServeViewModel;
-import com.caocao.client.ui.serve.authentication.CommitAuditActivity;
 import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 import com.caocao.client.utils.CheckNotNullUtils;
+import com.caocao.client.utils.LocalParseUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
 import com.caocao.client.utils.location.RxPermissionManager;
 import com.luck.picture.lib.PictureSelectionModel;
@@ -44,11 +40,23 @@ import static com.caocao.client.ui.bean.CheckBean.CheckType.ID_CARD;
 import static com.caocao.client.ui.bean.CheckBean.CheckType.PHONE;
 import static com.caocao.client.ui.bean.CheckBean.CheckType.SERVE_PASSWORD;
 
-public class SkillReleaseActivity extends BaseActivity implements View.OnClickListener, RxPermissionListener {
+/**
+ * @ProjectName: Caocao
+ * @Package: com.caocao.client.ui.authentication
+ * @ClassName: IdentityActivity
+ * @Description: 商家认证  身份信息
+ * @Author: XuYu
+ * @CreateDate: 2020/8/7 10:23
+ * @UpdateUser: 更新者
+ * @UpdateDate: 2020/8/7 10:23
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
+ */
+public class IdentityAUTActivity extends BaseActivity implements View.OnClickListener, RxPermissionListener {
 
-    private ActivitySkillReleaseBinding binding;
+    private ActivityIdentityAutBinding binding;
 
-
+    private LocalParseUtils localParseUtils;
     private SettleApplyReq applyReq;
     private UploadViewModel uploadVM;
 
@@ -57,27 +65,34 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
     private int IMAGE_SOURCE;
 
     private List<String> cardImgList = new ArrayList<>();
-    private ServeViewModel serveVM;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        localParseUtils = LocalParseUtils.getInstance(getApplicationContext());
         uploadVM.initPermission(this, this, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        applyReq = new SettleApplyReq();
+        applyReq.type = 2;
     }
+
 
     @Override
     protected void initTitle() {
-        new DefaultNavigationBar.Builder(this).setTitle("发布技能").builder();
+        new DefaultNavigationBar.Builder(this)
+                .setTitle("商家认证")
+                .builder();
     }
 
     @Override
     protected void initView() {
+
         binding.stvContacts.setRightEditTextWatcher(new TextWatcherWrapper() {
             @Override
             public void afterTextChanged(Editable s) {
                 applyReq.username = s.toString();
             }
         });
+
 
         binding.stvTel.setRightEditTextWatcher(new TextWatcherWrapper() {
             @Override
@@ -100,46 +115,15 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
+
         binding.layoutIdCard.ivFront.setOnClickListener(this);
         binding.layoutIdCard.ivReverse.setOnClickListener(this);
-        binding.tvRelease.setOnClickListener(this);
-
-        binding.rvPhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        AddPhotoAdapter addAdapter = new AddPhotoAdapter(this, null);
-        binding.rvPhoto.setAdapter(addAdapter);
-
-
-        qualificationView();
-    }
-
-    private void qualificationView() {
-        binding.rvPhoto.setLayoutManager(new GridLayoutManager(this, 3));
-        GridImageAdapter addQualificationAdapter = new GridImageAdapter(null, 1);
-        addQualificationAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
-            @Override
-            public void onTakePhotoClick(View view, int position) {
-                photoSelect(3);
-            }
-
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onItemDelClick(View view, int position) {
-                addQualificationAdapter.setNewData(null);
-            }
-        });
-        binding.rvPhoto.setAdapter(addQualificationAdapter);
+        binding.tvNext.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        applyReq = getParcelableExtra("apply");
         uploadVM = getViewModel(UploadViewModel.class);
-
-        serveVM = getViewModel(ServeViewModel.class);
 
         uploadVM.uploadLiveData.observe(this, uploadRes -> {
             LogUtils.e(uploadRes.getData().uploadUrl);
@@ -150,21 +134,16 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             } else if (IMAGE_SOURCE == 2) {
                 Glide.with(this).load(BaseApplication.HOST_PATH + url).error(R.mipmap.ic_id_card_reverse).into(binding.layoutIdCard.ivReverse);
                 cardImgList.add(1, url);
-            } else if (IMAGE_SOURCE == 3) {
-                applyReq.businessLicense = url;
             }
-        });
-
-        serveVM.baseLiveData.observe(this, applyReq -> {
-            ActivityUtils.startActivity(CommitAuditActivity.class);
         });
     }
 
     @Override
     public View initLayout() {
-        binding = ActivitySkillReleaseBinding.inflate(getLayoutInflater());
+        binding = ActivityIdentityAutBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -175,14 +154,14 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             case R.id.iv_reverse:
                 photoSelect(2);
                 break;
-            case R.id.tv_release:
-                release();
+            case R.id.tv_next:
+                next();
                 break;
         }
     }
 
     @SuppressLint("NewApi")
-    private void release() {
+    private void next() {
 
         String cardImage = String.join(",", cardImgList);
         applyReq.idcardImage = cardImage;
@@ -200,9 +179,10 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             return;
         }
 
-        serveVM.apply(applyReq);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("apply", applyReq);
+        ActivityUtils.startActivity(bundle, StoreAUTActivity.class);
     }
-
 
     private void photoSelect(int type) {
         boolean granted = uploadVM.isCameraGranted();
@@ -214,7 +194,7 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
         pictureSelectionModel = uploadVM.pictureSelection(this, new OnResultCallbackListener<LocalMedia>() {
             @Override
             public void onResult(List<LocalMedia> result) {
-                SkillReleaseActivity.this.IMAGE_SOURCE = type;
+                IdentityAUTActivity.this.IMAGE_SOURCE = type;
                 String path = result.get(0).getPath();
                 uploadVM.uploadPhoto(path);
             }
@@ -224,6 +204,7 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
 
     @Override
     public void accept() {

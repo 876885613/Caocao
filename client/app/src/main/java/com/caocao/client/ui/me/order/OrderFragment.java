@@ -45,7 +45,7 @@ public class OrderFragment extends BaseFragment {
     @Override
     protected void initView() {
         binding.rvList.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new OrderAdapter(R.layout.adapter_order_item, null);
+        adapter = new OrderAdapter(R.layout.adapter_release_order_item, null);
         binding.rvList.setAdapter(adapter);
     }
 

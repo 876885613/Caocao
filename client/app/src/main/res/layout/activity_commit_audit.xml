@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:text="提交成功，请耐心等待审核"
+        android:text="预计5个工作日内完成审核"
         android:textColor="@color/t4"
         android:textSize="@dimen/t2" />
 

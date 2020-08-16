@@ -1,7 +1,7 @@
 package com.caocao.client.http.utils;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.caocao.client.base.app.BaseApplication;
+import com.blankj.utilcode.util.SPStaticUtils;
 
 import java.io.IOException;
 
@@ -43,7 +43,7 @@ public class HttpInterceptorUtil {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("token", "tIDMgHVgduct4SCEVGEHSc2O1z4zajOYmmyUOjOwaQvJlimTwlctZvCAO20-eQBbTJqBvJmV_wDnOJ1gFgjwzg==");
+                        .addHeader("token", SPStaticUtils.getString("token"));
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             }

@@ -33,8 +33,20 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_tel_ico"
                 app:sLeftText="联系人电话"
+                android:inputType="number"
                 app:sBottomDividerVisibility="gone"
                 app:sRightEditHint="请输入电话" />
+
+            <com.caocao.client.view.SuperTextView
+                android:id="@+id/stv_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:sLeftIcon="@mipmap/ic_tel_ico"
+                app:sLeftText="设置密码"
+                android:inputType="text"
+                app:sRightEditHint="请设置密码" />
         </LinearLayout>
 
         <include
