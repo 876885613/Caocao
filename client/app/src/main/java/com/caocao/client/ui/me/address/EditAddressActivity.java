@@ -99,7 +99,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
         meVM = getViewModel(MeViewModel.class);
 
 
-        meVM.editAddressLiveData.observe(this, baseRes -> {
+        meVM.baseLiveData.observe(this, baseRes -> {
             ToastUtils.showShort(baseRes.getMsg());
             setResult(200);
             finish();

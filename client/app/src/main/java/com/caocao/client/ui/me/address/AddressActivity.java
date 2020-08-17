@@ -122,7 +122,7 @@ public class AddressActivity extends BaseActivity {
             addressAdapter.setNewData(addressRes.getData());
         });
 
-        meVM.editAddressLiveData.observe(this, delRes -> {
+        meVM.baseLiveData.observe(this, delRes -> {
             ToastUtils.showShort(delRes.getMsg());
             meVM.addressList();
         });

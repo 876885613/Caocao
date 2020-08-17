@@ -18,6 +18,8 @@ import com.caocao.client.http.api.ApiService;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 
 /**
@@ -45,7 +47,6 @@ public class BaseApplication extends Application {
     public static String sRegion; //省市区
     public static double sLatitude;   //获取纬度信息
     public static double sLongitude;//获取经度信息
-
 
     public static final String HOST_PATH = "http://ccdj.jiajiayong.com";
 
@@ -79,6 +80,9 @@ public class BaseApplication extends Application {
         registerActivityLifecycleCallbacks(mCallbacks);
 
         SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance("caocao_client"));
+
+        //初始化微信
+        initWX(sInstance);
     }
 
 
@@ -96,6 +100,16 @@ public class BaseApplication extends Application {
         }
     }
 
+    /**
+     * 微信初始化配置
+     */
+    public static final String APP_ID = "wxcd6e2b9e6d6da467";
+    public static       IWXAPI iwxapi;
+
+    private void initWX(Context context) {
+        iwxapi = WXAPIFactory.createWXAPI(context, APP_ID, true);
+        iwxapi.registerApp(APP_ID);
+    }
 
     //获取到主线程的handler
     private static Handler mMainThreadHandler = new Handler(Looper.getMainLooper()) {

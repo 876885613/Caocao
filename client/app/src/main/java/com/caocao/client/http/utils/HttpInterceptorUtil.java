@@ -43,7 +43,8 @@ public class HttpInterceptorUtil {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("token", SPStaticUtils.getString("token"));
+//                        .addHeader("token", SPStaticUtils.getString("token"));
+                        .addHeader("token", "tIDMgHVgduct4SCEVGEHSc2O1z4zajOYmmyUOjOwaQvJlimTwlctZvCAO20-eQBbTJqBvJmV_wDnOJ1gFgjwzg==");
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             }

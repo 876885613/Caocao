@@ -28,6 +28,7 @@ import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 import com.caocao.client.utils.DateUtils;
 import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import java.util.Date;
 import java.util.List;
@@ -154,7 +155,18 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
 
         serveVM.baseLiveData.observe(this, createOrderRes -> {
             LogUtils.e(createOrderRes);
-            ToastUtils.showShort(createOrderRes.getMsg());
+
+//            PayReq request = new PayReq();
+//            request.appId = order.appid;
+//            request.partnerId = order.partnerid;
+//            request.prepayId = order.prepayid;
+//            request.packageValue = "Sign=WXPay";
+//            request.nonceStr = order.noncestr;
+//            request.timeStamp = String.valueOf(order.timestamp);
+//            request.sign = order.sign;
+//            request.signType = order.signType;
+//            MattApplication.iwxapi.sendReq(request);
+
         });
 
     }

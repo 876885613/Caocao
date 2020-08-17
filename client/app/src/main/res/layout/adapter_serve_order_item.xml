@@ -13,7 +13,7 @@
         android:id="@+id/stv_sort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sLeftIcon="@mipmap/ic_sort_ico"
+        app:sLeftIcon="@mipmap/ic_store_ico"
         app:sLeftText="保洁服务"
         app:sLeftTextSize="@dimen/t4"
         app:sRightText="抢单中"
@@ -68,7 +68,7 @@
                     android:layout_alignParentRight="true"
                     android:text="x1"
                     android:textColor="@color/t2"
-                    android:textSize="@dimen/t1" />
+                    android:textSize="@dimen/t2" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -99,5 +99,70 @@
         android:layout_marginTop="10dp"
         android:background="@color/color_divider_line" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="实付："
+            android:textColor="@color/t1"
+            android:textSize="@dimen/t2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="200.00"
+            android:textColor="@color/t4"
+            android:textSize="@dimen/t4" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_round_5_theme"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="取消订单"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/t3"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_round_5_ff6203"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="去支付"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/t3"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_round_5_ff6203"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="评论"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/t3"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

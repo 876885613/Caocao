@@ -30,7 +30,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private String[] mTitles;
 
-    private String[] mArgument;
+    private int[] mArgument;
 
 
     public static final String ARGUMENT = "argument";
@@ -48,7 +48,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         this.mTitles = titles;
     }
 
-    public void setArguments(String[] arguments) {
+    public void setArguments(int[] arguments) {
         this.mArgument = arguments;
     }
 
@@ -59,7 +59,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         //传递参数信息
         if (mArgument != null && mArgument.length != 0 && mArgument.length == mFragments.size()) {
             Bundle bundle = new Bundle();
-            bundle.putString(ARGUMENT, mArgument[position]);
+            bundle.putInt(ARGUMENT, mArgument[position]);
             fragment.setArguments(bundle);
         }
         return fragment;

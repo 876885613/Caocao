@@ -6,10 +6,13 @@ import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.BannerResp;
+import com.caocao.client.http.entity.respons.DemandOrderResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
+import com.caocao.client.http.entity.respons.ServeOrderResp;
 import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SiteInfoResp;
 import com.caocao.client.http.entity.respons.SortResp;
@@ -313,4 +316,43 @@ public interface ApiService {
             @Field("mobile") String mobile,
             @Field("comment") String comment
     );
+
+
+    /**
+     * 订单列表
+     *
+     * @param status
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/getOrderList")
+    Flowable<ServeOrderResp> orderList(
+            @Field("status") int status,
+            @Field("page") int page
+    );
+
+    /**
+     * 需求列表
+     *
+     * @param status
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer_demand/getDemandList")
+    Flowable<DemandOrderResp> demandList(
+            @Field("status") int status,
+            @Field("page") int page
+    );
+
+    /**
+     * 订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/orderDetail")
+    Flowable<ServeOrderDetailResp> orderDetail(@Field("order_id") int orderId);
 }

@@ -18,7 +18,7 @@ public class LocationUtils {
     private static LocationClient sLocationClient;
 
     private static MyLocationListener myListener = new MyLocationListener();
-    private static Handler sHandler;
+    private static Handler            sHandler;
 
 
     public static LocationUtils getInstance(Context context) {
@@ -75,8 +75,8 @@ public class LocationUtils {
 
             BaseApplication.sLatitude = latitude;
             BaseApplication.sLongitude = longitude;
-//            BaseApplication.sRegion = province + "," + city + "," + district;
-            BaseApplication.sRegion = "山东省,济南市,市中区";
+            BaseApplication.sRegion = province + "," + city + "," + district;
+//            BaseApplication.sRegion = "山东省,济南市,市中区";
 
             Message msg = new Message();
             msg.what = 200;

@@ -28,7 +28,6 @@
             android:paddingLeft="35dp"
             android:paddingTop="5dp"
             android:paddingRight="35dp">
-
             <RadioButton
                 android:id="@+id/rb_serve"
                 android:layout_width="wrap_content"
@@ -56,26 +55,12 @@
                 android:textSize="@dimen/t5"
                 android:textStyle="bold" />
         </RadioGroup>
-
     </RelativeLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/color_white"
-        app:tabGravity="center"
-        app:tabIndicatorColor="@color/t4"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/t4"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/t1" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_page"/>
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.AddressResp;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.caocao.client.http.entity.respons.DemandOrderResp;
+import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
+import com.caocao.client.http.entity.respons.ServeOrderResp;
 
 /**
  * @ProjectName: Caocao
@@ -23,25 +23,25 @@ import java.util.List;
  */
 public class MeViewModel extends BaseViewModel {
 
-    public MutableLiveData<List<BaseResp>> orderLiveData;
+
+    public MutableLiveData<ServeOrderResp>       serveOrderLiveData;
+    public MutableLiveData<DemandOrderResp>      demandOrderLiveData;
+    public MutableLiveData<ServeOrderDetailResp> orderDetailLiveData;
 
     public MutableLiveData<AddressResp> addressLiveData;
 
-    public MutableLiveData<BaseResp> editAddressLiveData;
+    public MutableLiveData<BaseResp> baseLiveData;
+
+    private int page;
 
     public MeViewModel() {
-        orderLiveData = new MutableLiveData<>();
+        serveOrderLiveData = new MutableLiveData<>();
+        demandOrderLiveData = new MutableLiveData<>();
+        orderDetailLiveData = new MutableLiveData<>();
+
         addressLiveData = new MutableLiveData<>();
 
-        editAddressLiveData = new MutableLiveData<>();
-    }
-
-    public void orderData() {
-        List<BaseResp> serveList = new ArrayList<>();
-        for (int i = 0; i <= 9; i++) {
-            serveList.add(new BaseResp());
-        }
-        orderLiveData.setValue(serveList);
+        baseLiveData = new MutableLiveData<>();
     }
 
     public void addressList() {
@@ -49,10 +49,35 @@ public class MeViewModel extends BaseViewModel {
     }
 
     public void editAddress(AddressResp address) {
-        request(api.editAddress(address)).send(editAddressLiveData);
+        request(api.editAddress(address)).send(baseLiveData);
     }
 
     public void deleteAddress(int id) {
-        request(api.deleteAddress(id)).send(editAddressLiveData);
+        request(api.deleteAddress(id)).send(baseLiveData);
     }
+
+    public void serveOrder(int state) {
+        page = 1;
+        request(api.orderList(state, page)).send(serveOrderLiveData, page);
+    }
+
+    public void serveOrderMore(int state) {
+        page++;
+        request(api.orderList(state, page)).send(serveOrderLiveData, page);
+    }
+
+    public void demandOrder(int state) {
+        page = 1;
+        request(api.demandList(state, page)).send(demandOrderLiveData, page);
+    }
+
+    public void demandOrderMore(int state) {
+        page++;
+        request(api.demandList(state, page)).send(demandOrderLiveData, page);
+    }
+
+    public void orderDetail(int orderId){
+        request(api.orderDetail(orderId)).send(orderDetailLiveData);
+    }
+
 }

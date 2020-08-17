@@ -7,8 +7,16 @@
     <string name="goods_distance">距您%1$skm</string>
     <string name="goods_spec_price_unit">%1$s/%2$s</string>
     <string name="goods_spec_price_unit_symbol">¥%1$s/%2$s</string>
+    <string name="goods_spec_num">x%1$d</string>
     <string name="goods_remark_num">服务评价 (%1$d)</string>
     <string name="goods_serve_time">%1$s&#160;&#160;%2$s:%3$s</string>
+    <string name="order_sn">订单编号：%1$s</string>
+    <string name="order_time">订单时间：%1$s</string>
+    <string name="demand_due_stats">剩余%1$d天过期·已应邀%2$d服务器</string>
+    <string name="demand_address">地址：%1$s%2$s%3$s%4$s</string>
+    <string name="demand_contact">联系人：%1$s</string>
+    <string name="demand_tel">联系电话：%1$s</string>
+    <string name="demand_serve_time">服务时间：%1$s</string>
 
 
 </resources>
