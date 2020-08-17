@@ -6,14 +6,15 @@ import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.BannerResp;
+import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
 import com.caocao.client.http.entity.respons.DemandOrderResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
 import com.caocao.client.http.entity.respons.ServeOrderResp;
-import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SiteInfoResp;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.http.entity.respons.UploadResp;
@@ -355,4 +356,14 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api/order/orderDetail")
     Flowable<ServeOrderDetailResp> orderDetail(@Field("order_id") int orderId);
+
+    /**
+     * 需求详情
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer_demand/demandDetail")
+    Flowable<DemandOrderDetailResp> demandDetail(@Field("id") int id);
+
 }

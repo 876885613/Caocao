@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.AddressResp;
+import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
 import com.caocao.client.http.entity.respons.DemandOrderResp;
 import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
 import com.caocao.client.http.entity.respons.ServeOrderResp;
@@ -26,7 +27,8 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<ServeOrderResp>       serveOrderLiveData;
     public MutableLiveData<DemandOrderResp>      demandOrderLiveData;
-    public MutableLiveData<ServeOrderDetailResp> orderDetailLiveData;
+    public MutableLiveData<ServeOrderDetailResp> serveOrderDetailLiveData;
+    public MutableLiveData<DemandOrderDetailResp> demandOrderDetailLiveData;
 
     public MutableLiveData<AddressResp> addressLiveData;
 
@@ -37,8 +39,8 @@ public class MeViewModel extends BaseViewModel {
     public MeViewModel() {
         serveOrderLiveData = new MutableLiveData<>();
         demandOrderLiveData = new MutableLiveData<>();
-        orderDetailLiveData = new MutableLiveData<>();
-
+        serveOrderDetailLiveData = new MutableLiveData<>();
+        demandOrderDetailLiveData = new MutableLiveData<>();
         addressLiveData = new MutableLiveData<>();
 
         baseLiveData = new MutableLiveData<>();
@@ -77,7 +79,11 @@ public class MeViewModel extends BaseViewModel {
     }
 
     public void orderDetail(int orderId){
-        request(api.orderDetail(orderId)).send(orderDetailLiveData);
+        request(api.orderDetail(orderId)).send(serveOrderDetailLiveData);
+    }
+
+    public void demandDetail(int id){
+        request(api.demandDetail(id)).send(demandOrderDetailLiveData);
     }
 
 }

@@ -55,27 +55,41 @@ public class ServeOrderAdapter extends BaseQuickAdapter<ServeOrderResp, BaseView
                 sortView.getRightTextView().setText("已完成");
                 if (item.commentStatus == 0) {
                     helper.setText(R.id.tv_state, "待评价");
-                    helper.setGone(R.id.tv_state, true);
+                    btnGone(helper, true, false, false);
+                } else {
+                    btnGone(helper, false, false, false);
                 }
                 break;
             case 2:
                 sortView.getRightTextView().setText("待支付");
                 helper.setText(R.id.tv_cancel, "取消订单");
-                helper.setGone(R.id.tv_cancel, true);
-                helper.setGone(R.id.tv_pay, true);
+                btnGone(helper, false, true, true);
                 break;
             case 3:
                 sortView.getRightTextView().setText("待接单");
+                btnGone(helper, false, false, false);
                 break;
             case 4:
                 sortView.getRightTextView().setText("待服务");
+                btnGone(helper, false, false, false);
                 break;
             case 5:
                 sortView.getRightTextView().setText("待退款");
+                btnGone(helper, false, false, false);
                 break;
             case 6:
                 sortView.getRightTextView().setText("已退款");
+                btnGone(helper, false, false, false);
                 break;
         }
+
+        helper.addOnClickListener(R.id.tv_cancel, R.id.tv_pay, R.id.tv_state);
+    }
+
+
+    private void btnGone(BaseViewHolder helper, boolean state, boolean cancel, boolean pay) {
+        helper.setGone(R.id.tv_state, state);
+        helper.setGone(R.id.tv_cancel, cancel);
+        helper.setGone(R.id.tv_pay, pay);
     }
 }

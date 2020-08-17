@@ -83,8 +83,11 @@
 
     <!--  评星样式  -->
     <style name="GlimmerRatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
-        <item name="android:minHeight">20dip</item>
-        <item name="android:maxHeight">20dip</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:stepSize">1.0</item>
+        <item name="android:progressDrawable">@drawable/glimmerratingbar</item>
     </style>
 
 

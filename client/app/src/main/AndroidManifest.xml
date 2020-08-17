@@ -133,6 +133,10 @@
             android:name=".ui.me.order.ServeOrderDetailsActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.me.order.OrderCommentActivity"
+            android:screenOrientation="portrait" />
+
         <!--    百度地图    -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

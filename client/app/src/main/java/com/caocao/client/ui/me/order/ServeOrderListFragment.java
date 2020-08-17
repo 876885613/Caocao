@@ -39,9 +39,9 @@ import java.util.List;
 public class ServeOrderListFragment extends BaseFragment {
 
     private LayoutRefreshListBinding binding;
-    private ServeOrderAdapter        orderAdapter;
-    private MeViewModel              meVM;
-    private int                      state;
+    private ServeOrderAdapter orderAdapter;
+    private MeViewModel meVM;
+    private int state;
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
@@ -80,6 +80,29 @@ public class ServeOrderListFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("orderId", orderAdapter.getData().get(position).orderId);
                 ActivityUtils.startActivity(bundle, ServeOrderDetailsActivity.class);
+            }
+        });
+
+
+        orderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.tv_cancel:
+                        break;
+                    case R.id.tv_pay:
+                        break;
+                    case R.id.tv_state:
+                        ServeOrderResp order = orderAdapter.getData().get(position);
+
+                        if (order.status == 1 && order.commentStatus == 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("goodsId",order.goodsId);
+                            bundle.putInt("orderId",order.orderId);
+                            ActivityUtils.startActivity(bundle,OrderCommentActivity.class);
+                        }
+                        break;
+                }
             }
         });
 

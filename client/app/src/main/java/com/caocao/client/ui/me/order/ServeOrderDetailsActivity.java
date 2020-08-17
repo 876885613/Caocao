@@ -4,7 +4,6 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.caocao.client.R;
@@ -53,7 +52,7 @@ public class ServeOrderDetailsActivity extends BaseActivity {
         meVM = getViewModel(MeViewModel.class);
 
         meVM.orderDetail(orderId);
-        meVM.orderDetailLiveData.observe(this, orderRes -> {
+        meVM.serveOrderDetailLiveData.observe(this, orderRes -> {
             ServeOrderDetailResp order = orderRes.getData();
             orderView(order);
         });
