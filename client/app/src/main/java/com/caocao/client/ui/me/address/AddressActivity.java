@@ -95,6 +95,15 @@ public class AddressActivity extends BaseActivity {
                 }
             }
         });
+
+        binding.tvAddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("source", 0);
+                ActivityUtils.startActivityForResult(bundle, AddressActivity.this, EditAddressActivity.class, 200);
+            }
+        });
     }
 
     private void showDelDialog(int id) {

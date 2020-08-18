@@ -70,6 +70,7 @@
                 android:hint="将通过此号码联系你"
                 android:textColor="@color/t1"
                 android:textColorHint="@color/t3"
+                android:inputType="number"
                 android:textSize="@dimen/t4" />
 
             <View

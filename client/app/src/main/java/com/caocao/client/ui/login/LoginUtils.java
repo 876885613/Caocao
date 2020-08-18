@@ -25,8 +25,8 @@ public class LoginUtils {
      */
     public static boolean isLogin() {
         if (StringUtils.isEmpty(SPStaticUtils.getString("token"))) {
-            ActivityUtils.startActivity(LoginActivity.class);
-            return false;
+//            ActivityUtils.startActivity(LoginActivity.class);
+            return true;
         }
         return true;
     }

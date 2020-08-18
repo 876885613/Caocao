@@ -19,7 +19,6 @@ import java.util.List;
  * @Package: com.caocao.client.ui.me.order
  * @ClassName: OrderServeFragment
  * @Description: java类作用描述
- * @Author: XuYu
  * @CreateDate: 2020/8/17 8:59
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/8/17 8:59

@@ -24,7 +24,7 @@ import com.caocao.client.ui.me.MeViewModel;
 public class DemandOrderDetailsActivity extends BaseActivity {
 
     private ActivityDemandOrderDetailsBinding binding;
-    private MeViewModel meVM;
+    private MeViewModel                       meVM;
 
     @Override
     protected void initTitle() {
@@ -58,14 +58,14 @@ public class DemandOrderDetailsActivity extends BaseActivity {
         binding.tvDueStats.setText(getString(R.string.demand_due_stats, demand.surplusTime, demand.invitedCount));
         binding.tvOrderRemark.setText(demand.demandDepict);
         binding.tvOrderSn.setText(demand.orderSn);
-        binding.tvCreateTime.setText("");
+        binding.tvCreateTime.setText(demand.startTime);
         binding.tvReservePrice.setText(demand.reservePrice);
         binding.tvBalancePrice.setText(demand.expectedPrice);
 
         binding.tvMerchantName.setText(demand.merchantName);
         binding.tvMerchantAddress.setText(getString(R.string.demand_address, demand.merchantProvince,
                 demand.merchantCity, demand.merchantDistrict, demand.addressDetail));
-        binding.tvServiceTime.setText("");
+        binding.tvMerchantTel.setText(demand.consumerHotline);
 
         switch (demand.status) {
             case 1:
@@ -116,8 +116,10 @@ public class DemandOrderDetailsActivity extends BaseActivity {
                 binding.tvServe.setChecked(true);
                 break;
             case 5:
+                binding.tvOrderState.setText("退款中");
+                binding.tvTime.setText(demand.serviceTime);
             case 6:
-                binding.tvOrderState.setText("服务已取消");
+                binding.tvOrderState.setText("退款成功");
                 binding.tvTime.setText(demand.serviceTime);
                 break;
         }

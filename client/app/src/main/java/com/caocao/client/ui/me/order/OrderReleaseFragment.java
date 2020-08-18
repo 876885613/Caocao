@@ -40,7 +40,7 @@ public class OrderReleaseFragment extends BaseFragment {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.setFragments(getFragments());
         adapter.setArguments(new int[]{0, 2, 3, 4, 1});
-        adapter.setTitles(new String[]{"全部", "待支付", "待接单", "待服务", "已完成"});
+        adapter.setTitles(new String[]{"全部", "待支付", "抢单中", "待服务", "已完成"});
         binding.viewPager.setAdapter(adapter);
     }
 

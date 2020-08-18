@@ -1,83 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_page"
-    android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/bg_round_5_fff">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/tv_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_white"
-            android:gravity="left"
-            android:hint="从多个评价服务，可以帮助更多想买的人"
-            android:minHeight="150dp"
-            android:padding="10dp"
-            android:textColor="@color/t1"
-            android:textColorHint="@color/t3"
-            android:textSize="@dimen/t3" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_content"
-            android:padding="10dp" />
-    </RelativeLayout>
+    android:background="@color/bg_page">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/bg_round_5_fff"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="15dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="13dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="星级评价"
-            android:textColor="@color/t1"
-            android:textSize="@dimen/t4" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_round_5_fff">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:gravity="left"
+                android:hint="从多个评价服务，可以帮助更多想买的人"
+                android:minHeight="150dp"
+                android:padding="10dp"
+                android:textColor="@color/t1"
+                android:textColorHint="@color/t3"
+                android:textSize="@dimen/t3" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_content"
+                android:padding="10dp" />
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_round_5_fff"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="13dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="服务质量"
-                android:textColor="@color/t2"
-                android:textSize="@dimen/t2" />
+                android:text="星级评价"
+                android:textColor="@color/t1"
+                android:textSize="@dimen/t4" />
 
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/rating"
-                style="@style/GlimmerRatingBarStyle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务质量"
+                    android:textColor="@color/t2"
+                    android:textSize="@dimen/t2" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating"
+                    style="@style/GlimmerRatingBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_release"
+            style="@style/ButtonStyle"
+            android:text="发布" />
+    </RelativeLayout>
+
+</RelativeLayout>

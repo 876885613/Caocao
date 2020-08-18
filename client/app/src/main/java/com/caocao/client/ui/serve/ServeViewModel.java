@@ -10,6 +10,7 @@ import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.SiteInfoResp;
 import com.caocao.client.http.entity.respons.SortResp;
@@ -27,19 +28,20 @@ import com.caocao.client.http.entity.respons.SortResp;
  * @Version: 1.0
  */
 public class ServeViewModel extends BaseViewModel {
-    public MutableLiveData<SortResp> sortLiveData;
-    public MutableLiveData<GoodsResp> indexGoodsLiveData;
+    public MutableLiveData<SortResp>        sortLiveData;
+    public MutableLiveData<GoodsResp>       indexGoodsLiveData;
     public MutableLiveData<GoodsDetailResp> goodsDetailLiveData;
 
     public MutableLiveData<RemarkResp> remarkLiveData;
 
-    public MutableLiveData<BaseResp> baseLiveData;
     public MutableLiveData<MerchantResp> merchantLiveData;
     public MutableLiveData<SiteInfoResp> siteInfoLiveData;
+    public MutableLiveData<PayInfoResp>  payInfoLiveData;
 
 
-    public MutableLiveData<BaseResp> errorLiveData;
-    private int page;
+    public  MutableLiveData<BaseResp> baseLiveData;
+    public  MutableLiveData<BaseResp> errorLiveData;
+    private int                       page;
 
     public ServeViewModel() {
         sortLiveData = new MutableLiveData<>();
@@ -48,6 +50,8 @@ public class ServeViewModel extends BaseViewModel {
         remarkLiveData = new MutableLiveData<>();
         merchantLiveData = new MutableLiveData<>();
         siteInfoLiveData = new MutableLiveData<>();
+        payInfoLiveData = new MutableLiveData<>();
+
 
         baseLiveData = new MutableLiveData<>();
         errorLiveData = new MutableLiveData<>();
@@ -101,7 +105,7 @@ public class ServeViewModel extends BaseViewModel {
 
 
     public void createOrder(OrderReq order) {
-        request(api.createOrder(order)).send(baseLiveData);
+        request(api.createOrder(order)).send(payInfoLiveData);
     }
 
 

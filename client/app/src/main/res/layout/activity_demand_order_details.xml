@@ -134,7 +134,6 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/selector_demand_order_progress_line"
                     android:enabled="false"
-
                     app:layout_constraintLeft_toRightOf="@id/cb_release"
                     app:layout_constraintRight_toLeftOf="@id/cb_receiving" />
 
@@ -458,16 +457,16 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="营业时间"
+                    android:text="商家电话"
                     android:textColor="@color/t3"
                     android:textSize="@dimen/t3" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_service_time"
+                    android:id="@+id/tv_merchant_tel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="营业时间"
+                    android:text="商家电话"
                     android:textColor="@color/t1"
                     android:textSize="@dimen/t3" />
             </LinearLayout>

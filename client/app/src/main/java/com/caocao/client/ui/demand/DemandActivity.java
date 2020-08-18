@@ -11,8 +11,10 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityDemandBinding;
 import com.caocao.client.http.entity.request.DemandReq;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.me.address.OnAddressCallBackListener;
@@ -21,16 +23,17 @@ import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 import com.caocao.client.utils.DateUtils;
 import com.caocao.client.utils.LocalParseUtils;
 import com.coder.baselibrary.dialog.AlertDialog;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import java.util.Date;
 
 public class DemandActivity extends BaseActivity implements View.OnClickListener, OnSortCallBackListener, OnAddressCallBackListener {
 
     private ActivityDemandBinding binding;
-    private DemandViewModel demandVm;
-    private ServeViewModel serveVM;
-    private LocalParseUtils localParseUtils;
-    private DemandReq demandReq;
+    private DemandViewModel       demandVm;
+    private ServeViewModel        serveVM;
+    private LocalParseUtils       localParseUtils;
+    private DemandReq             demandReq;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,7 +104,7 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
         binding.stvServeTime.setRightTextOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                localParseUtils.showServeTimeDialog(DemandActivity.this,new OnOptionsSelectListener() {
+                localParseUtils.showServeTimeDialog(DemandActivity.this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         try {
@@ -178,9 +181,19 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
             localParseUtils.buildSortData(sortResp);
         });
 
-        demandVm.baseResp.observe(this, demandReq -> {
-            LogUtils.e(demandReq);
-
+        demandVm.payInfoLiveData.observe(this, payInfoResp -> {
+            LogUtils.e(payInfoResp);
+            PayInfoResp payInfo = payInfoResp.getData();
+            PayReq request = new PayReq();
+            request.appId = payInfo.appid;
+            request.partnerId = payInfo.partnerid;
+            request.prepayId = payInfo.prepayid;
+            request.packageValue = payInfo.packageX;
+            request.nonceStr = payInfo.noncestr;
+            request.timeStamp = String.valueOf(payInfo.timestamp);
+            request.sign = payInfo.sign;
+            request.extData = "demand";
+            BaseApplication.iwxapi.sendReq(request);
         });
 
     }
@@ -196,7 +209,7 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.stv_sort:
-                localParseUtils.showSortDialog(this,this);
+                localParseUtils.showSortDialog(this, this);
                 break;
         }
     }

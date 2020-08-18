@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.BaseFragment;
@@ -71,7 +72,9 @@ public class MainActivity extends BaseActivity {
                         switchFragment(mFragments.get(0), mFragments.get(1));
                         break;
                     case R.id.rb_me:
-                        switchFragment(mFragments.get(1), mFragments.get(0));
+                        if (LoginUtils.isLogin()) {
+                            switchFragment(mFragments.get(1), mFragments.get(0));
+                        }
                         break;
                 }
             }

@@ -225,7 +225,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_all"
-            android:text="54"
+            android:text="¥ 0"
             android:textColor="@color/t4"
             android:textSize="@dimen/t4" />
 

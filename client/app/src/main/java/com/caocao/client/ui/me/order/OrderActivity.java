@@ -1,8 +1,11 @@
 package com.caocao.client.ui.me.order;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -31,6 +34,14 @@ import java.util.List;
 public class OrderActivity extends BaseActivity {
 
     private ActivityOrderBinding binding;
+    private OrderServeFragment   serveFragment;
+    private OrderReleaseFragment releaseFragment;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        FragmentUtils.showHide(serveFragment, releaseFragment);
+    }
 
     @Override
     protected void initTitle() {
@@ -41,13 +52,12 @@ public class OrderActivity extends BaseActivity {
     protected void initView() {
         binding.ivBack.setOnClickListener(view -> finish());
 
-        OrderServeFragment serveFragment = new OrderServeFragment();
-        OrderReleaseFragment releaseFragment = new OrderReleaseFragment();
+        serveFragment = new OrderServeFragment();
+        releaseFragment = new OrderReleaseFragment();
         FragmentManager manager = getSupportFragmentManager();
-        FragmentUtils.add(manager, serveFragment, R.id.fl_content);
         FragmentUtils.add(manager, releaseFragment, R.id.fl_content);
+        FragmentUtils.add(manager, serveFragment, R.id.fl_content);
 
-        FragmentUtils.showHide(serveFragment, releaseFragment);
 
         binding.tabGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -62,6 +72,7 @@ public class OrderActivity extends BaseActivity {
                 }
             }
         });
+
     }
 
 

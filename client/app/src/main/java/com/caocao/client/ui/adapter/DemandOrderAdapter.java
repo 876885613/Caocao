@@ -41,7 +41,6 @@ public class DemandOrderAdapter extends BaseQuickAdapter<DemandOrderResp, BaseVi
         helper.setText(R.id.tv_tel, mContext.getString(R.string.demand_tel, item.mobile));
         helper.setText(R.id.serve_time, mContext.getString(R.string.demand_serve_time, item.serviceTime));
 
-
         switch (item.status) {
             case 1:
                 sortView.getRightTextView().setText("已完成");
@@ -74,6 +73,8 @@ public class DemandOrderAdapter extends BaseQuickAdapter<DemandOrderResp, BaseVi
                 btnGone(helper,true,false,false);
                 break;
         }
+
+        helper.addOnClickListener(R.id.tv_cancel, R.id.tv_pay, R.id.tv_state);
     }
 
     private void btnGone(BaseViewHolder helper,boolean state,boolean cancel,boolean pay){

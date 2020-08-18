@@ -5,17 +5,18 @@ import androidx.lifecycle.MutableLiveData;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.request.DemandReq;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 
 public class DemandViewModel extends BaseViewModel {
 
-    public MutableLiveData<BaseResp> baseResp;
+    public MutableLiveData<PayInfoResp> payInfoLiveData;
 
     public DemandViewModel() {
-        baseResp = new MutableLiveData<>();
+        payInfoLiveData = new MutableLiveData<>();
     }
 
     public void createDemand(DemandReq demand) {
-        request(api.createDemand(demand)).send(baseResp);
+        request(api.createDemand(demand)).send(payInfoLiveData);
     }
 
 }

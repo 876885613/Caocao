@@ -10,17 +10,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.LayoutRefreshListBinding;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.http.entity.respons.ServeOrderResp;
 import com.caocao.client.ui.adapter.ServeOrderAdapter;
 import com.caocao.client.ui.adapter.ViewPagerAdapter;
 import com.caocao.client.ui.me.MeViewModel;
 import com.caocao.client.utils.RefreshUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.coder.baselibrary.dialog.AlertDialog;
+import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import java.util.List;
 
@@ -39,9 +45,12 @@ import java.util.List;
 public class ServeOrderListFragment extends BaseFragment {
 
     private LayoutRefreshListBinding binding;
-    private ServeOrderAdapter orderAdapter;
-    private MeViewModel meVM;
-    private int state;
+    private ServeOrderAdapter        orderAdapter;
+    private MeViewModel              meVM;
+    private int                      state;
+    private ServeOrderResp           order;
+
+
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
@@ -65,6 +74,36 @@ public class ServeOrderListFragment extends BaseFragment {
 
             RefreshUtils.setNoMore(binding.refresh, orderRes.getPage(), orderList.size());
         });
+
+
+        meVM.cancelOrderLiveData.observe(this, cancelResp -> {
+            ToastUtils.showShort(cancelResp.getMsg());
+            orderAdapter.getData().remove(order);
+            orderAdapter.notifyDataSetChanged();
+        });
+
+
+        meVM.finishOrderLiveData.observe(this, finishOrderRes -> {
+            if (orderAdapter.getData() != null && orderAdapter.getData().size() > 0) {
+                ToastUtils.showShort(finishOrderRes.getMsg());
+                orderAdapter.getData().remove(order);
+                orderAdapter.notifyDataSetChanged();
+            }
+        });
+
+        meVM.payInfoLiveData.observe(this, payInfoRes -> {
+            PayInfoResp payInfo = payInfoRes.getData();
+            PayReq request = new PayReq();
+            request.appId = payInfo.appid;
+            request.partnerId = payInfo.partnerid;
+            request.prepayId = payInfo.prepayid;
+            request.packageValue = payInfo.packageX;
+            request.nonceStr = payInfo.noncestr;
+            request.timeStamp = String.valueOf(payInfo.timestamp);
+            request.sign = payInfo.sign;
+            request.extData = "reloadOrder";
+            BaseApplication.iwxapi.sendReq(request);
+        });
     }
 
     @Override
@@ -87,19 +126,23 @@ public class ServeOrderListFragment extends BaseFragment {
         orderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                order = orderAdapter.getData().get(position);
                 switch (view.getId()) {
                     case R.id.tv_cancel:
+                        cancelOrder(order);
                         break;
                     case R.id.tv_pay:
+                        meVM.reloadOrder(order.orderId);
                         break;
                     case R.id.tv_state:
-                        ServeOrderResp order = orderAdapter.getData().get(position);
-
                         if (order.status == 1 && order.commentStatus == 0) {
                             Bundle bundle = new Bundle();
-                            bundle.putInt("goodsId",order.goodsId);
-                            bundle.putInt("orderId",order.orderId);
-                            ActivityUtils.startActivity(bundle,OrderCommentActivity.class);
+                            bundle.putInt("goodsId", order.goodsId);
+                            bundle.putInt("orderId", order.orderId);
+                            ActivityUtils.startActivity(bundle, OrderCommentActivity.class);
+                        } else if (order.status == 4) {
+                            meVM.finishOrder(order.orderId);
                         }
                         break;
                 }
@@ -118,6 +161,21 @@ public class ServeOrderListFragment extends BaseFragment {
                 meVM.serveOrderMore(state);
             }
         });
+    }
+
+
+    private void cancelOrder(ServeOrderResp order) {
+        new AlertDialog.Builder(activity)
+                .setView(R.layout.dialog_general)
+                .setText(R.id.tv_title, "是否取消订单")
+                .setOnClickListener(R.id.tv_cancel, null)
+                .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
+                    @Override
+                    public void onClickCall(View v) {
+                        meVM.cancelOrder(order.orderId);
+                    }
+                })
+                .show();
     }
 
     @Override

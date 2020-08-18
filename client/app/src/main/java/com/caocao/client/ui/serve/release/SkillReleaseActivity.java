@@ -52,7 +52,7 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
     private SettleApplyReq applyReq;
     private UploadViewModel uploadVM;
 
-    private PictureSelectionModel pictureSelectionModel;
+
 
     private int IMAGE_SOURCE;
 
@@ -210,8 +210,7 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             uploadVM.initPermission(this, this, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
             return;
         }
-
-        pictureSelectionModel = uploadVM.pictureSelection(this, new OnResultCallbackListener<LocalMedia>() {
+        uploadVM.pictureSelection(this, new OnResultCallbackListener<LocalMedia>() {
             @Override
             public void onResult(List<LocalMedia> result) {
                 SkillReleaseActivity.this.IMAGE_SOURCE = type;

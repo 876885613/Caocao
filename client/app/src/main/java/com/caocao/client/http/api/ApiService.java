@@ -12,6 +12,7 @@ import com.caocao.client.http.entity.respons.GoodsDetailResp;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.http.entity.respons.RemarkResp;
 import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
 import com.caocao.client.http.entity.respons.ServeOrderResp;
@@ -210,7 +211,7 @@ public interface ApiService {
      * @return
      */
     @POST("/api/order/createOrder")
-    Flowable<BaseResp> createOrder(@Body OrderReq order);
+    Flowable<PayInfoResp> createOrder(@Body OrderReq order);
 
     /**
      * 发布需求
@@ -219,7 +220,7 @@ public interface ApiService {
      * @return
      */
     @POST("/api/customer_demand/createDemand")
-    Flowable<BaseResp> createDemand(@Body DemandReq demand);
+    Flowable<PayInfoResp> createDemand(@Body DemandReq demand);
 
     /**
      * 判断当前区域是否有加盟商
@@ -359,11 +360,68 @@ public interface ApiService {
 
     /**
      * 需求详情
+     *
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("/api/customer_demand/demandDetail")
     Flowable<DemandOrderDetailResp> demandDetail(@Field("id") int id);
+
+    /**
+     * 取消订单
+     *
+     * @param orderId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/cancelOrder")
+    Flowable<BaseResp> cancelOrder(@Field("order_id") int orderId);
+
+    /**
+     * 重新支付
+     *
+     * @param orderId
+     * @param orderSource
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/reloadOrder")
+    Flowable<PayInfoResp> reloadOrder(@Field("order_id") int orderId, @Field("order_source") int orderSource);
+
+    /**
+     * 完成订单
+     *
+     * @param orderId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/finishOrder")
+    Flowable<BaseResp> finishOrder(@Field("order_id") int orderId);
+
+
+    /**
+     * 订单评价
+     *
+     * @param orderId
+     * @param goodsId
+     * @param content
+     * @param fraction
+     * @param commentImg
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order_comment/createOrderComment")
+    Flowable<BaseResp> createOrderComment(
+            @Field("order_id") int orderId,
+            @Field("goods_id") int goodsId,
+            @Field("content") String content,
+            @Field("fraction") int fraction,
+            @Field("comment_img") String commentImg
+    );
+
+    @FormUrlEncoded
+    @POST("/api/customer_demand/reloadDemand")
+    Flowable<PayInfoResp> reloadDemand(@Field("id") int id , @Field("order_source") int orderSource);
 
 }

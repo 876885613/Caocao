@@ -71,7 +71,8 @@ public class ServeOrderAdapter extends BaseQuickAdapter<ServeOrderResp, BaseView
                 break;
             case 4:
                 sortView.getRightTextView().setText("待服务");
-                btnGone(helper, false, false, false);
+                btnGone(helper, true, false, false);
+                helper.setText(R.id.tv_state, "确认完成");
                 break;
             case 5:
                 sortView.getRightTextView().setText("待退款");

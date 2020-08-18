@@ -2,6 +2,7 @@ package com.caocao.client.ui.serve.order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.Editable;
 import android.view.View;
 
@@ -14,10 +15,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityPlaceOrderBinding;
 import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.respons.AddressResp;
 import com.caocao.client.http.entity.respons.GoodsDetailResp;
+import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.OrderSpecAdapter;
 import com.caocao.client.ui.login.LoginUtils;
@@ -30,16 +33,19 @@ import com.caocao.client.weight.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
+
+import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
 
 public class PlaceOrderActivity extends BaseActivity implements View.OnClickListener, OnOptionsSelectListener {
 
     private ActivityPlaceOrderBinding binding;
-    private OrderSpecAdapter specAdapter;
-    private LocalParseUtils localParseUtils;
+    private OrderSpecAdapter          specAdapter;
+    private LocalParseUtils           localParseUtils;
 
-    private OrderReq orderReq;
+    private OrderReq       orderReq;
     private ServeViewModel serveVM;
 
 
@@ -48,6 +54,13 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         orderReq = new OrderReq();
         super.onCreate(savedInstanceState);
         localParseUtils = LocalParseUtils.getInstance(getApplicationContext());
+
+
+        setOnHandlerListener(msg -> {
+            if (msg.what == 10000) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -105,7 +118,9 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                 orderReq.goodsSpecNum = goodsSpec.specNum;
                 orderReq.goodsSpecPrice = goodsSpec.specPrice;
 
+                double payPrice = Double.valueOf(orderReq.goodsSpecPrice) * orderReq.goodsSpecNum;
 
+                binding.tvPrice.setText(getString(R.string.goods_price, String.format("%.2f", payPrice)));
                 specAdapter.setPosition(position);
                 specAdapter.notifyDataSetChanged();
             }
@@ -120,6 +135,21 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         orderReq.goodsId = goodsId;
 
         serveVM = getViewModel(ServeViewModel.class);
+
+        serveVM.payInfoLiveData.observe(this, createOrderRes -> {
+            LogUtils.e(createOrderRes);
+            PayInfoResp payInfo = createOrderRes.getData();
+            PayReq request = new PayReq();
+            request.appId = payInfo.appid;
+            request.partnerId = payInfo.partnerid;
+            request.prepayId = payInfo.prepayid;
+            request.packageValue = payInfo.packageX;
+            request.nonceStr = payInfo.noncestr;
+            request.timeStamp = String.valueOf(payInfo.timestamp);
+            request.sign = payInfo.sign;
+            request.extData = "serve";
+            BaseApplication.iwxapi.sendReq(request);
+        });
 
     }
 
@@ -139,36 +169,14 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                 ActivityUtils.startActivityForResult(bundle, this, AddressActivity.class, 200);
                 break;
             case R.id.tv_serve_time:
-                localParseUtils.showServeTimeDialog(this,this);
+                localParseUtils.showServeTimeDialog(this, this);
                 break;
             case R.id.tv_submit:
                 if (LoginUtils.isLogin()) {
-                    createOrder();
+                    serveVM.createOrder(orderReq);
                 }
                 break;
         }
-    }
-
-    private void createOrder() {
-
-        serveVM.createOrder(orderReq);
-
-        serveVM.baseLiveData.observe(this, createOrderRes -> {
-            LogUtils.e(createOrderRes);
-
-//            PayReq request = new PayReq();
-//            request.appId = order.appid;
-//            request.partnerId = order.partnerid;
-//            request.prepayId = order.prepayid;
-//            request.packageValue = "Sign=WXPay";
-//            request.nonceStr = order.noncestr;
-//            request.timeStamp = String.valueOf(order.timestamp);
-//            request.sign = order.sign;
-//            request.signType = order.signType;
-//            MattApplication.iwxapi.sendReq(request);
-
-        });
-
     }
 
     @Override

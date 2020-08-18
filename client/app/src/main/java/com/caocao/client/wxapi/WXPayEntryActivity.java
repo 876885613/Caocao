@@ -3,6 +3,7 @@ package com.caocao.client.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 
 import androidx.annotation.Nullable;
 
@@ -45,29 +46,25 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq baseReq) {
-        String extData = ((PayReq) baseReq).extData;
-        String[] split = extData.split(",");
-        LogUtils.i("onReq", extData, split[0], split[1]);
+
     }
 
     @Override
     public void onResp(BaseResp baseResp) {
-        LogUtils.i("onPayFinish, errCode = " + baseResp.errCode);
-        LogUtils.i(baseResp.getType());
-        LogUtils.i(baseResp.errStr);
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
                 ToastUtils.showShort("支付成功");
-                String extData = ((PayResp) baseResp).extData;
-                String[] split = extData.split(",");
-                LogUtils.i(extData, split[0], split[1]);
             } else if (baseResp.errCode == -1) {
                 ToastUtils.showShort("支付失败");
             } else if (baseResp.errCode == -2) {
                 ToastUtils.showShort("支付取消");
             }
+
+            finish();
+            Message msg = new Message();
+            msg.what = 10000;
+            BaseApplication.getMainThreadHandler().sendMessage(msg);
         }
-        finish();
     }
 
 }

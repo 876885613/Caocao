@@ -25,7 +25,8 @@
 
         <activity
             android:name=".ui.demand.DemandActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
             android:name=".ui.serve.release.ServeGenreActivity"
@@ -136,6 +137,12 @@
         <activity
             android:name=".ui.me.order.OrderCommentActivity"
             android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
 
         <!--    百度地图    -->
         <meta-data
