@@ -19,15 +19,17 @@ public class LoginViewModel extends BaseViewModel {
 
     MutableLiveData<LoginResp> loginLiveData;
     MutableLiveData<BaseResp> codeLiveData;
+    MutableLiveData<BaseResp> baseLiveData;
 
     public LoginViewModel() {
         timeLiveData = new MutableLiveData<>();
         loginLiveData = new MutableLiveData<>();
         codeLiveData = new MutableLiveData<>();
+        baseLiveData = new MutableLiveData<>();
     }
 
 
-    public void sendCode(String phone){
+    public void sendCode(String phone) {
         request(api.sendCode(phone)).send(codeLiveData);
     }
 
@@ -36,8 +38,17 @@ public class LoginViewModel extends BaseViewModel {
     }
 
 
-    public void login(String phone,String password){
-        request(api.login(phone,password)).send(loginLiveData);
+    public void login(String phone, String password) {
+        request(api.login(phone, password)).send(loginLiveData);
+    }
+
+
+    public void sendRetrievePasswordSms(String phone) {
+        request(api.sendRetrievePasswordSms(phone)).send(codeLiveData);
+    }
+
+    public void retrievePassword(String phone, String code, String password, String repeatPassword) {
+        request(api.retrievePassword(phone, code, password, repeatPassword)).send(baseLiveData);
     }
 
     @SuppressLint("CheckResult")

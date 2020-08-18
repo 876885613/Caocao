@@ -2,16 +2,17 @@ package com.caocao.client.ui.me;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.AddressResp;
+import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
 import com.caocao.client.http.entity.respons.DemandOrderResp;
+import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.PayInfoResp;
 import com.caocao.client.http.entity.respons.ServeOrderDetailResp;
 import com.caocao.client.http.entity.respons.ServeOrderResp;
-
-import retrofit2.http.Field;
 
 /**
  * @ProjectName: Caocao
@@ -28,11 +29,11 @@ import retrofit2.http.Field;
 public class MeViewModel extends BaseViewModel {
 
 
-    public MutableLiveData<ServeOrderResp>        serveOrderLiveData;
-    public MutableLiveData<DemandOrderResp>       demandOrderLiveData;
-    public MutableLiveData<ServeOrderDetailResp>  serveOrderDetailLiveData;
+    public MutableLiveData<ServeOrderResp> serveOrderLiveData;
+    public MutableLiveData<DemandOrderResp> demandOrderLiveData;
+    public MutableLiveData<ServeOrderDetailResp> serveOrderDetailLiveData;
     public MutableLiveData<DemandOrderDetailResp> demandOrderDetailLiveData;
-    public MutableLiveData<PayInfoResp>           payInfoLiveData;
+    public MutableLiveData<PayInfoResp> payInfoLiveData;
 
     public MutableLiveData<AddressResp> addressLiveData;
 
@@ -41,6 +42,10 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<BaseResp> finishOrderLiveData;
 
+
+    public MutableLiveData<ApplyStatusResp> applyStatusLiveData;
+
+    public MutableLiveData<GoodsResp> goodsLiveData;
 
     public MutableLiveData<BaseResp> baseLiveData;
 
@@ -58,6 +63,10 @@ public class MeViewModel extends BaseViewModel {
         cancelOrderLiveData = new MutableLiveData<>();
 
         finishOrderLiveData = new MutableLiveData<>();
+
+        applyStatusLiveData = new MutableLiveData<>();
+
+        goodsLiveData = new MutableLiveData<>();
 
         baseLiveData = new MutableLiveData<>();
     }
@@ -124,5 +133,38 @@ public class MeViewModel extends BaseViewModel {
 
     public void reloadDemand(int id) {
         request(api.reloadDemand(id, 2)).send(payInfoLiveData);
+    }
+
+    public void balancePayDemand(int id, String expectedPrice) {
+        request(api.balancePayDemand(id, expectedPrice, 2)).send(payInfoLiveData);
+    }
+
+    public void cancelDemand(int id) {
+        request(api.cancelDemand(id)).send(cancelOrderLiveData);
+    }
+
+    public void refundDemand(int id) {
+        request(api.refundDemand(id)).send(baseLiveData);
+    }
+
+    public void applyStatus() {
+        request(api.applyStatus()).send(applyStatusLiveData);
+    }
+
+    public void collectionGoodsList() {
+        page = 1;
+        request(api.collectionGoodsList(page,
+                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(goodsLiveData, page);
+    }
+
+    public void collectionGoodsListMore() {
+        page++;
+        request(api.collectionGoodsList(page,
+                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(goodsLiveData, page);
+    }
+
+
+    public void updatePassword(String oldPassword, String password, String repeatPassword) {
+        request(api.updatePassword(oldPassword, password, repeatPassword)).send(baseLiveData);
     }
 }

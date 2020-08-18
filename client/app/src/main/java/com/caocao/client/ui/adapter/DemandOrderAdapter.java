@@ -55,11 +55,13 @@ public class DemandOrderAdapter extends BaseQuickAdapter<DemandOrderResp, BaseVi
             case 3:
                 sortView.getRightTextView().setText("待接单");
                 helper.setText(R.id.tv_state, "申请退款");
+                helper.setBackgroundRes(R.id.tv_state, R.drawable.bg_round_5_ff6203);
                 btnGone(helper,true,false,false);
                 break;
             case 4:
                 sortView.getRightTextView().setText("待服务");
                 helper.setText(R.id.tv_state, "支付尾款");
+                helper.setBackgroundRes(R.id.tv_state, R.drawable.bg_round_5_ff6203);
                 btnGone(helper,true,false,false);
                 break;
             case 5:
@@ -69,8 +71,7 @@ public class DemandOrderAdapter extends BaseQuickAdapter<DemandOrderResp, BaseVi
             case 6:
                 sortView.getRightTextView().setText("退款成功");
                 helper.setBackgroundRes(R.id.tv_state, R.drawable.bg_round_5_b3b3b3);
-                helper.setText(R.id.tv_state, "删除订单");
-                btnGone(helper,true,false,false);
+                btnGone(helper,false,false,false);
                 break;
         }
 

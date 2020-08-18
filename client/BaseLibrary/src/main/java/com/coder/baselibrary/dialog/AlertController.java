@@ -69,7 +69,7 @@ public class AlertController {
         mViewHelper.setText(viewId, resId);
     }
 
-    public void setOnClickListener(int viewId, OnClickListenerWrapper listener) {
+    public void setOnClickListener(int viewId, View.OnClickListener listener) {
         mViewHelper.setOnClickListener(mDialog, viewId, listener);
     }
 

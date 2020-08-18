@@ -5,6 +5,7 @@ import com.caocao.client.http.entity.request.DemandReq;
 import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.AddressResp;
+import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
 import com.caocao.client.http.entity.respons.DemandOrderResp;
@@ -420,8 +421,115 @@ public interface ApiService {
             @Field("comment_img") String commentImg
     );
 
+    /**
+     * 重新支付
+     *
+     * @param id
+     * @param orderSource
+     * @return
+     */
     @FormUrlEncoded
     @POST("/api/customer_demand/reloadDemand")
-    Flowable<PayInfoResp> reloadDemand(@Field("id") int id , @Field("order_source") int orderSource);
+    Flowable<PayInfoResp> reloadDemand(@Field("id") int id, @Field("order_source") int orderSource);
 
+    /**
+     * 支付尾款
+     *
+     * @param id
+     * @param expectedPrice
+     * @param orderSource
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer_demand/balancePayDemand")
+    Flowable<PayInfoResp> balancePayDemand(
+            @Field("id") int id,
+            @Field("expected_price") String expectedPrice,
+            @Field("order_source") int orderSource
+    );
+
+    /**
+     * 取消需求
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer_demand/cancelDemand")
+    Flowable<BaseResp> cancelDemand(@Field("id") int id);
+
+    /**
+     * 需求退款
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer_demand/refundDemand")
+    Flowable<BaseResp> refundDemand(@Field("id") int id);
+
+    /**
+     * 申请状态
+     *
+     * @return
+     */
+    @POST("/api/merchant/applyStatus")
+    Flowable<ApplyStatusResp> applyStatus();
+
+    /**
+     * 收藏列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer/getCollectionGoodsList")
+    Flowable<GoodsResp> collectionGoodsList(
+            @Field("page") int page,
+            @Field("longitude") String longitude,
+            @Field("latitude") String latitude
+    );
+
+    /**
+     * 修改密码
+     *
+     * @param oldPassword
+     * @param password
+     * @param repeatPassword
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/customer/updatePassword")
+    Flowable<BaseResp> updatePassword(
+            @Field("old_password") String oldPassword,
+            @Field("password") String password,
+            @Field("repeat_password") String repeatPassword
+    );
+
+    /**
+     * 忘记密码验证码
+     *
+     * @param phone
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/login/sendRetrievePasswordSms")
+    Flowable<BaseResp> sendRetrievePasswordSms(@Field("phone") String phone);
+
+    /**
+     * 忘记密码
+     *
+     * @param phone
+     * @param code
+     * @param password
+     * @param repeatPassword
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/login/retrievePassword")
+    Flowable<BaseResp> retrievePassword(
+            @Field("phone") String phone,
+            @Field("code") String code,
+            @Field("password") String password,
+            @Field("repeat_password") String repeatPassword
+    );
 }

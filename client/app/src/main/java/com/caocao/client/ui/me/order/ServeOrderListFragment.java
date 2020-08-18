@@ -1,11 +1,13 @@
 package com.caocao.client.ui.me.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -45,12 +47,12 @@ import java.util.List;
 public class ServeOrderListFragment extends BaseFragment {
 
     private LayoutRefreshListBinding binding;
-    private ServeOrderAdapter        orderAdapter;
-    private MeViewModel              meVM;
-    private int                      state;
-    private ServeOrderResp           order;
+    private ServeOrderAdapter orderAdapter;
+    private MeViewModel meVM;
+    private int state;
+    private ServeOrderResp order;
 
-
+    private int adapterPosition = -1;
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class ServeOrderListFragment extends BaseFragment {
 
         meVM = getViewModel(MeViewModel.class);
 
-        meVM.serveOrder(state);
+
 
         meVM.serveOrderLiveData.observe(this, orderRes -> {
             LogUtils.e(orderRes);
@@ -84,10 +86,15 @@ public class ServeOrderListFragment extends BaseFragment {
 
 
         meVM.finishOrderLiveData.observe(this, finishOrderRes -> {
+            ToastUtils.showShort(finishOrderRes.getMsg());
             if (orderAdapter.getData() != null && orderAdapter.getData().size() > 0) {
-                ToastUtils.showShort(finishOrderRes.getMsg());
-                orderAdapter.getData().remove(order);
-                orderAdapter.notifyDataSetChanged();
+                if (state == 1 && adapterPosition != -1) {
+                    orderAdapter.getData().get(adapterPosition).status = 1;
+                    orderAdapter.notifyDataSetChanged();
+                } else {
+                    orderAdapter.getData().remove(order);
+                    orderAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -104,6 +111,12 @@ public class ServeOrderListFragment extends BaseFragment {
             request.extData = "reloadOrder";
             BaseApplication.iwxapi.sendReq(request);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        meVM.serveOrder(state);
     }
 
     @Override
@@ -124,9 +137,10 @@ public class ServeOrderListFragment extends BaseFragment {
 
 
         orderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+                adapterPosition = position;
                 order = orderAdapter.getData().get(position);
                 switch (view.getId()) {
                     case R.id.tv_cancel:
@@ -182,5 +196,11 @@ public class ServeOrderListFragment extends BaseFragment {
     protected View initViewBind(LayoutInflater inflater, ViewGroup container) {
         binding = LayoutRefreshListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        meVM.serveOrder(state);
     }
 }

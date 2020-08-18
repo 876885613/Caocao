@@ -59,6 +59,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         binding.tvRegister.setOnClickListener(this);
         binding.tvLogin.setOnClickListener(this);
+        binding.tvRetrievePassword.setOnClickListener(this);
     }
 
     @Override
@@ -93,6 +94,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     return;
                 }
                 loginVM.login(tel, password);
+                break;
+            case R.id.tv_retrieve_password:
+                ActivityUtils.startActivity(RetrievePasswordActivity.class);
                 break;
         }
     }

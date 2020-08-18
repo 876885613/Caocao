@@ -27,6 +27,8 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import java.util.Date;
 
+import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
+
 public class DemandActivity extends BaseActivity implements View.OnClickListener, OnSortCallBackListener, OnAddressCallBackListener {
 
     private ActivityDemandBinding binding;
@@ -41,6 +43,12 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
         localParseUtils.initAddressData();
         super.onCreate(savedInstanceState);
         demandReq = new DemandReq();
+
+        setOnHandlerListener(msg -> {
+            if (msg.what == 10000) {
+                finish();
+            }
+        });
     }
 
     @Override

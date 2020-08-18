@@ -105,7 +105,7 @@ public class AlertDialog extends AppCompatDialog{
          * @param viewId
          * @param listener
          */
-        public void setOnClickListener(int viewId, OnClickListenerWrapper listener) {
+        public void setOnClickListener(int viewId, View.OnClickListener listener) {
         mAlert.setOnClickListener(viewId, listener);
     }
 

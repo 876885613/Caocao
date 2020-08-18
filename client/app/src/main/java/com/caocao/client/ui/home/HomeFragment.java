@@ -29,6 +29,7 @@ import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.ui.adapter.ADBannerAdapter;
 import com.caocao.client.ui.adapter.HomeBannerAdapter;
+import com.caocao.client.ui.adapter.HomeSiftAdapter;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
 import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
@@ -68,6 +69,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
     private HomeViewModel homeVM;
     private HomeSortAdapter sortAdapter;
+    private HomeSiftAdapter siftAdapter;
 
 
     @Override
@@ -107,8 +109,12 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
     }
 
     private void homeSift() {
+
         homeVM.homeChoiceGoodsLiveData.observe(this, choiceGoods -> {
+
             LogUtils.e(choiceGoods);
+
+            siftAdapter.setNewData(choiceGoods.getData());
         });
     }
 
@@ -139,7 +145,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
                         .setIndicatorNormalWidth((int) BannerUtils.dp2px(6))
                         .setIndicatorSelectedWidth((int) BannerUtils.dp2px(6))
                         .start();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -155,7 +161,27 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
         adView();
 
+        siftView();
+
         serveView();
+    }
+
+    private void siftView() {
+
+        binding.homeSift.rvSift.setLayoutManager(new GridLayoutManager(activity, 2));
+
+        siftAdapter = new HomeSiftAdapter(R.layout.adapter_home_sift, null);
+
+        binding.homeSift.rvSift.setAdapter(siftAdapter);
+
+        siftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("goodsId", siftAdapter.getData().get(position).goodsId);
+                ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
+            }
+        });
     }
 
 

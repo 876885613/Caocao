@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_theme"
+        android:gravity="center"
+        android:text="支付尾款"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/t4" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_price"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_white"
+        android:gravity="center"
+        android:textColor="@color/t1"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/t4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_divider_line" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_pay"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:text="支付"
+        android:textColor="@color/t1"
+        android:textSize="@dimen/t4" />
+</LinearLayout>

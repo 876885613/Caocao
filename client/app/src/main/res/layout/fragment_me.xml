@@ -90,7 +90,7 @@
                 android:textSize="@dimen/t4" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_ic_collect"
+                android:id="@+id/tv_collect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,7 +117,7 @@
             app:sRightIcon="@mipmap/ic_arrow_r" />
 
         <com.caocao.client.view.SuperTextView
-            android:id="@+id/tv_protocol"
+            android:id="@+id/tv_user_protocol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
@@ -146,6 +146,17 @@
             android:paddingRight="15dp"
             app:sLeftIcon="@mipmap/ic_me_kefu"
             app:sLeftText="联系客服"
+            app:sLeftTextMarginL="15dp"
+            app:sRightIcon="@mipmap/ic_arrow_r" />
+
+        <com.caocao.client.view.SuperTextView
+            android:id="@+id/tv_alter_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            app:sLeftIcon="@mipmap/ic_alter_password"
+            app:sLeftText="修改密码"
             app:sLeftTextMarginL="15dp"
             app:sRightIcon="@mipmap/ic_arrow_r" />
     </LinearLayout>

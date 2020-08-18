@@ -71,7 +71,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         loginVM = getViewModel(LoginViewModel.class);
 
 
-        //登录验证码获取成功返回结果
+        loginVM.codeLiveData.observe(this, codeRes -> {
+            loginVM.countdown();
+        });
+
+
         loginVM.timeLiveData.observe(this, aLong -> getCode(aLong));
 
         loginVM.loginLiveData.observe(this, registerRep -> {
@@ -113,9 +117,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         loginVM.sendCode(tel);
 
-        loginVM.codeLiveData.observe(this, codeRes -> {
-            loginVM.countdown();
-        });
     }
 
     //验证码操作

@@ -58,6 +58,19 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
         binding.rlCollect.setOnClickListener(this);
         binding.tvStore.setOnClickListener(this);
         binding.tvPlaceOrder.setOnClickListener(this);
+
+        serveVM.goodsDetailLiveData.observe(this, goodsDetailRes -> {
+
+            goodsRes = goodsDetailRes.getData();
+            bannerView(goodsRes);
+
+            binding.tvTitle.setText(goodsRes.goodsTitle);
+            binding.tvCateName.setText(goodsRes.cateName);
+            binding.tvPrice.setText(getString(R.string.goods_price, goodsRes.goodsPrice));
+            binding.cbCollect.setChecked(!(goodsRes.collectionStatus == 0));
+            specView(goodsRes.goodsSpec);
+            detailWebView(goodsRes.goodsDetailImage);
+        });
     }
 
     @Override
@@ -69,7 +82,6 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         serveVM.orderRemarkList(8);
 
-        detailView();
 
         remarkView();
 
@@ -133,20 +145,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void detailView() {
-        serveVM.goodsDetailLiveData.observe(this, goodsDetailRes -> {
 
-            goodsRes = goodsDetailRes.getData();
-            bannerView(goodsRes);
-
-            binding.tvTitle.setText(goodsRes.goodsTitle);
-            binding.tvCateName.setText(goodsRes.cateName);
-            binding.tvPrice.setText(getString(R.string.goods_price, goodsRes.goodsPrice));
-            binding.cbCollect.setChecked(!(goodsRes.collectionStatus == 0));
-            specView(goodsRes.goodsSpec);
-            detailWebView(goodsRes.goodsDetailImage);
-        });
-    }
 
 
     private void detailWebView(String goodsDetails) {
