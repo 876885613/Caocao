@@ -23,8 +23,8 @@ public class SplashActivity extends BaseActivity implements RxPermissionListener
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         RxPermissionManager.requestPermissions(this, this,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION);

@@ -217,13 +217,11 @@ public class SkillActivity extends BaseActivity implements
                 IMAGE_SOURCE = source;
                 String path = null;
                 int skdCode = DeviceUtils.getSDKVersionCode();
-
                 if (skdCode > 28) {
                     path = result.get(0).getAndroidQToPath();
                 } else {
                     path = result.get(0).getPath();
                 }
-
                 uploadVM.uploadPhoto(path);
             }
 

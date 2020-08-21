@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:orientation="horizontal"
-            android:paddingLeft="35dp"
+            android:paddingLeft="30dp"
             android:paddingTop="5dp"
-            android:paddingRight="35dp"
+            android:paddingRight="30dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <RadioButton

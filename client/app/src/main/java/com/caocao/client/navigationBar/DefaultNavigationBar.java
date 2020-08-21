@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ClickUtils;
 import com.caocao.client.R;
 import com.coder.baselibrary.navigationBar.AbsNavigationBar;
 
@@ -40,7 +41,8 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         //绑定效果参数
         setText(R.id.title, getParams().mTitle);
 
-        setOnClickListener(R.id.iv_back, getParams().mLeftOnClickListener);
+        ClickUtils.applySingleDebouncing(findViewById(R.id.iv_back), getParams().mLeftOnClickListener);
+
     }
 
     public static class Builder extends AbsNavigationBar.Builder {
@@ -124,9 +126,16 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
                 @Override
                 public void onClick(View v) {
 
+
+
                     ActivityUtils.finishActivity(ActivityUtils.getTopActivity(), true);
+
+
                 }
             };
+
+
+
 
             //右边文本点击事件
             public View.OnClickListener mRightTextOnClickListener;
