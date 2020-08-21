@@ -195,7 +195,7 @@ public class DemandOrderListFragment extends BaseFragment {
     private void reloadDemandDialog(DemandOrderResp order) {
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setView(R.layout.dailog_balance_pay)
-                .setText(R.id.et_price, order.balancePayPrice)
+                .setText(R.id.et_price, order.expectedPrice)
                 .show();
 
 

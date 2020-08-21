@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,500 +8,504 @@
     android:fillViewport="true"
     android:scrollbars="none">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/bg_round_5_fff"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="20dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_cate_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="深度保洁"
-                android:textColor="@color/t1"
-                android:textSize="@dimen/t4" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_due_stats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="剩余0天过期·已应邀0服务器"
-                android:textColor="@color/t2"
-                android:textSize="@dimen/t3" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/color_divider_line" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="具体需求"
-                android:textColor="@color/t1"
-                android:textSize="@dimen/t4" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_order_remark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="具体需求信息"
-                android:textColor="@color/t2"
-                android:textSize="@dimen/t3" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/color_divider_line" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="订单状态"
-                android:textColor="@color/t1"
-                android:textSize="@dimen/t4" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_round_5_ff6203"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_order_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="服务接单中"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/t6"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="2020-08-17 12:31:11"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                tools:ignore="MissingConstraints">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_release"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_release"
-                    app:layout_constraintRight_toRightOf="@id/tv_release" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/release_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress_line"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toRightOf="@id/cb_release"
-                    app:layout_constraintRight_toLeftOf="@id/cb_receiving" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/tv_release"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:button="@null"
-                    android:enabled="false"
-                    android:text="发布需求"
-                    android:textColor="@drawable/selector_text_main_tab"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cb_release" />
-
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_receiving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_receiving"
-                    app:layout_constraintRight_toRightOf="@id/tv_receiving" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/receiving_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress_line"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toRightOf="@id/cb_receiving"
-                    app:layout_constraintRight_toLeftOf="@id/cb_serve" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/tv_receiving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:enabled="false"
-                    android:text="服务抢单"
-                    android:textColor="@drawable/selector_text_main_tab"
-                    app:layout_constraintLeft_toRightOf="@id/tv_release"
-                    app:layout_constraintRight_toLeftOf="@id/tv_serve"
-                    app:layout_constraintTop_toTopOf="@id/tv_release" />
-
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_serve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_serve"
-                    app:layout_constraintRight_toRightOf="@id/tv_serve" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/serve_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress_line"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toRightOf="@id/cb_serve"
-                    app:layout_constraintRight_toLeftOf="@id/cb_finish" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/tv_serve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:enabled="false"
-                    android:text="开始服务"
-                    android:textColor="@drawable/selector_text_main_tab"
-                    app:layout_constraintLeft_toRightOf="@id/tv_receiving"
-                    app:layout_constraintRight_toLeftOf="@id/tv_finish"
-                    app:layout_constraintTop_toTopOf="@id/tv_release" />
-
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/selector_demand_order_progress"
-                    android:enabled="false"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_finish"
-                    app:layout_constraintRight_toRightOf="@id/tv_finish" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/tv_finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:enabled="false"
-                    android:text="验收付款"
-                    android:textColor="@drawable/selector_text_main_tab"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_release" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/bg_round_5_fff"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="15dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发布信息"
-                android:textColor="@color/t1"
-                android:textSize="@dimen/t4" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_divider_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="订单编号"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_order_sn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="订单编号"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发布时间"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_create_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="订单编号"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预约金额"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_reserve_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="0.00"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="期望金额"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_balance_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="0.00"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="支付方式"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_pay_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="在线支付"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_merchant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/bg_round_5_fff"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="15dp"
-            android:visibility="invisible">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商家信息"
-                android:textColor="@color/t1"
-                android:textSize="@dimen/t4" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_divider_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="商家名称"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_merchant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="商家名称"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="商家地址"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_merchant_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="商家地址"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="商家电话"
-                    android:textColor="@color/t3"
-                    android:textSize="@dimen/t3" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_merchant_tel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="商家电话"
-                    android:textColor="@color/t1"
-                    android:textSize="@dimen/t3" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@color/bg_page" />
-    </LinearLayout>
-
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:background="@color/color_white">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_round_5_fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_cate_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深度保洁"
+                    android:textColor="@color/t1"
+                    android:textSize="@dimen/t4" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_due_stats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="剩余0天过期·已应邀0服务器"
+                    android:textColor="@color/t2"
+                    android:textSize="@dimen/t3" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_divider_line" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="具体需求"
+                    android:textColor="@color/t1"
+                    android:textSize="@dimen/t4" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_order_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="具体需求信息"
+                    android:textColor="@color/t2"
+                    android:textSize="@dimen/t3" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_divider_line" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="订单状态"
+                    android:textColor="@color/t1"
+                    android:textSize="@dimen/t4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_round_5_ff6203"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_order_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="服务接单中"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/t6"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="2020-08-17 12:31:11"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    tools:ignore="MissingConstraints">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cb_release"
+                        style="@style/CustomCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_release"
+                        app:layout_constraintRight_toRightOf="@id/tv_release" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/release_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress_line"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toRightOf="@id/cb_release"
+                        app:layout_constraintRight_toLeftOf="@id/cb_receiving" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/tv_release"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:button="@null"
+                        android:enabled="false"
+                        android:text="发布需求"
+                        android:textColor="@drawable/selector_text_main_tab"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cb_release" />
+
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cb_receiving"
+                        style="@style/CustomCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_receiving"
+                        app:layout_constraintRight_toRightOf="@id/tv_receiving" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/receiving_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress_line"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toRightOf="@id/cb_receiving"
+                        app:layout_constraintRight_toLeftOf="@id/cb_serve" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/tv_receiving"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:enabled="false"
+                        android:text="服务抢单"
+                        android:textColor="@drawable/selector_text_main_tab"
+                        app:layout_constraintLeft_toRightOf="@id/tv_release"
+                        app:layout_constraintRight_toLeftOf="@id/tv_serve"
+                        app:layout_constraintTop_toTopOf="@id/tv_release" />
+
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cb_serve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCheckBox"
+                        android:button="@drawable/selector_demand_order_progress"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_serve"
+                        app:layout_constraintRight_toRightOf="@id/tv_serve" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/serve_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress_line"
+                        android:enabled="false"
+                        app:layout_constraintLeft_toRightOf="@id/cb_serve"
+                        app:layout_constraintRight_toLeftOf="@id/cb_finish" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/tv_serve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:enabled="false"
+                        android:text="开始服务"
+                        android:textColor="@drawable/selector_text_main_tab"
+                        app:layout_constraintLeft_toRightOf="@id/tv_receiving"
+                        app:layout_constraintRight_toLeftOf="@id/tv_finish"
+                        app:layout_constraintTop_toTopOf="@id/tv_release" />
+
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cb_finish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_demand_order_progress"
+                        android:enabled="false"
+                        style="@style/CustomCheckBox"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_finish"
+                        app:layout_constraintRight_toRightOf="@id/tv_finish" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/tv_finish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:enabled="false"
+                        android:text="验收付款"
+                        android:textColor="@drawable/selector_text_main_tab"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_release" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_round_5_fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布信息"
+                    android:textColor="@color/t1"
+                    android:textSize="@dimen/t4" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_divider_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单编号"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_order_sn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="订单编号"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发布时间"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_create_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="订单编号"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预约金额"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_reserve_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="0.00"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="期望金额"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_balance_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="0.00"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支付方式"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_pay_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="在线支付"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_merchant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_round_5_fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp"
+                android:visibility="invisible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商家信息"
+                    android:textColor="@color/t1"
+                    android:textSize="@dimen/t4" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_divider_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商家名称"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_merchant_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="商家名称"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商家地址"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_merchant_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="商家地址"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商家电话"
+                        android:textColor="@color/t3"
+                        android:textSize="@dimen/t3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_merchant_tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="商家电话"
+                        android:textColor="@color/t1"
+                        android:textSize="@dimen/t3" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/bg_page" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="申请退款"
-            android:textColor="@color/t4"
-            android:paddingRight="25dp"
-            android:paddingLeft="25dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/bg_round_25_fff_ff6203"/>
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_white"
+            android:visibility="gone">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_round_25_fff_ff6203"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="10dp"
+                android:text="申请退款"
+                android:textColor="@color/t4" />
+
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 </androidx.core.widget.NestedScrollView>

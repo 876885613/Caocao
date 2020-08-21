@@ -2,6 +2,7 @@ package com.caocao.client.ui.serve;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
@@ -64,14 +65,14 @@ public class ServeViewModel extends BaseViewModel {
 
     public void goodsByCate(int pid) {
         page = 1;
-        request(api.goodsByCate(BaseApplication.sRegion, pid, String.valueOf(BaseApplication.sLongitude),
-                String.valueOf(BaseApplication.sLatitude), page)).send(indexGoodsLiveData, page);
+        request(api.goodsByCate(SPStaticUtils.getString("region",""), pid, SPStaticUtils.getString("longitude",""),
+                SPStaticUtils.getString("latitude", ""), page)).send(indexGoodsLiveData, page);
     }
 
     public void goodsByCateMore(int pid) {
         page++;
-        request(api.goodsByCate(BaseApplication.sRegion, pid, String.valueOf(BaseApplication.sLongitude),
-                String.valueOf(BaseApplication.sLatitude), page)).send(indexGoodsLiveData, page);
+        request(api.goodsByCate(SPStaticUtils.getString("region",""), pid, SPStaticUtils.getString("longitude",""),
+                SPStaticUtils.getString("latitude", ""), page)).send(indexGoodsLiveData, page);
     }
 
     public void goodsDetail(int goodsId) {
@@ -105,12 +106,12 @@ public class ServeViewModel extends BaseViewModel {
 
 
     public void createOrder(OrderReq order) {
-        request(api.createOrder(order)).send(payInfoLiveData);
+        request(api.createOrder(order)).send(payInfoLiveData,errorLiveData);
     }
 
 
     public void isAgentByAddress() {
-        request(api.isAgentByAddress(BaseApplication.sRegion)).send(baseLiveData, errorLiveData);
+        request(api.isAgentByAddress(SPStaticUtils.getString("region",""))).send(baseLiveData, errorLiveData);
     }
 
     public void apply(SettleApplyReq apply) {

@@ -1,13 +1,26 @@
 package com.caocao.client.http.utils;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.JsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPStaticUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.caocao.client.http.entity.BaseResp;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
@@ -41,12 +54,41 @@ public class HttpInterceptorUtil {
             public Response intercept(Chain chain) throws IOException {
                 //添加请求头
                 Request original = chain.request();
-
                 Request.Builder requestBuilder = original.newBuilder()
                         .addHeader("token", SPStaticUtils.getString("token"));
 //                        .addHeader("token", "tIDMgHVgduct4SCEVGEHSc2O1z4zajOYmmyUOjOwaQvJlimTwlctZvCAO20-eQBbTJqBvJmV_wDnOJ1gFgjwzg==");
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
+            }
+        };
+    }
+
+    public static Interceptor NullResponseInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+
+                Response.Builder builder = response.newBuilder();
+                Response clone = builder.build();
+                ResponseBody body = clone.body();
+
+                if (response.code() == 200) {
+                    MediaType mediaType = response.body().contentType();
+                    String responseJson = response.body().string();
+                    String data = JsonUtils.getString(responseJson, "data");
+                    String msg = JsonUtils.getString(responseJson, "msg");
+                    if (data.equals("[]")) {
+                        if (!msg.equals("查询成功")) {
+                            ToastUtils.showShort(msg);
+                        }
+                    }
+                    body = ResponseBody.create(mediaType, responseJson);
+                    return response.newBuilder()
+                            .body(body)
+                            .build();
+                }
+                return response;
             }
         };
     }

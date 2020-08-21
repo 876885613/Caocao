@@ -1,5 +1,6 @@
 package com.caocao.client.ui.login;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityLoginBinding;
 import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.me.AgreementActivity;
 import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 
 /**
@@ -60,6 +62,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         binding.tvRegister.setOnClickListener(this);
         binding.tvLogin.setOnClickListener(this);
         binding.tvRetrievePassword.setOnClickListener(this);
+        binding.tvUserAgreement.setOnClickListener(this);
+        binding.tvPrivacyAgreement.setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.tv_register:
                 ActivityUtils.startActivity(RegisterActivity.class);
@@ -97,6 +102,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.tv_retrieve_password:
                 ActivityUtils.startActivity(RetrievePasswordActivity.class);
+                break;
+            case R.id.tv_user_agreement:
+                bundle.putString("agreement","user_protocol");
+                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                break;
+            case R.id.tv_privacy_agreement:
+                bundle.putString("agreement","privacy");
+                ActivityUtils.startActivity(bundle,AgreementActivity.class);
                 break;
         }
     }

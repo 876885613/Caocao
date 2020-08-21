@@ -74,6 +74,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.rb_me:
                         if (LoginUtils.isLogin()) {
                             switchFragment(mFragments.get(1), mFragments.get(0));
+                        }else {
+                            binding.tabGroup.check(R.id.rb_home);
                         }
                         break;
                 }

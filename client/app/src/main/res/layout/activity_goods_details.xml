@@ -136,7 +136,7 @@
                     android:id="@+id/tv_remark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="服务评价 (5)"
+                    android:text="服务评价"
                     android:textColor="@color/t1"
                     android:textSize="@dimen/t4" />
 
@@ -148,6 +148,7 @@
                     android:textColor="@color/t1"
                     android:textSize="@dimen/t4"
                     app:layout_constraintRight_toRightOf="parent" />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_portrait"
@@ -209,6 +210,15 @@
                     android:visibility="gone"
                     app:layout_constraintDimensionRatio="5:3"
                     app:layout_constraintTop_toBottomOf="@id/tv_remark_time" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/remark_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="iv_portrait,tv_name,iv_rating,
+                    tv_remark_content,tv_remark_time"
+                    android:visibility="gone"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -267,6 +277,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp">
+
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cb_collect"
                 android:layout_width="wrap_content"

@@ -173,6 +173,11 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.tv_submit:
                 if (LoginUtils.isLogin()) {
+                    if (orderReq.addressId == 0) {
+                        ToastUtils.showShort("请选择服务地址");
+                        return;
+                    }
+
                     serveVM.createOrder(orderReq);
                 }
                 break;

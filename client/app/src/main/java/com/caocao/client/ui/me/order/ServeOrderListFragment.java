@@ -47,10 +47,10 @@ import java.util.List;
 public class ServeOrderListFragment extends BaseFragment {
 
     private LayoutRefreshListBinding binding;
-    private ServeOrderAdapter orderAdapter;
-    private MeViewModel meVM;
-    private int state;
-    private ServeOrderResp order;
+    private ServeOrderAdapter        orderAdapter;
+    private MeViewModel              meVM;
+    private int                      state;
+    private ServeOrderResp           order;
 
     private int adapterPosition = -1;
 
@@ -60,7 +60,6 @@ public class ServeOrderListFragment extends BaseFragment {
         state = getArguments().getInt(ViewPagerAdapter.ARGUMENT, 0);
 
         meVM = getViewModel(MeViewModel.class);
-
 
 
         meVM.serveOrderLiveData.observe(this, orderRes -> {
@@ -156,7 +155,7 @@ public class ServeOrderListFragment extends BaseFragment {
                             bundle.putInt("orderId", order.orderId);
                             ActivityUtils.startActivity(bundle, OrderCommentActivity.class);
                         } else if (order.status == 4) {
-                            meVM.finishOrder(order.orderId);
+                            finishOrder(order);
                         }
                         break;
                 }
@@ -175,6 +174,20 @@ public class ServeOrderListFragment extends BaseFragment {
                 meVM.serveOrderMore(state);
             }
         });
+    }
+
+    private void finishOrder(ServeOrderResp order) {
+        new AlertDialog.Builder(activity)
+                .setView(R.layout.dialog_general)
+                .setText(R.id.tv_title, "确认完成此服务订单")
+                .setOnClickListener(R.id.tv_cancel, null)
+                .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
+                    @Override
+                    public void onClickCall(View v) {
+                        meVM.finishOrder(order.orderId);
+                    }
+                })
+                .show();
     }
 
 

@@ -89,6 +89,14 @@
     </declare-styleable>
 
 
+    <declare-styleable name="CustomCheckBox">
 
+        <attr name="android:button" />
+
+        <attr name="attr_drawableWidth" format="dimension" />
+
+        <attr name="attr_drawableHight" format="dimension" />
+
+    </declare-styleable>
 
 </resources>

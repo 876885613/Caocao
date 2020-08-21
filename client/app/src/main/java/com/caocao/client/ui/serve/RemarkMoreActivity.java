@@ -55,7 +55,7 @@ public class RemarkMoreActivity extends BaseActivity {
         binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                serveVM.orderRemarkList(8);
+                serveVM.orderRemarkList(goodsId);
             }
 
             @Override
@@ -69,7 +69,7 @@ public class RemarkMoreActivity extends BaseActivity {
     protected void initData() {
         goodsId = getIntent().getIntExtra("goodsId", 0);
         serveVM = getViewModel(ServeViewModel.class);
-        serveVM.orderRemarkList(8);
+        serveVM.orderRemarkList(goodsId);
 
         serveVM.remarkLiveData.observe(this, remarkRes -> {
             if (remarkRes == null) {

@@ -9,11 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@mipmap/ic_home_top_bg">
+
         <RelativeLayout
             android:id="@+id/rl_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp">
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
@@ -46,12 +48,15 @@
                 android:layout_marginBottom="20dp"
                 android:layout_toRightOf="@id/tv_address"
                 android:background="@drawable/bg_round_35_fff"
-                android:lines="1"
+                android:hint="请输入你感兴趣的内容"
                 android:imeOptions="actionSearch"
+                android:gravity="center_vertical"
                 android:inputType="text"
+                android:lines="1"
                 android:paddingLeft="35dp"
                 android:textColor="@color/t1"
-                android:textSize="@dimen/t3"/>
+                android:textColorHint="#b3b3b3"
+                android:textSize="@dimen/t4" />
         </RelativeLayout>
     </LinearLayout>
 

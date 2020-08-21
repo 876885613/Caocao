@@ -37,6 +37,7 @@ public class BaseRequest<T> {
                 .hostnameVerifier((hostname, session) -> true)
                 .dns(new ApiDns())
                 .addInterceptor(HttpInterceptorUtil.LogInterceptor())             //绑定日志拦截器
+                .addInterceptor(HttpInterceptorUtil.NullResponseInterceptor())             //空数据拦截器
                 .addNetworkInterceptor(HttpInterceptorUtil.HeaderInterceptor())       //绑定header拦截器
                 .build();
 
@@ -82,7 +83,7 @@ public class BaseRequest<T> {
 
 
     public BaseRequest(String host, Class clazz) {
-        Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson)) //设置gson转换器, 将返回的json数据转为实体
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())   //设置CallAdapter

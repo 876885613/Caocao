@@ -40,7 +40,6 @@ public class OrderActivity extends BaseActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        FragmentUtils.showHide(serveFragment, releaseFragment);
     }
 
     @Override

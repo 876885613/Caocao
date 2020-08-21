@@ -18,6 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="曹操同城"
         android:textColor="@color/t1"
         android:textSize="@dimen/t3" />

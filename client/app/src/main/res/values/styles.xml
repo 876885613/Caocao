@@ -138,4 +138,9 @@
         <item name="mi_indicatorPadding">17dp</item> <!--指示点间距-->
         <item name="mi_indicatorRadius">4dp</item><!--半径-->
     </style>
+
+    <style name="CustomCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:minHeight">13.0dip</item>
+        <item name="android:minWidth">13.0dip</item>
+    </style>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Caocao</string>
+    <string name="app_name">曹操到家</string>
 
 
     <string name="goods_price_qi">¥%1$s起</string>
@@ -12,7 +12,7 @@
     <string name="goods_serve_time">%1$s&#160;&#160;%2$s:%3$s</string>
     <string name="order_sn">订单编号：%1$s</string>
     <string name="order_time">订单时间：%1$s</string>
-    <string name="demand_due_stats">剩余%1$d天过期·已应邀%2$d服务器</string>
+    <string name="demand_due_stats">剩余%1$d天过期·已应邀%2$d服务者</string>
     <string name="demand_address">地址：%1$s%2$s%3$s%4$s</string>
     <string name="demand_contact">联系人：%1$s</string>
     <string name="demand_tel">联系电话：%1$s</string>

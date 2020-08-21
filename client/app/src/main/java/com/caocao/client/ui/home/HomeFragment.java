@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPStaticUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentHomeBinding;
@@ -32,9 +34,13 @@ import com.caocao.client.ui.adapter.HomeBannerAdapter;
 import com.caocao.client.ui.adapter.HomeSiftAdapter;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
+import com.caocao.client.ui.login.LoginUtils;
+import com.caocao.client.ui.me.address.OnAddressCallBackListener;
 import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
 import com.caocao.client.ui.serve.level.SecondLevelActivity;
 import com.caocao.client.ui.serve.level.ServeMoreActivity;
+import com.caocao.client.ui.serve.release.SkillActivity;
+import com.caocao.client.utils.LocalParseUtils;
 import com.caocao.client.utils.RefreshUtils;
 import com.caocao.client.utils.location.LocationUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
@@ -63,38 +69,35 @@ import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class HomeFragment extends BaseFragment implements RxPermissionListener {
+public class HomeFragment extends BaseFragment implements RxPermissionListener, OnAddressCallBackListener {
 
     private FragmentHomeBinding binding;
 
-    private HomeViewModel homeVM;
+    private HomeViewModel   homeVM;
     private HomeSortAdapter sortAdapter;
     private HomeSiftAdapter siftAdapter;
+
+    private LocalParseUtils localParseUtils;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        localParseUtils = LocalParseUtils.getInstance(getContext());
+        localParseUtils.initAddressData();
+
         super.onCreate(savedInstanceState);
 
         setOnHandlerListener(msg -> {
-            String district = (String) msg.obj;
-            binding.homeTop.tvAddress.setText(district);
-            binding.tvAddress.setText(district);
-
-            homeVM.homeChoiceGoods();
-
-            homeVM.homeIndexGoods();
-
+            if (msg.what == 200) {
+                String district = (String) msg.obj;
+                binding.homeTop.tvAddress.setText(district);
+                binding.tvAddress.setText(district);
+                homeVM.homeChoiceGoods();
+                homeVM.homeIndexGoods();
+            }
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        RxPermissionManager.requestPermissions(this, this,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-    }
 
     @Override
     protected void initVmData(Bundle savedInstanceState) {
@@ -112,7 +115,10 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
         homeVM.homeChoiceGoodsLiveData.observe(this, choiceGoods -> {
 
-            LogUtils.e(choiceGoods);
+            if (choiceGoods.getData() == null || choiceGoods.getData().size() == 0) {
+                binding.homeSift.getRoot().setVisibility(View.GONE);
+                return;
+            }
 
             siftAdapter.setNewData(choiceGoods.getData());
         });
@@ -164,6 +170,23 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
         siftView();
 
         serveView();
+
+
+        String district = SPStaticUtils.getString("district");
+        if (!StringUtils.isEmpty(district)) {
+            binding.homeTop.tvAddress.setText(district);
+            binding.tvAddress.setText(district);
+            homeVM.homeChoiceGoods();
+            homeVM.homeIndexGoods();
+        } else {
+            RxPermissionManager.requestPermissions(this, this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+//        binding.homeTop.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
+
+//        binding.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
     }
 
     private void siftView() {
@@ -358,8 +381,16 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        LocationUtils.getInstance(context.getApplicationContext()).onStartLocation();
+    public void onAddress(String province, String city, String area) {
+        binding.homeTop.tvAddress.setText(area);
+        binding.tvAddress.setText(area);
+
+        SPStaticUtils.put("region", province + "," + city + "," + area);
+
+
+        homeVM.homeChoiceGoods();
+        homeVM.homeIndexGoods();
     }
+
+
 }

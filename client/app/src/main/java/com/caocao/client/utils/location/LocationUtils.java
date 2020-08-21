@@ -8,6 +8,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.caocao.client.base.app.BaseApplication;
 
 
@@ -18,7 +19,6 @@ public class LocationUtils {
     private static LocationClient sLocationClient;
 
     private static MyLocationListener myListener = new MyLocationListener();
-
 
 
     public static LocationUtils getInstance(Context context) {
@@ -73,14 +73,19 @@ public class LocationUtils {
             String adcode = location.getAdCode();    //获取adcode
             String town = location.getTown();    //获取乡镇信息
 
-            BaseApplication.sLatitude = latitude;
-            BaseApplication.sLongitude = longitude;
-//            BaseApplication.sRegion = province + "," + city + "," + district;
-            BaseApplication.sRegion = "山东省,济南市,历城区";
+
+            SPStaticUtils.put("latitude", String.valueOf(latitude));  //获取纬度信息
+
+            SPStaticUtils.put("longitude", String.valueOf(longitude)); //获取经度信息
+
+            SPStaticUtils.put("region", province + "," + city + "," + district);
+
+//          SPStaticUtils.put("region", "北京市,北京市,东城区");
+
+            SPStaticUtils.put("district", district);
 
             Message msg = new Message();
             msg.what = 200;
-            msg.obj = district;
             BaseApplication.getMainThreadHandler().sendMessage(msg);
         }
     }

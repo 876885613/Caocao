@@ -26,10 +26,9 @@ import io.reactivex.FlowableSubscriber;
 public class BaseSubscriber<T> implements FlowableSubscriber<T> {
 
 
-    private int page;
+    private int                page;
     private MutableLiveData<T> liveData;
     private MutableLiveData<T> errorLiveData;
-
 
 
     public BaseSubscriber(MutableLiveData<T> liveData) {
@@ -69,7 +68,7 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
             } else {
                 ToastUtils.showShort(resp.getMsg());
                 if (errorLiveData != null) {
-                    errorLiveData.setValue(t);
+                    errorLiveData.setValue((T) resp);
                 }
             }
         }
@@ -79,7 +78,9 @@ public class BaseSubscriber<T> implements FlowableSubscriber<T> {
     @Override
     public void onError(Throwable e) {
         LogUtils.e(e);
-        liveData.postValue(null);
+        if (errorLiveData != null) {
+            errorLiveData.setValue(null);
+        }
     }
 
     @Override

@@ -42,9 +42,9 @@ import java.util.List;
 public class GoodsDetailsActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityGoodsDetailsBinding binding;
-    private ServeViewModel serveVM;
-    private int goodsId;
-    private GoodsDetailResp goodsRes;
+    private ServeViewModel              serveVM;
+    private int                         goodsId;
+    private GoodsDetailResp             goodsRes;
 
     @Override
     protected void initTitle() {
@@ -59,6 +59,26 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
         binding.tvStore.setOnClickListener(this);
         binding.tvPlaceOrder.setOnClickListener(this);
 
+
+    }
+
+    @Override
+    protected void initData() {
+        goodsId = getIntent().getIntExtra("goodsId", 0);
+
+        serveVM = getViewModel(ServeViewModel.class);
+        serveVM.goodsDetail(goodsId);
+
+        serveVM.orderRemarkList(goodsId);
+
+
+        remarkView();
+
+        serveVM.baseLiveData.observe(this, collectionRes -> {
+            ToastUtils.showShort(collectionRes.getMsg());
+            binding.cbCollect.setChecked(!binding.cbCollect.isChecked());
+        });
+
         serveVM.goodsDetailLiveData.observe(this, goodsDetailRes -> {
 
             goodsRes = goodsDetailRes.getData();
@@ -71,40 +91,28 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             specView(goodsRes.goodsSpec);
             detailWebView(goodsRes.goodsDetailImage);
         });
-    }
 
-    @Override
-    protected void initData() {
-        goodsId = getIntent().getIntExtra("goodsId", 0);
-
-        serveVM = getViewModel(ServeViewModel.class);
-        serveVM.goodsDetail(goodsId);
-
-        serveVM.orderRemarkList(8);
-
-
-        remarkView();
-
-        serveVM.baseLiveData.observe(this, collectionRes -> {
-            ToastUtils.showShort(collectionRes.getMsg());
-            binding.cbCollect.setChecked(!binding.cbCollect.isChecked());
-        });
+        binding.tvRemarkAll.setOnClickListener(this);
     }
 
     private void remarkView() {
         serveVM.remarkLiveData.observe(this, remarkRes -> {
-            LogUtils.e(remarkRes.getData());
-            if (remarkRes == null) {
+            if (remarkRes == null || remarkRes.getData().size() == 0) {
                 return;
             }
+
+            binding.remarkGroup.setVisibility(View.VISIBLE);
+
             RemarkResp remark = remarkRes.getData().get(0);
             binding.tvRemark.setText(getString(R.string.goods_remark_num, remarkRes.getData().size()));
+
             Glide.with(this)
                     .load(remark.headimgurl)
                     .placeholder(R.mipmap.ic_default_portrait)
                     .error(R.mipmap.ic_default_portrait)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(binding.ivPortrait);
+
 
             binding.tvName.setText(remark.nickname);
             binding.tvRemarkContent.setText(remark.orderCommentContent);
@@ -118,7 +126,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
 
             showRating(remark.orderCommentFraction);
 
-            binding.tvRemarkAll.setOnClickListener(this);
+
         });
     }
 
@@ -144,8 +152,6 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             binding.ivRating.setImageResource(R.mipmap.ic_rating5);
         }
     }
-
-
 
 
     private void detailWebView(String goodsDetails) {
@@ -220,9 +226,11 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                 ActivityUtils.startActivity(bundle, MerchantDetailsActivity.class);
                 break;
             case R.id.tv_place_order:
-                bundle.putParcelableArrayList("goodsSpec", (ArrayList<? extends Parcelable>) goodsRes.goodsSpec);
-                bundle.putInt("goodsId", goodsRes.goodsId);
-                ActivityUtils.startActivity(bundle, PlaceOrderActivity.class);
+                if (LoginUtils.isLogin()) {
+                    bundle.putParcelableArrayList("goodsSpec", (ArrayList<? extends Parcelable>) goodsRes.goodsSpec);
+                    bundle.putInt("goodsId", goodsRes.goodsId);
+                    ActivityUtils.startActivity(bundle, PlaceOrderActivity.class);
+                }
                 break;
         }
     }

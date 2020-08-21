@@ -9,6 +9,8 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPStaticUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentMeBinding;
@@ -42,7 +44,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         });
 
         String headimgurl = SPStaticUtils.getString("headimgurl", "");
-        Glide.with(this).load(headimgurl).error(R.mipmap.ic_default_portrait).into(binding.ivPortrait);
+        Glide.with(this).load(headimgurl)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .error(R.mipmap.ic_default_portrait).into(binding.ivPortrait);
         binding.tvName.setText(SPStaticUtils.getString("nickname", ""));
         binding.tvTel.setText(SPStaticUtils.getString("phone", ""));
 
@@ -76,12 +80,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 ActivityUtils.startActivity(CollectActivity.class);
                 break;
             case R.id.tv_user_protocol:
-                bundle.putString("agreement","user_protocol");
-                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                bundle.putString("agreement", "user_protocol");
+                ActivityUtils.startActivity(bundle, AgreementActivity.class);
                 break;
             case R.id.tv_privacy:
-                bundle.putString("agreement","privacy");
-                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                bundle.putString("agreement", "privacy");
+                ActivityUtils.startActivity(bundle, AgreementActivity.class);
                 break;
             case R.id.tv_kefu:
                 PhoneUtils.dial("0531-82380271");

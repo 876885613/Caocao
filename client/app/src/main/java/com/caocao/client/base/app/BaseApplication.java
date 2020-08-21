@@ -44,10 +44,6 @@ public class BaseApplication extends Application {
     public static BaseRequest<ApiService> sHttpRequest;
 
 
-    public static String sRegion; //省市区
-    public static double sLatitude;   //获取纬度信息
-    public static double sLongitude;//获取经度信息
-
     public static final String HOST_PATH = "http://ccdj.jiajiayong.com";
 
     //初始化刷新工具

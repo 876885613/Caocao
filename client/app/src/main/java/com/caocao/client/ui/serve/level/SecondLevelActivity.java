@@ -16,6 +16,7 @@ import com.caocao.client.http.entity.respons.SortResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.HomeSortAdapter;
 import com.caocao.client.ui.adapter.ServeListAdapter;
+import com.caocao.client.ui.serve.ServeListActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
 import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
 import com.caocao.client.utils.RefreshUtils;
@@ -43,7 +44,7 @@ public class SecondLevelActivity extends BaseActivity {
     private ActivitySecondLevelBinding binding;
     private HomeSortAdapter            sortAdapter;
     private ServeViewModel             serveVM;
-    private int                        id;
+    private int                        cateId;
     private ServeListAdapter           serveAdapter;
 
     @Override
@@ -63,7 +64,6 @@ public class SecondLevelActivity extends BaseActivity {
     private void serveView() {
         binding.secondServe.tvServeTitle.setText("热门服务");
 
-
         binding.secondServe.rvList.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -79,7 +79,7 @@ public class SecondLevelActivity extends BaseActivity {
 
         serveAdapter.setOnItemClickListener((adapter, view, position) -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("goodsId",serveAdapter.getData().get(position).goodsId);
+            bundle.putInt("goodsId", serveAdapter.getData().get(position).goodsId);
             ActivityUtils.startActivity(bundle, GoodsDetailsActivity.class);
         });
 
@@ -92,7 +92,7 @@ public class SecondLevelActivity extends BaseActivity {
 
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                serveVM.goodsByCateMore(id);
+                serveVM.goodsByCateMore(cateId);
             }
         });
     }
@@ -107,7 +107,16 @@ public class SecondLevelActivity extends BaseActivity {
         sortAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                cateId = sortAdapter.getData().get(position).id;
+                String cateName = sortAdapter.getData().get(position).cateName;
 
+                binding.secondServe.tvServeTitle.setText(cateName);
+
+                serveVM.goodsByCate(cateId);
+
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("id", cateId);
+//                ActivityUtils.startActivity(bundle, ServeListActivity.class);
             }
         });
 
@@ -115,9 +124,9 @@ public class SecondLevelActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        id = getIntent().getIntExtra("id", 0);
+        cateId = getIntent().getIntExtra("id", 0);
         serveVM = getViewModel(ServeViewModel.class);
-        serveVM.secondSort(id);
+        serveVM.secondSort(cateId);
         serveVM.sortLiveData.observe(this, sortResp -> {
             List<SortResp> sortList = sortResp.getData();
             if (sortList == null || sortList.size() == 0) {
@@ -127,10 +136,18 @@ public class SecondLevelActivity extends BaseActivity {
             sortAdapter.setNewData(sortList);
         });
 
-        serveVM.goodsByCate(id);
+        serveVM.goodsByCate(cateId);
 
         serveVM.indexGoodsLiveData.observe(this, indexGoods -> {
+
             List<GoodsResp> goodsRes = indexGoods.getData();
+
+            if (goodsRes == null || goodsRes.size() == 0) {
+                binding.secondServe.rvList.setVisibility(View.GONE);
+                return;
+            }
+
+            binding.secondServe.rvList.setVisibility(View.VISIBLE);
             if (indexGoods.getPage() == 1) {
                 serveAdapter.setNewData(goodsRes);
             } else {
@@ -138,7 +155,6 @@ public class SecondLevelActivity extends BaseActivity {
             }
             RefreshUtils.setNoMore(binding.refresh, indexGoods.getPage(), goodsRes.size());
         });
-
     }
 
     @Override

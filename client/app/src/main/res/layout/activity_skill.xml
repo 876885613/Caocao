@@ -59,29 +59,17 @@
                     app:sRightTvDrawableRight="@mipmap/ic_arrow_r" />
 
                 <com.caocao.client.view.SuperTextView
+                    android:id="@+id/stv_serve_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     app:sBottomDividerVisibility="gone"
                     app:sLeftIcon="@mipmap/ic_skill_title_ico"
-                    app:sLeftText="技能标题" />
+                    app:sLeftText="技能标题"
+                    app:sRightEditHint="请输入标题技能" />
 
-                <com.caocao.client.view.CountEditText
-                    android:id="@+id/et_serve_intro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:etHint="一句话介绍服务"
-                    app:etLineColor="@color/color_white"
-                    app:etMaxLength="30"
-                    app:etMinHeight="50dp"
-                    app:etPromptTextColor="@color/t3"
-                    app:etPromptTextSize="@dimen/t3"
-                    app:etTextSize="@dimen/t3"
-                    app:etType="percentage" />
+
             </LinearLayout>
         </RelativeLayout>
 
@@ -197,8 +185,8 @@
                 android:id="@+id/rv_et_tool"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:paddingLeft="15dp"
+                android:paddingTop="5dp"
                 android:paddingRight="15dp" />
 
 
@@ -225,8 +213,8 @@
                 android:id="@+id/richEditor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="150dp"
-                android:layout_margin="15dp"/>
+                android:layout_margin="15dp"
+                android:minHeight="150dp" />
 
 
         </LinearLayout>

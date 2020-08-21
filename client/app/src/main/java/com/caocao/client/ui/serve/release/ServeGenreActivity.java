@@ -3,6 +3,7 @@ package com.caocao.client.ui.serve.release;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.app.BaseApplication;
@@ -51,7 +52,7 @@ public class ServeGenreActivity extends BaseActivity {
         serveVM.errorLiveData.observe(this, baseResp -> {
             new AlertDialog.Builder(ServeGenreActivity.this)
                     .setView(R.layout.dialog_general)
-                    .setText(R.id.tv_title, "当前所在的" + BaseApplication.sRegion.split(",")[2]
+                    .setText(R.id.tv_title, "当前所在的" + SPStaticUtils.getString("district","")
                             + "没有运营商,您可以选择继续申请发布技能,也可以选择申请加盟")
                     .setText(R.id.tv_cancel, "加盟")
                     .setText(R.id.tv_affirm, "继续申请")

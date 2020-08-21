@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivitySkillBinding;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.SortResp;
@@ -55,14 +56,14 @@ import static com.caocao.client.ui.bean.CheckBean.CheckType.INTEGER;
 public class SkillActivity extends BaseActivity implements
         OnSortCallBackListener, OnAddressCallBackListener, RxPermissionListener {
 
-    private ActivitySkillBinding binding;
-    private LocalParseUtils localParseUtils;
-    private SettleApplyReq applyReq;
-    private ServeViewModel serveVM;
+    private ActivitySkillBinding  binding;
+    private LocalParseUtils       localParseUtils;
+    private SettleApplyReq        applyReq;
+    private ServeViewModel        serveVM;
     private PictureSelectionModel pictureSelectionModel;
-    private GridImageAdapter addBannerAdapter;
-    private GridImageAdapter addServeAdapter;
-    private UploadViewModel uploadVM;
+    private GridImageAdapter      addBannerAdapter;
+    private GridImageAdapter      addServeAdapter;
+    private UploadViewModel       uploadVM;
 
     private int IMAGE_SOURCE;
 
@@ -101,7 +102,7 @@ public class SkillActivity extends BaseActivity implements
         binding.stvSort.setRightTextOnClickListener(v ->
                 localParseUtils.showSortDialog(SkillActivity.this, SkillActivity.this));
 
-        binding.etServeIntro.setContentTextWatcher(new TextWatcherWrapper() {
+        binding.stvServeIntro.setRightEditTextWatcher(new TextWatcherWrapper() {
             @Override
             public void afterTextChanged(Editable s) {
                 applyReq.goodsTitle = s.toString();
@@ -345,7 +346,8 @@ public class SkillActivity extends BaseActivity implements
 
 
     private void colorPicker() {
-        if (isAnimating) return;
+        if (isAnimating)
+            return;
         //如果动画没在执行,走到这一步就将isAnimating制为true , 防止这次动画还没有执行完毕的
         //情况下,又要执行一次动画,当动画执行完毕后会将isAnimating制为false,这样下次动画又能执行
         isAnimating = true;
@@ -445,7 +447,7 @@ public class SkillActivity extends BaseActivity implements
             } else if (IMAGE_SOURCE == 2) {
                 addBannerAdapter.addData(localMedia);
             } else if (IMAGE_SOURCE == 3) {
-                binding.richEditor.insertImage(uploadRes.getData().uploadUrl);
+                binding.richEditor.insertImage(BaseApplication.HOST_PATH + uploadRes.getData().uploadUrl);
             }
         });
     }

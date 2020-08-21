@@ -35,7 +35,6 @@ public class DemandOrderDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
     }
 
     @Override

@@ -47,6 +47,9 @@ public class BaseResp<T> {
         return data;
     }
 
+    public void setData(T data) {
+        this.data = data;
+    }
 
     @Override
     public String toString() {

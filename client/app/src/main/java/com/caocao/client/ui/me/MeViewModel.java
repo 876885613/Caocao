@@ -2,6 +2,7 @@ package com.caocao.client.ui.me;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
@@ -154,13 +155,13 @@ public class MeViewModel extends BaseViewModel {
     public void collectionGoodsList() {
         page = 1;
         request(api.collectionGoodsList(page,
-                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(goodsLiveData, page);
+                SPStaticUtils.getString("longitude",""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
     }
 
     public void collectionGoodsListMore() {
         page++;
         request(api.collectionGoodsList(page,
-                String.valueOf(BaseApplication.sLongitude), String.valueOf(BaseApplication.sLatitude))).send(goodsLiveData, page);
+                SPStaticUtils.getString("longitude",""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
     }
 
 
