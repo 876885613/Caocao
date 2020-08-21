@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.R;
@@ -213,7 +215,15 @@ public class SkillActivity extends BaseActivity implements
             @Override
             public void onResult(List<LocalMedia> result) {
                 IMAGE_SOURCE = source;
-                String path = result.get(0).getPath();
+                String path = null;
+                int skdCode = DeviceUtils.getSDKVersionCode();
+
+                if (skdCode > 28) {
+                    path = result.get(0).getAndroidQToPath();
+                } else {
+                    path = result.get(0).getPath();
+                }
+
                 uploadVM.uploadPhoto(path);
             }
 

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -214,7 +215,16 @@ public class SkillReleaseActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onResult(List<LocalMedia> result) {
                 SkillReleaseActivity.this.IMAGE_SOURCE = type;
-                String path = result.get(0).getPath();
+
+                String path = null;
+                int skdCode = DeviceUtils.getSDKVersionCode();
+
+                if (skdCode > 28) {
+                    path = result.get(0).getAndroidQToPath();
+                } else {
+                    path = result.get(0).getPath();
+                }
+
                 uploadVM.uploadPhoto(path);
             }
 

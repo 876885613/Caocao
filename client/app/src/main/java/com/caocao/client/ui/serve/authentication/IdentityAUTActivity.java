@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -195,7 +196,15 @@ public class IdentityAUTActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onResult(List<LocalMedia> result) {
                 IdentityAUTActivity.this.IMAGE_SOURCE = type;
-                String path = result.get(0).getPath();
+
+                String path = null;
+                int skdCode = DeviceUtils.getSDKVersionCode();
+                if (skdCode > 28) {
+                    path = result.get(0).getAndroidQToPath();
+                } else {
+                    path = result.get(0).getPath();
+                }
+
                 uploadVM.uploadPhoto(path);
             }
 

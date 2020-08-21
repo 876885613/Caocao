@@ -119,7 +119,7 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener, 
                 binding.homeSift.getRoot().setVisibility(View.GONE);
                 return;
             }
-
+            binding.homeSift.getRoot().setVisibility(View.VISIBLE);
             siftAdapter.setNewData(choiceGoods.getData());
         });
     }
@@ -184,9 +184,9 @@ public class HomeFragment extends BaseFragment implements RxPermissionListener, 
                     Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
-//        binding.homeTop.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
+        binding.homeTop.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
 
-//        binding.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
+        binding.tvAddress.setOnClickListener(v -> localParseUtils.showAddressDialog(activity, HomeFragment.this));
     }
 
     private void siftView() {

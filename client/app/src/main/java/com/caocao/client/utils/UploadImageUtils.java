@@ -5,6 +5,7 @@ import android.Manifest;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.app.BaseApplication;
@@ -56,11 +57,15 @@ public class UploadImageUtils {
         mUploadVM.pictureSelection(mActivity, new OnResultCallbackListener<LocalMedia>() {
             @Override
             public void onResult(List<LocalMedia> result) {
-                String path = result.get(0).getPath();
-                if (!StringUtils.isEmpty(path)) {
-                    UploadImageUtils.this.mSource = source;
-                    mUploadVM.uploadPhoto(path);
+                UploadImageUtils.this.mSource = source;
+                String path = null;
+                int skdCode = DeviceUtils.getSDKVersionCode();
+                if (skdCode > 28) {
+                    path = result.get(0).getAndroidQToPath();
+                } else {
+                    path = result.get(0).getPath();
                 }
+                mUploadVM.uploadPhoto(path);
             }
 
             @Override

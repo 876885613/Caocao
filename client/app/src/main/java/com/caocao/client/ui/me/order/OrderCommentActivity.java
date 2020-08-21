@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.caocao.client.base.BaseActivity;
@@ -146,7 +147,15 @@ public class OrderCommentActivity extends BaseActivity implements RxPermissionLi
         uploadVM.pictureSelection(this, new OnResultCallbackListener<LocalMedia>() {
             @Override
             public void onResult(List<LocalMedia> result) {
-                String path = result.get(0).getPath();
+                String path = null;
+                int skdCode = DeviceUtils.getSDKVersionCode();
+
+                if (skdCode > 28) {
+                    path = result.get(0).getAndroidQToPath();
+                } else {
+                    path = result.get(0).getPath();
+                }
+
                 uploadVM.uploadPhoto(path);
             }
 
