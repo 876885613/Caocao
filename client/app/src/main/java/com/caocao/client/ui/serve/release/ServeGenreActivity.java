@@ -4,11 +4,13 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPStaticUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
 import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityServeGenreBinding;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.login.LoginActivity;
 import com.caocao.client.ui.login.LoginUtils;
 import com.caocao.client.ui.serve.AgentApplyActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
@@ -47,12 +49,14 @@ public class ServeGenreActivity extends BaseActivity {
     protected void initData() {
         ServeViewModel serveVM = getViewModel(ServeViewModel.class);
 
-        serveVM.isAgentByAddress();
+        if (!StringUtils.isEmpty(SPStaticUtils.getString("token"))) {
+            serveVM.isAgentByAddress();
+        }
 
         serveVM.errorLiveData.observe(this, baseResp -> {
             new AlertDialog.Builder(ServeGenreActivity.this)
                     .setView(R.layout.dialog_general)
-                    .setText(R.id.tv_title, "当前所在的" + SPStaticUtils.getString("district","")
+                    .setText(R.id.tv_title, "当前所在的" + SPStaticUtils.getString("region", "").split(",")[2]
                             + "没有运营商,您可以选择继续申请发布技能,也可以选择申请加盟")
                     .setText(R.id.tv_cancel, "加盟")
                     .setText(R.id.tv_affirm, "继续申请")
@@ -60,8 +64,8 @@ public class ServeGenreActivity extends BaseActivity {
                     .setOnClickListener(R.id.tv_cancel, new OnClickListenerWrapper() {
                         @Override
                         public void onClickCall(View v) {
-                            if(LoginUtils.isLogin()){
-                            ActivityUtils.startActivity(AgentApplyActivity.class);
+                            if (LoginUtils.isLogin()) {
+                                ActivityUtils.startActivity(AgentApplyActivity.class);
                             }
                         }
                     })

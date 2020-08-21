@@ -44,7 +44,7 @@
                 android:paddingRight="10dp"
                 app:sLeftIcon="@mipmap/ic_tel_ico"
                 app:sLeftText="设置密码"
-                android:inputType="text"
+                android:inputType="textPassword"
                 app:sRightEditHint="请设置密码" />
         </LinearLayout>
 
