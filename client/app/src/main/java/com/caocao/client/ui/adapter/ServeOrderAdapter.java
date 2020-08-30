@@ -31,7 +31,6 @@ public class ServeOrderAdapter extends BaseQuickAdapter<ServeOrderResp, BaseView
 
     public ServeOrderAdapter(int layoutResId, @Nullable List<ServeOrderResp> data) {
         super(layoutResId, data);
-
     }
 
     @Override
@@ -67,7 +66,8 @@ public class ServeOrderAdapter extends BaseQuickAdapter<ServeOrderResp, BaseView
                 break;
             case 3:
                 sortView.getRightTextView().setText("待接单");
-                btnGone(helper, false, false, false);
+                helper.setText(R.id.tv_state, "申请退款");
+                btnGone(helper, true, false, false);
                 break;
             case 4:
                 sortView.getRightTextView().setText("待服务");

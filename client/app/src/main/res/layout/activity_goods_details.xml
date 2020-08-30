@@ -268,6 +268,7 @@
             android:layout_height="wrap_content"
             android:drawableTop="@mipmap/ic_store_ico"
             android:drawablePadding="2dp"
+            android:layout_marginRight="18dp"
             android:text="店铺"
             android:textColor="@color/t1"
             android:textSize="@dimen/t2" />
@@ -275,8 +276,7 @@
         <RelativeLayout
             android:id="@+id/rl_collect"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cb_collect"

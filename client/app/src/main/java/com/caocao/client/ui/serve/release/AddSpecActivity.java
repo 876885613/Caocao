@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.DeviceUtils;
+import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -105,7 +106,9 @@ public class AddSpecActivity extends BaseActivity implements RxPermissionListene
                         return;
                     }
                     specAdapter.getData().remove(position);
-                    specAdapter.notifyDataSetChanged();
+
+                    specAdapter.notifyItemRemoved(position);
+
                 }
             }
         });
@@ -123,31 +126,32 @@ public class AddSpecActivity extends BaseActivity implements RxPermissionListene
         binding.tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyReq.spec = specAdapter.getData();
-
-                LogUtils.e(applyReq.spec);
 
                 Map<String, String> fieldMap = new HashMap();
-
-                for (int i = 1; i <= applyReq.spec.size(); i++) {
+                for (int i = 1; i <= specAdapter.getData().size(); i++) {
                     try {
                         fieldMap.clear();
                         fieldMap.put("specName", "请补全第" + i + "个规格");
                         fieldMap.put("specPrice", "请补全第" + i + "个规格");
                         fieldMap.put("specUnit", "请补全第" + i + "个规格");
                         fieldMap.put("specImage", "请补全第" + i + "个规格");
-                        String msg = CheckNotNullUtils.checkNotNull(applyReq.spec.get(i - 1), fieldMap);
+                        String msg = CheckNotNullUtils.checkNotNull(specAdapter.getData().get(i - 1), fieldMap);
                         if (!StringUtils.isEmpty(msg)) {
                             ToastUtils.showShort(msg);
                             return;
                         }
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("apply", applyReq);
-                        ActivityUtils.startActivity(bundle, SkillReleaseActivity.class);
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
+
+
+                applyReq.spec = GsonUtils.toJson(specAdapter.getData());
+                LogUtils.e(applyReq.spec);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("apply", applyReq);
+                ActivityUtils.startActivity(bundle, SkillReleaseActivity.class);
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.caocao.client.navigationBar;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,7 +40,11 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         //绑定效果参数
         setText(R.id.title, getParams().mTitle);
 
+        setIcon(R.id.iv_right, getParams().mRightIcon);
+
         ClickUtils.applySingleDebouncing(findViewById(R.id.iv_back), getParams().mLeftOnClickListener);
+
+        setOnClickListener(R.id.iv_right, getParams().mRightIconOnClickListener);
 
     }
 

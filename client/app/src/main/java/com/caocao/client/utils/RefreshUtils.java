@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.constant.RefreshState;
 public class RefreshUtils {
     //上拉加载刷新数据 分页工具
     public static void setNoMore(SmartRefreshLayout refresh, int page, int count) {
+        refresh.resetNoMoreData();
         if (page == 1) {
             if (count < 10) {
                 if (refresh.getState() == RefreshState.None) {
@@ -25,7 +26,7 @@ public class RefreshUtils {
                 } else {
                     refresh.finishRefreshWithNoMoreData();
                 }
-            }  else {
+            } else {
                 refresh.finishRefresh();
             }
         } else {

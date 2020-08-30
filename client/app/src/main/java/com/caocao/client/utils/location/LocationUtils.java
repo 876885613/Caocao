@@ -1,7 +1,6 @@
 package com.caocao.client.utils.location;
 
 import android.content.Context;
-import android.os.Handler;
 import android.os.Message;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -52,7 +51,12 @@ public class LocationUtils {
 
     //开启定位
     public static void onStartLocation() {
-        sLocationClient.start();
+        if (sLocationClient.isStarted()) {
+            sLocationClient.restart();
+        } else {
+            sLocationClient.start();
+        }
+
     }
 
 
@@ -80,7 +84,7 @@ public class LocationUtils {
 
             SPStaticUtils.put("region", province + "," + city + "," + district);
 
-//          SPStaticUtils.put("region", "北京市,北京市,东城区");
+//          SPStaticUtils.put("region", "山东省,济南市,历下区");
 
             SPStaticUtils.put("district", district);
 

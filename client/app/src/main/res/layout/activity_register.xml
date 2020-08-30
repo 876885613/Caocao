@@ -214,17 +214,51 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="90dp"
+            android:visibility="gone"
             android:src="@mipmap/ic_wx_login" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/cb_agreement"
+
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="登录即代表同意《用户协议》"
-            android:textColor="#444444"
-            android:checked="true"
-            android:textSize="@dimen/t2" />
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="90dp">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="登录即代表同意"
+                android:textColor="#444444"
+                android:textSize="@dimen/t2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_user_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/cb_agreement"
+                android:layout_alignBottom="@id/cb_agreement"
+                android:layout_toRightOf="@id/cb_agreement"
+                android:gravity="center_vertical"
+                android:text="《用户协议》"
+                android:textColor="#444444"
+                android:textSize="@dimen/t2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_privacy_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/cb_agreement"
+                android:layout_alignBottom="@id/cb_agreement"
+                android:layout_toRightOf="@id/tv_user_agreement"
+                android:gravity="center_vertical"
+                android:text="和《隐私协议》"
+                android:textColor="#444444"
+                android:textSize="@dimen/t2" />
+        </RelativeLayout>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

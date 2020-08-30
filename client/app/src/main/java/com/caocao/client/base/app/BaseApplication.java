@@ -71,6 +71,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         sInstance = this;
 
+
         initRequest(HOST_PATH, ApiService.class);
 
         registerActivityLifecycleCallbacks(mCallbacks);
@@ -100,7 +101,7 @@ public class BaseApplication extends Application {
      * 微信初始化配置
      */
     public static final String APP_ID = "wxcd6e2b9e6d6da467";
-    public static       IWXAPI iwxapi;
+    public static IWXAPI iwxapi;
 
     private void initWX(Context context) {
         iwxapi = WXAPIFactory.createWXAPI(context, APP_ID, true);
@@ -162,6 +163,9 @@ public class BaseApplication extends Application {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
+
         }
     };
+
+
 }

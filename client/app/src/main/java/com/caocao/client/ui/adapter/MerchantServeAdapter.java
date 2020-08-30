@@ -55,8 +55,9 @@ public class MerchantServeAdapter extends BaseQuickAdapter<GoodsResp, BaseViewHo
         helper.setText(R.id.tv_price, mContext.getString(R.string.goods_price_qi, item.goodsPrice));
 
 
-        helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance,
-                StringUtils.isEmpty(item.distance) ? "0" : item.distance));
+        helper.setVisible(R.id.tv_distance, !StringUtils.isEmpty(item.distance));
+
+        helper.setText(R.id.tv_distance, mContext.getString(R.string.goods_distance, item.distance));
 
 
         GradientDrawable sourceDrawable = DrawableUtils.getDrawable(Color.parseColor("#49cbff"), ConvertUtils.dp2px(1));

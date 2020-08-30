@@ -14,8 +14,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseFragment;
 import com.caocao.client.databinding.FragmentMeBinding;
+import com.caocao.client.ui.login.LoginActivity;
 import com.caocao.client.ui.me.address.AddressActivity;
 import com.caocao.client.ui.me.order.OrderActivity;
+import com.coder.baselibrary.dialog.AlertDialog;
+import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 
 /**
  * @ProjectName: Caocao
@@ -57,6 +60,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         binding.tvPrivacy.setOnClickListener(this);
         binding.tvKefu.setOnClickListener(this);
         binding.tvAlterPassword.setOnClickListener(this);
+        binding.tvExit.setOnClickListener(this);
     }
 
 
@@ -92,6 +96,26 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.tv_alter_password:
                 ActivityUtils.startActivity(AlterPasswordActivity.class);
+                break;
+            case R.id.tv_exit:
+
+                new AlertDialog.Builder(activity)
+                        .setView(R.layout.dialog_general)
+                        .setText(R.id.tv_title, "您确定退出当前账号")
+                        .setText(R.id.tv_affirm, "确定")
+                        .setOnClickListener(R.id.tv_cancel, null)
+                        .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
+                            @Override
+                            public void onClickCall(View v) {
+                                SPStaticUtils.remove("token", true);
+                                SPStaticUtils.remove("nickname", true);
+                                SPStaticUtils.remove("headimgurl", true);
+                                SPStaticUtils.remove("phone", true);
+                                activity.finish();
+                                ActivityUtils.startActivity(LoginActivity.class);
+                            }
+                        })
+                        .show();
                 break;
         }
     }

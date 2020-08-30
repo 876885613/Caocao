@@ -1,20 +1,11 @@
 package com.caocao.client.http.utils;
 
-import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.JsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPStaticUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.caocao.client.http.entity.BaseResp;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -42,7 +33,7 @@ public class HttpInterceptorUtil {
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogUtils.d(TAG, message);
+                LogUtils.dTag(TAG, message);
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY);
     }

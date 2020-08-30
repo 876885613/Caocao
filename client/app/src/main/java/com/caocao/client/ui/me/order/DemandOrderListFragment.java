@@ -91,7 +91,9 @@ public class DemandOrderListFragment extends BaseFragment {
 
         meVM.baseLiveData.observe(this, refundResp -> {
             if (adapterPosition != -1) {
-                orderAdapter.getData().get(adapterPosition).status = 5;
+
+                DemandOrderResp order = orderAdapter.getData().get(adapterPosition);
+                orderAdapter.getData().remove(order);
                 orderAdapter.notifyDataSetChanged();
             } else {
                 meVM.demandOrder(state);

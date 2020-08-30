@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class SettleApplyReq implements Parcelable {
 
     @SerializedName("cate_id")
@@ -76,7 +74,8 @@ public class SettleApplyReq implements Parcelable {
     public String consumerHotline;
 
 
-    public List<Spec> spec;
+//    public List<Spec> spec;
+    public String spec;
 
     public static class Spec implements Parcelable {
         @SerializedName("spec_name")
@@ -196,7 +195,7 @@ public class SettleApplyReq implements Parcelable {
         dest.writeString(this.businessLicense);
         dest.writeString(this.businessHours);
         dest.writeString(this.consumerHotline);
-        dest.writeTypedList(this.spec);
+        dest.writeString(this.spec);
     }
 
     public SettleApplyReq() {
@@ -225,7 +224,7 @@ public class SettleApplyReq implements Parcelable {
         this.businessLicense = in.readString();
         this.businessHours = in.readString();
         this.consumerHotline = in.readString();
-        this.spec = in.createTypedArrayList(Spec.CREATOR);
+        this.spec = in.readString();
     }
 
     public static final Creator<SettleApplyReq> CREATOR = new Creator<SettleApplyReq>() {

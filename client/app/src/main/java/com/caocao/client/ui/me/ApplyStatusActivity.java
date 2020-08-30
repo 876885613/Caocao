@@ -8,11 +8,13 @@ import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityApplyStatusBinding;
 import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.MainActivity;
 import com.caocao.client.ui.serve.release.ServeGenreActivity;
 
 public class ApplyStatusActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityApplyStatusBinding binding;
+    private int status;
 
     @Override
     protected void initTitle() {
@@ -31,6 +33,8 @@ public class ApplyStatusActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
+        status = getIntValue("status");
+
         MeViewModel meVM = getViewModel(MeViewModel.class);
 
         meVM.applyStatus();
@@ -47,7 +51,7 @@ public class ApplyStatusActivity extends BaseActivity implements View.OnClickLis
                 binding.llSucceedApply.setVisibility(View.VISIBLE);
             } else if (applyStatus.status == 2) {
                 binding.llFailApply.setVisibility(View.VISIBLE);
-                binding.tvRefuseMsg.setText(applyStatus.refuseMsg);
+                binding.tvRefuseMsg.setText("原因：" + applyStatus.refuseMsg);
             }
         });
     }
@@ -67,7 +71,11 @@ public class ApplyStatusActivity extends BaseActivity implements View.OnClickLis
                 ActivityUtils.startActivity(ServeGenreActivity.class);
                 break;
             case R.id.tv_home:
-                finish();
+                if (status == 100) {
+                    ActivityUtils.startActivity(MainActivity.class);
+                } else {
+                    finish();
+                }
                 break;
         }
     }

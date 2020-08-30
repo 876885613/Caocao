@@ -19,4 +19,10 @@
     <string name="demand_serve_time">服务时间：%1$s</string>
 
 
+    <!--   用户协议-->
+    <string name="agreement_title">用户协议与隐私协议</string>
+    <string name="agreement_content">感谢您使用曹操搬家！\n为了更好地保障您的个人权益，请认真阅读《用户协议》和《隐私协议》的全部内容，同意并接受全部条款后开始使用我们的产品和服务。\n若选择不同意，将无法使用我们的产品和服务，并退出应用。</string>
+    <string name="agree">同意</string>
+    <string name="disagree">不同意，退出</string>
+
 </resources>

@@ -3,7 +3,9 @@ package com.caocao.client.utils.location;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
@@ -31,6 +34,20 @@ public class RxPermissionManager {
     private static int requestCount;
     //拒绝权限的次数
     private static int refuseCount;
+
+
+    /**
+     * 手机是否开启位置服务，如果没有开启那么所有app将不能使用定位功能
+     */
+    public static boolean isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
+    }
 
 
     /**
@@ -133,6 +150,40 @@ public class RxPermissionManager {
     }
 
 
+    public static void showLocServiceDialog(Activity activity) {
+        new AlertDialog.Builder(activity, R.style.DialogAlter)
+                .setView(R.layout.dialog_permission)
+                .setText(R.id.tv_content, "请前往手机设置打开定位权限.")
+                .setCancelable(false)
+                .setOnClickListener(R.id.tv_open, new OnClickListenerWrapper() {
+                    @Override
+                    public void onClickCall(View v) {
+                        // 转到手机设置界面，用户设置GPS
+                        Intent intent = new Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        ActivityUtils.startActivityForResult(activity, intent, 0); // 设置完成后返回到原来的界面
+                    }
+                })
+                .show();
+    }
+
+    public static void showLocServiceDialog(Fragment fragment) {
+        new AlertDialog.Builder(fragment.getActivity(), R.style.DialogAlter)
+                .setView(R.layout.dialog_loc_service)
+                .setText(R.id.tv_content, "请前往手机设置打开定位权限.")
+                .setCancelable(false)
+                .setOnClickListener(R.id.tv_open, new OnClickListenerWrapper() {
+                    @Override
+                    public void onClickCall(View v) {
+                        // 转到手机设置界面，用户设置GPS
+                        Intent intent = new Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        ActivityUtils.startActivityForResult(fragment, intent, 1000); // 设置完成后返回到原来的界面
+                    }
+                })
+                .show();
+    }
+
 
     public static void showPermissionDialog(Activity activity, String permissionName) {
         new AlertDialog.Builder(activity, R.style.DialogAlter)
@@ -153,16 +204,16 @@ public class RxPermissionManager {
 
     public static void showPermissionDialog(Fragment fragment, String permissionName) {
         new AlertDialog.Builder(fragment.getActivity(), R.style.DialogAlter)
-                .setView(R.layout.dialog_permission)
+                .setView(R.layout.dialog_loc_service)
+                .setCancelable(false)
                 .setText(R.id.tv_content, "请前往设置->应用权限中打开" + permissionName + "权限，否则功能无法正常运行.")
-                .setOnClickListener(R.id.tv_cancel, null)
                 .setOnClickListener(R.id.tv_open, new OnClickListenerWrapper() {
                     @Override
                     public void onClickCall(View v) {
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         Uri uri = Uri.fromParts("package", AppUtils.getAppPackageName(), null);
                         intent.setData(uri);
-                        fragment.startActivityForResult(intent, 200);
+                        fragment.startActivityForResult(intent, 2000);
                     }
                 })
                 .show();

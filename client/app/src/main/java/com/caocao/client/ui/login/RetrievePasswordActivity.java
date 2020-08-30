@@ -25,6 +25,7 @@ public class RetrievePasswordActivity extends BaseActivity implements View.OnCli
         new DefaultNavigationBar.Builder(this)
                 .setTitle("忘记密码")
                 .builder();
+
     }
 
     @Override

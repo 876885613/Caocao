@@ -120,7 +120,8 @@ dependencies {
 
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
+    //app版本更新 后台通知下载
+    implementation 'com.king.app:app-updater:1.0.8-androidx'
 
 
     // 沉浸式 基础依赖包，必须要依赖

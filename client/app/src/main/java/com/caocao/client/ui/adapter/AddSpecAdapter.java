@@ -31,11 +31,13 @@ public class AddSpecAdapter extends BaseQuickAdapter<SettleApplyReq.Spec, BaseVi
     @Override
     protected void convert(BaseViewHolder helper, SettleApplyReq.Spec item) {
 
-        helper.<SuperTextView>getView(R.id.tv_title).getLeftTextView().setText("规格" + (helper.getAdapterPosition() + 1));
+//        helper.<SuperTextView>getView(R.id.tv_title).getLeftTextView().setText("规格" + (helper.getAdapterPosition() + 1));
+        helper.<SuperTextView>getView(R.id.tv_title).getLeftTextView().setText("添加规格");
 
         RecyclerView rvPhoto = helper.getView(R.id.rv_photo);
 
         rvPhoto.setLayoutManager(new GridLayoutManager(mContext, 3));
+
         GridImageAdapter addAdapter = new GridImageAdapter(null, 1);
         rvPhoto.setAdapter(addAdapter);
 
@@ -80,6 +82,8 @@ public class AddSpecAdapter extends BaseQuickAdapter<SettleApplyReq.Spec, BaseVi
 
         helper.addOnClickListener(R.id.rv_photo, R.id.iv_right);
     }
+
+
 
 
     public interface OnImageAdapterClickListener {

@@ -3,10 +3,10 @@ package com.caocao.client.ui.me;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.SPStaticUtils;
-import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.http.BaseViewModel;
 import com.caocao.client.http.entity.BaseResp;
 import com.caocao.client.http.entity.respons.AddressResp;
+import com.caocao.client.http.entity.respons.AppUpgradeResp;
 import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
 import com.caocao.client.http.entity.respons.DemandOrderResp;
@@ -48,6 +48,9 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<GoodsResp> goodsLiveData;
 
+
+    public MutableLiveData<AppUpgradeResp> appUpgradeLiveData;
+
     public MutableLiveData<BaseResp> baseLiveData;
 
 
@@ -68,6 +71,8 @@ public class MeViewModel extends BaseViewModel {
         applyStatusLiveData = new MutableLiveData<>();
 
         goodsLiveData = new MutableLiveData<>();
+
+        appUpgradeLiveData = new MutableLiveData<>();
 
         baseLiveData = new MutableLiveData<>();
     }
@@ -148,6 +153,11 @@ public class MeViewModel extends BaseViewModel {
         request(api.refundDemand(id)).send(baseLiveData);
     }
 
+
+    public void orderRefund(int orderId) {
+        request(api.orderRefund(orderId)).send(baseLiveData);
+    }
+
     public void applyStatus() {
         request(api.applyStatus()).send(applyStatusLiveData);
     }
@@ -155,17 +165,21 @@ public class MeViewModel extends BaseViewModel {
     public void collectionGoodsList() {
         page = 1;
         request(api.collectionGoodsList(page,
-                SPStaticUtils.getString("longitude",""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
+                SPStaticUtils.getString("longitude", ""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
     }
 
     public void collectionGoodsListMore() {
         page++;
         request(api.collectionGoodsList(page,
-                SPStaticUtils.getString("longitude",""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
+                SPStaticUtils.getString("longitude", ""), SPStaticUtils.getString("latitude", ""))).send(goodsLiveData, page);
     }
 
 
     public void updatePassword(String oldPassword, String password, String repeatPassword) {
         request(api.updatePassword(oldPassword, password, repeatPassword)).send(baseLiveData);
+    }
+
+    public void upgrade() {
+        request(api.upgrade()).send(appUpgradeLiveData);
     }
 }

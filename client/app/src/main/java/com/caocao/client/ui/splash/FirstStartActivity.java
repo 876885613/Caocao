@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FirstStartActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class FirstStartActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     private ActivityFirstStartBinding binding;
 
@@ -70,6 +70,7 @@ public class FirstStartActivity extends BaseActivity implements View.OnClickList
         guide4.findViewById(R.id.tv_start).setOnClickListener(v -> {
             SPStaticUtils.put("first_app", 1);
             ActivityUtils.startActivity(MainActivity.class);
+            finish();
         });
 
     }
@@ -85,11 +86,7 @@ public class FirstStartActivity extends BaseActivity implements View.OnClickList
         return binding.getRoot();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
-    }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

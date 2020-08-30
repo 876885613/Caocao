@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
+import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityMerchantDetailsBinding;
 import com.caocao.client.http.entity.respons.GoodsResp;
 import com.caocao.client.http.entity.respons.MerchantResp;
@@ -16,8 +17,11 @@ import com.caocao.client.navigationBar.DefaultNavigationBar;
 import com.caocao.client.ui.adapter.GoodsBannerAdapter;
 import com.caocao.client.ui.adapter.MerchantServeAdapter;
 import com.caocao.client.ui.serve.ServeViewModel;
-import com.caocao.client.ui.serve.googs.GoodsDetailsActivity;
 import com.caocao.client.weight.DividerItemDecoration;
+import com.caocao.client.wxapi.WeChatUtils;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.util.BannerUtils;
 
@@ -40,13 +44,47 @@ public class MerchantDetailsActivity extends BaseActivity {
     private ActivityMerchantDetailsBinding binding;
     private ServeViewModel                 serveVM;
     private MerchantServeAdapter           serveAdapter;
+    private int merchantId;
+    private MerchantResp merchant;
 
     @Override
     protected void initTitle() {
         new DefaultNavigationBar.Builder(this)
                 .setTitle("商户详情")
+                .setRightIcon(R.mipmap.ic_share_ico)
+                .setRightIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        share();
+                    }
+                })
                 .builder();
     }
+
+
+    private void share() {
+        WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+        miniProgramObj.webpageUrl = "https://ccdj.jiajiayong.com"; // 兼容低版本的网页链接
+        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
+        miniProgramObj.userName = "gh_9f1c863248b9";     // 小程序原始id
+        miniProgramObj.path = "/pagesA/index/store_info?merchant_id=" + merchantId;            //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+        WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
+        msg.title = merchant.merchant.merchantName;                    // 小程序消息title
+        msg.description = merchant.merchant.merchantName;               // 小程序消息desc
+        msg.thumbData = WeChatUtils.getThumbData();                      // 小程序消息封面图片，小于128k
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webPage");
+        req.message = msg;
+        req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+        BaseApplication.iwxapi.sendReq(req);
+    }
+
+
+    private static String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
 
     @Override
     protected void initView() {
@@ -67,13 +105,16 @@ public class MerchantDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        int merchantId = getIntValue("merchantId");
+        merchantId = getIntValue("merchantId");
         serveVM = getViewModel(ServeViewModel.class);
 
         serveVM.merchantDetail(merchantId);
 
         serveVM.merchantLiveData.observe(this, merchantRes -> {
-            MerchantResp merchant = merchantRes.getData();
+            merchant = merchantRes.getData();
+
+            WeChatUtils.getNetworkBitmap(merchant.merchant.merchantPhoto.get(0));
+
             banner(merchant.merchant.merchantPhoto);
             binding.tvTitle.setText(merchant.merchant.merchantName);
             binding.tvIntro.setText(merchant.merchant.merchantDetail);

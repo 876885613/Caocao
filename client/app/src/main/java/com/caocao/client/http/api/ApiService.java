@@ -5,6 +5,7 @@ import com.caocao.client.http.entity.request.DemandReq;
 import com.caocao.client.http.entity.request.OrderReq;
 import com.caocao.client.http.entity.request.SettleApplyReq;
 import com.caocao.client.http.entity.respons.AddressResp;
+import com.caocao.client.http.entity.respons.AppUpgradeResp;
 import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.http.entity.respons.BannerResp;
 import com.caocao.client.http.entity.respons.DemandOrderDetailResp;
@@ -468,6 +469,16 @@ public interface ApiService {
     @POST("/api/customer_demand/refundDemand")
     Flowable<BaseResp> refundDemand(@Field("id") int id);
 
+
+    /**
+     * 订单退款
+     * @param orderId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/order/orderRefund")
+    Flowable<BaseResp> orderRefund(@Field("order_id") int orderId);
+
     /**
      * 申请状态
      *
@@ -532,4 +543,10 @@ public interface ApiService {
             @Field("password") String password,
             @Field("repeat_password") String repeatPassword
     );
+
+    /**
+     * APP版本升级
+     */
+    @POST("/api/package/upgrade")
+    Flowable<AppUpgradeResp> upgrade();
 }

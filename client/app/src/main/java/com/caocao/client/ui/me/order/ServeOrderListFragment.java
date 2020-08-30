@@ -47,10 +47,10 @@ import java.util.List;
 public class ServeOrderListFragment extends BaseFragment {
 
     private LayoutRefreshListBinding binding;
-    private ServeOrderAdapter        orderAdapter;
-    private MeViewModel              meVM;
-    private int                      state;
-    private ServeOrderResp           order;
+    private ServeOrderAdapter orderAdapter;
+    private MeViewModel meVM;
+    private int state;
+    private ServeOrderResp order;
 
     private int adapterPosition = -1;
 
@@ -110,6 +110,17 @@ public class ServeOrderListFragment extends BaseFragment {
             request.extData = "reloadOrder";
             BaseApplication.iwxapi.sendReq(request);
         });
+
+
+        meVM.baseLiveData.observe(this, refundResp -> {
+            if (adapterPosition != -1) {
+                ServeOrderResp order = orderAdapter.getData().get(adapterPosition);
+                orderAdapter.getData().remove(order);
+                orderAdapter.notifyDataSetChanged();
+            } else {
+                meVM.serveOrder(state);
+            }
+        });
     }
 
     @Override
@@ -154,6 +165,8 @@ public class ServeOrderListFragment extends BaseFragment {
                             bundle.putInt("goodsId", order.goodsId);
                             bundle.putInt("orderId", order.orderId);
                             ActivityUtils.startActivity(bundle, OrderCommentActivity.class);
+                        } else if (order.status == 3) {
+                            orderRefund(order);
                         } else if (order.status == 4) {
                             finishOrder(order);
                         }
@@ -176,10 +189,24 @@ public class ServeOrderListFragment extends BaseFragment {
         });
     }
 
+    private void orderRefund(ServeOrderResp order) {
+        new AlertDialog.Builder(activity)
+                .setView(R.layout.dialog_general)
+                .setText(R.id.tv_title, "确认申请退款?")
+                .setOnClickListener(R.id.tv_cancel, null)
+                .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
+                    @Override
+                    public void onClickCall(View v) {
+                        meVM.orderRefund(order.orderId);
+                    }
+                })
+                .show();
+    }
+
     private void finishOrder(ServeOrderResp order) {
         new AlertDialog.Builder(activity)
                 .setView(R.layout.dialog_general)
-                .setText(R.id.tv_title, "确认完成此服务订单")
+                .setText(R.id.tv_title, "确认完成此服务订单?")
                 .setOnClickListener(R.id.tv_cancel, null)
                 .setOnClickListener(R.id.tv_affirm, new OnClickListenerWrapper() {
                     @Override

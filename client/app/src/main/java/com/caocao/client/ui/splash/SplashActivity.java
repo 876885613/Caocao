@@ -14,6 +14,7 @@ import com.caocao.client.ui.MainActivity;
 import com.caocao.client.utils.location.LocationUtils;
 import com.caocao.client.utils.location.RxPermissionListener;
 import com.caocao.client.utils.location.RxPermissionManager;
+import com.caocao.client.weight.AgreementDialog;
 
 import static com.caocao.client.base.app.BaseApplication.setOnHandlerListener;
 
@@ -23,19 +24,21 @@ public class SplashActivity extends BaseActivity implements RxPermissionListener
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         RxPermissionManager.requestPermissions(this, this,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION);
-
         setOnHandlerListener(msg -> {
             if (isFirstApp()) {
                 ActivityUtils.startActivity(MainActivity.class);
+                finish();
             } else {
-                ActivityUtils.startActivity(FirstStartActivity.class);
+                //协议弹窗
+                AgreementDialog agreementDialog = new AgreementDialog(this);
+                agreementDialog.showDialog();
             }
-            finish();
         });
     }
 

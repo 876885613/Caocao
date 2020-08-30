@@ -1,5 +1,6 @@
 package com.caocao.client.ui.serve.release;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -7,11 +8,12 @@ import com.blankj.utilcode.util.SPStaticUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.caocao.client.R;
 import com.caocao.client.base.BaseActivity;
-import com.caocao.client.base.app.BaseApplication;
 import com.caocao.client.databinding.ActivityServeGenreBinding;
+import com.caocao.client.http.entity.respons.ApplyStatusResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
-import com.caocao.client.ui.login.LoginActivity;
 import com.caocao.client.ui.login.LoginUtils;
+import com.caocao.client.ui.me.ApplyStatusActivity;
+import com.caocao.client.ui.me.MeViewModel;
 import com.caocao.client.ui.serve.AgentApplyActivity;
 import com.caocao.client.ui.serve.ServeViewModel;
 import com.caocao.client.ui.serve.authentication.IdentityAUTActivity;
@@ -21,6 +23,7 @@ import com.coder.baselibrary.dialog.OnClickListenerWrapper;
 public class ServeGenreActivity extends BaseActivity {
 
     private ActivityServeGenreBinding binding;
+    private MeViewModel meVM;
 
     @Override
     protected void initTitle() {
@@ -35,11 +38,7 @@ public class ServeGenreActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (LoginUtils.isLogin()) {
-                    if (binding.rbMe.isChecked()) {
-                        ActivityUtils.startActivity(SkillActivity.class);
-                    } else {
-                        ActivityUtils.startActivity(IdentityAUTActivity.class);
-                    }
+                    meVM.applyStatus();
                 }
             }
         });
@@ -48,6 +47,9 @@ public class ServeGenreActivity extends BaseActivity {
     @Override
     protected void initData() {
         ServeViewModel serveVM = getViewModel(ServeViewModel.class);
+
+        meVM = getViewModel(MeViewModel.class);
+
 
         if (!StringUtils.isEmpty(SPStaticUtils.getString("token"))) {
             serveVM.isAgentByAddress();
@@ -70,6 +72,26 @@ public class ServeGenreActivity extends BaseActivity {
                         }
                     })
                     .show();
+        });
+
+
+        meVM.applyStatusLiveData.observe(this, applyStatusResp -> {
+
+            ApplyStatusResp applyStatus = applyStatusResp.getData();
+
+
+            if (applyStatus.status == -1 || applyStatus.status == 2) {
+                if (binding.rbMe.isChecked()) {
+                    ActivityUtils.startActivity(SkillActivity.class);
+                } else {
+                    ActivityUtils.startActivity(IdentityAUTActivity.class);
+                }
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putInt("status", 100);
+                ActivityUtils.startActivity(bundle,ApplyStatusActivity.class);
+            }
+
         });
     }
 
