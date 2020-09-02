@@ -12,6 +12,7 @@ import com.caocao.client.base.BaseActivity;
 import com.caocao.client.databinding.ActivityLoginBinding;
 import com.caocao.client.http.entity.respons.LoginResp;
 import com.caocao.client.navigationBar.DefaultNavigationBar;
+import com.caocao.client.ui.MainActivity;
 import com.caocao.client.ui.me.AgreementActivity;
 import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 
@@ -30,9 +31,9 @@ import com.caocao.client.ui.wrapper.TextWatcherWrapper;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityLoginBinding binding;
-    private LoginViewModel loginVM;
-    private String tel;
-    private String password;
+    private LoginViewModel       loginVM;
+    private String               tel;
+    private String               password;
 
     @Override
     protected void initTitle() {
@@ -68,6 +69,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData() {
+        int flag = getIntValue("flag");
+
         loginVM = getViewModel(LoginViewModel.class);
 
         loginVM.loginLiveData.observe(this, loginRes -> {
@@ -76,6 +79,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             SPStaticUtils.put("nickname", login.nickname);
             SPStaticUtils.put("headimgurl", login.headimgurl);
             SPStaticUtils.put("phone", login.phone);
+            if (flag == 200) {
+                ActivityUtils.startActivity(MainActivity.class);
+            }
             finish();
         });
     }
@@ -104,12 +110,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 ActivityUtils.startActivity(RetrievePasswordActivity.class);
                 break;
             case R.id.tv_user_agreement:
-                bundle.putString("agreement","user_protocol");
-                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                bundle.putString("agreement", "user_protocol");
+                ActivityUtils.startActivity(bundle, AgreementActivity.class);
                 break;
             case R.id.tv_privacy_agreement:
-                bundle.putString("agreement","privacy");
-                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                bundle.putString("agreement", "privacy");
+                ActivityUtils.startActivity(bundle, AgreementActivity.class);
                 break;
         }
     }

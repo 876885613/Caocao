@@ -1,5 +1,6 @@
 package com.caocao.client.ui.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,7 +113,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                                 SPStaticUtils.remove("headimgurl", true);
                                 SPStaticUtils.remove("phone", true);
                                 activity.finish();
-                                ActivityUtils.startActivity(LoginActivity.class);
+                                bundle.putInt("flag", 200);
+                                ActivityUtils.startActivity(bundle, LoginActivity.class);
                             }
                         })
                         .show();

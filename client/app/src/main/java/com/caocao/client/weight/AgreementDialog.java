@@ -26,10 +26,11 @@ import com.caocao.client.ui.splash.FirstStartActivity;
 
 import java.util.List;
 
-@SuppressLint({"StaticFieldLeak","InflateParams","SetTextI18n","CutPasteId"})
+@SuppressLint({"StaticFieldLeak", "InflateParams", "SetTextI18n", "CutPasteId"})
 public class AgreementDialog {
     private BaseActivity activity;
-    private Dialog dialog;
+    private Dialog       dialog;
+
     public AgreementDialog(BaseActivity activity) {
         this.activity = activity;
         dialog = new Dialog(activity, R.style.custom_dialog);
@@ -37,18 +38,20 @@ public class AgreementDialog {
 
     // 显示软件更新对话框
     public void showDialog() {
-        if (dialog.isShowing()) return;
+        if (dialog.isShowing())
+            return;
         dialog.setCancelable(false);
         View view = LayoutInflater.from(activity).inflate(R.layout.dialog_agreement, null);
         TextView tv_content = view.findViewById(R.id.tv_content);
         TextView tv_agree = view.findViewById(R.id.tv_agree);
         TextView tv_disagree = view.findViewById(R.id.tv_disagree);
 
-        setTextInfo(activity,tv_content);
+        setTextInfo(activity, tv_content);
 
         tv_agree.setOnClickListener(v -> {
             ActivityUtils.startActivity(FirstStartActivity.class);
             dialog.dismiss();
+            this.activity.finish();
         });
 
         tv_disagree.setOnClickListener(v -> {
@@ -86,11 +89,12 @@ public class AgreementDialog {
                 textPaint.setUnderlineText(false);//取消点击事见字体的背景颜色
                 textPaint.setColor(activity.getResources().getColor(R.color.colorPrimaryDark));
             }
+
             //变色字体点击监听设置
             @Override
             public void onClick(@NonNull View widget) {
                 Bundle bundle = new Bundle();
-                bundle.putString("agreement","user_protocol");
+                bundle.putString("agreement", "user_protocol");
                 ActivityUtils.startActivity(bundle, AgreementActivity.class);
             }
         };
@@ -103,16 +107,17 @@ public class AgreementDialog {
                 textPaint.setUnderlineText(false);//取消点击事见字体的背景颜色
                 textPaint.setColor(activity.getResources().getColor(R.color.colorPrimaryDark));
             }
+
             //变色字体点击监听设置
             @Override
             public void onClick(@NonNull View widget) {
                 Bundle bundle = new Bundle();
-                bundle.putString("agreement","privacy");
-                ActivityUtils.startActivity(bundle,AgreementActivity.class);
+                bundle.putString("agreement", "privacy");
+                ActivityUtils.startActivity(bundle, AgreementActivity.class);
             }
         };
         spannableStringBuilder.setSpan(firstClickableSpan, 30, 36, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableStringBuilder.setSpan(secondClickableSpan,37,43, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(secondClickableSpan, 37, 43, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //一定要记得设置，不然点击不生效
         textView.setMovementMethod(LinkMovementMethod.getInstance());
