@@ -45,20 +45,7 @@ import retrofit2.http.Part;
  */
 public interface ApiService {
 
-    /**
-     * 使用示例
-     * <p>
-     * //登录 OR 注册接口
-     *
-     * @FormUrlEncoded
-     * @POST("auth/register") Flowable<AppResponseBody < LoginBean>> register(
-     * @Field("mobile") String mobile,
-     * @Field("code") String code
-     * );
-     * <p>
-     * //刷新Token
-     * @POST("auth/refresh") Flowable<AppResponseBody < LoginBean>> refreshToken();
-     */
+
 
     /**
      * 首页轮播图

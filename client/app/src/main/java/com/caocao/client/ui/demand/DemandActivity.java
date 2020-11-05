@@ -61,7 +61,7 @@ public class DemandActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void initView() {
         binding.stvMakeSum.getLeftTextView().setOnClickListener(view -> showHintDialog("关于预约金",
-                "预约金是您预先支付的定金，您交付后，平台将暂时替您保管，在您确认完成需求后，在将钱付给服务人员，需求如果为完成，将退还给你。"));
+                "预约金是您预先支付的定金，您交付后，平台将暂时替您保管，在您确认完成需求后，再将钱付给服务人员，需求如果未完成，将退还给你。"));
 
         binding.stvSort.setOnClickListener(this);
 
